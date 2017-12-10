@@ -1,0 +1,32 @@
+%!TEX root = structure.tex
+
+\section{Énoncé du problème}
+\noindent Je veux construire une machine pouvant générer automatiquement une grande quantité de scènes animées que je pourrai monter moi-même par la suite. Je dois pouvoir visualiser les scènes en \textit{mode simple} avant d'en faire des exportations en \textit{mode graineux}, qui est immensément plus long à produire. Une scène est donc définie par un certain nombre de propriétés : 
+
+\begin{enumerate}
+\item Une échelle, définie dans le code par la variable \lstinline|gridScalar|. Cette propriété doit elle-même redéfinir les propriétés \lstinline|gridXAmount| et \lstinline|gridYAmount| (qui sont en fait des propriétés importantes d'une scène).
+\item Une palette de couleur.
+\item Une forme initiale (un ensemble de coordonnées $x$ et $y$).
+\item Un nombre maximal d'images à produire.
+
+\end{enumerate}
+
+\section{Formes initiales}
+Le principal objet qui me manque une structure de données pouvant contenir des formes qui initialisent le \textit{jeu de la vie}.
+
+\begin{lstlisting}
+var gridScalar = 16;
+var gridXAmount = 16 * gridScalar;
+var gridYAmount = 9 * gridScalar;
+var tileWidth;
+var grid = [];
+var next = [];
+var changes = [];
+let pressed = [];
+let frameToExport = 1;
+function setup() {
+    socket = io.connect('http://localhost:8080');
+    cnvs = createCanvas(windowWidth, windowWidth / 16 * 9);
+    ctx = cnvs.drawingContext;
+    canvasDOM = document.getElementById('defaultCanvas0');
+\end{lstlisting}
