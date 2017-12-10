@@ -1,0 +1,10 @@
+ffmpeg -f image2 -framerate 24 -i ./frames/oscillators-%05d.png -i hm.mp3 -s 1920x1080 -shortest oscillators_sommets.mp4
+
+ffmpeg -f image2 -framerate 24 -i ./frames/game-of-life-%05d.png -c:v libx264 -s 1920x1080 -pix_fmt yuv420p -shortest game-of-life.mp4
+ffmpeg -f image2 -framerate 12 -i ./frames/game-of-life-%05d.png -c:v libx264 -s 1920x1080 -pix_fmt yuv420p -shortest game-of-life.mp4
+ffmpeg -f image2 -framerate 6 -i ./frames/game-of-life-%05d.png -c:v libx264 -s 1920x1080 -pix_fmt yuv420p -shortest game-of-life.mp4
+ffmpeg -f image2 -framerate 6 -i ./frames/game-of-life-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest game-of-life.mp4
+ffmpeg -f image2 -framerate 3 -i ./frames/game-of-life-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest game-of-life-3fps.mp4
+ffmpeg -f image2 -framerate 2 -i ./frames/game-of-life-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest game-of-life-2fps.mp4
+ffmpeg -f image2 -framerate 2 -i ./frames2/game-of-life-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest game-of-life-2-2fps.mp4
+ffmpeg -f image2 -framerate 6 -i ./frames2/game-of-life-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest game-of-life-2-6fps.mp4
