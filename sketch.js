@@ -13,7 +13,6 @@ var changes = [];
 let pressed = [];
 let frameToExport = 1;
 
-
 let paletteSeed = seedPalette();
 
 // Super beau rouge et bleu : 
@@ -43,7 +42,11 @@ function setup() {
     background(0);
     // angleMode(DEGREES);
     // noStroke();
-    stroke(255, 20);
+    if (printing) {
+        noStroke();
+    } else {
+        stroke(255, 20);
+    }
     if (!looping) {
         noLoop();
     }
@@ -137,7 +140,6 @@ function draw() {
         }
         updateGrid();
     } else {
-        //???
         for (let i = 0; i < 3; i++) {
             if (!printedBackground) {
                 background(0);
@@ -186,7 +188,7 @@ function draw() {
     // if (exporting && frameCount < maxFrames) {
     //     frameExport(p);
     // }
-    if (frameCount == 1) {
+    if (frameCount == 1 && !printing) {
         noStroke();
         // stroke(255, 10);
     }
