@@ -12,21 +12,16 @@
 \end{enumerate}
 
 \section{Formes initiales}
-Le principal objet qui me manque une structure de données pouvant contenir des formes qui initialisent le \textit{jeu de la vie}.
-
+\noindent Un des importants objets qui me manquent est une structure de données pouvant contenir des formes qui initialisent le \textit{jeu de la vie}. Une \textit{forme initiale} doit être un ensemble de coordonnées $x$ et $y$, et cet ensemble doit être lui-même formé par un ensemble de formes \textit{primitives}. Une machine à créer des formes initiales doit pouvoir combiner ces formes primitives en agencements originaux, agencements qui dépendent et répondent aux variables \lstinline|gridXAmount| et \lstinline|gridYAmount|. Pour l'instant, j'ai défini une telle forme de cette façon :
 \begin{lstlisting}
-var gridScalar = 16;
-var gridXAmount = 16 * gridScalar;
-var gridYAmount = 9 * gridScalar;
-var tileWidth;
-var grid = [];
-var next = [];
-var changes = [];
-let pressed = [];
-let frameToExport = 1;
-function setup() {
-    socket = io.connect('http://localhost:8080');
-    cnvs = createCanvas(windowWidth, windowWidth / 16 * 9);
-    ctx = cnvs.drawingContext;
-    canvasDOM = document.getElementById('defaultCanvas0');
+let wX = 30; // Horizontal offset where the line begins and ends.
+let wY = 10; // Vertical offset where the line begins and ends.
+let x = wX;
+let y = wY;
+// This traces a vertical line with wY amount of padding.
+for (let i = 0; i < gridYAmount - wY * 2; i++) {
+    setGridValue(x, y, 1);
+    y++;
+}
 \end{lstlisting}
+\noindent Il y aura clairement deux types de formes primitives : des formes qui s'adaptent aux dimensions de la grille et des formes qui en sont indépendantes.
