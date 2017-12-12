@@ -11,6 +11,15 @@
 
 \end{enumerate}
 
+\newpage
+\section{Génération et archivage de palettes de couleur}
+\begin{lstlisting}
+socket.on('pushJSONs', function(data) {
+    JSONs = data;
+});
+socket.emit('pullJSONs', "");
+\end{lstlisting}
+
 \section{Formes initiales}
 \noindent Un des importants objets qui me manquent est une structure de données pouvant contenir des formes qui initialisent le \textit{jeu de la vie}. Une \textit{forme initiale} doit être un ensemble de coordonnées $x$ et $y$, et cet ensemble doit être lui-même formé par un ensemble de formes \textit{primitives}. Une machine à créer des formes initiales doit pouvoir combiner ces formes primitives en agencements originaux, agencements qui dépendent et répondent aux variables \lstinline|gridXAmount| et \lstinline|gridYAmount|. Pour l'instant, j'ai défini une telle forme de cette façon :
 \begin{lstlisting}
