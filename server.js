@@ -63,7 +63,7 @@ io.sockets.on('connection', function(socket) {
     console.log("Client " + socket.id + " is connected.");
 
     socket.on('pullJSONs', function() {
-        console.log("Pulling the JSON files to client " + socket.id + ".");
+        console.log("Pushing the JSON files to client " + socket.id + ".");
         io.sockets.emit('pushJSONs', JSONs);
     });
 
