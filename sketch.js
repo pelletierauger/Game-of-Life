@@ -2,8 +2,9 @@ let looping = true;
 let socket, cnvs, ctx, canvasDOM;
 let fileName = "./frames2/game-of-life";
 let maxFrames = 20;
+let JSONs;
 
-var gridScalar = 16;
+var gridScalar = 8;
 var gridXAmount = 16 * gridScalar;
 var gridYAmount = 9 * gridScalar;
 var tileWidth;
@@ -17,7 +18,7 @@ let paletteSeed = seedPalette();
 
 // Super beau rouge et bleu : 
 // 222, 60, 4, 9, 116, 4, 205, 26, 3
-paletteSeed = makePalette(3, 26, 205, 4, 116, 9, 4, 60, 222);
+// paletteSeed = makePalette(3, 26, 205, 4, 116, 9, 4, 60, 222);
 
 //Rose, gris et vert
 // 151, 110, 6, 37, 250, 5, 213, 46, 6
@@ -28,7 +29,7 @@ paletteSeed = makePalette(3, 26, 205, 4, 116, 9, 4, 60, 222);
 // paletteSeed = makePalette(4, 223, 137, 6, 77, 209, 2, 1, 249);
 
 //
-let printing = true;
+let printing = false;
 let printedBackground = false;
 let boxOfDots = [];
 let boxToPrint = 0;
@@ -56,6 +57,13 @@ function setup() {
         grid.push({ state: 0, changed: true });
         changes.push(0);
     }
+
+    socket.on('pushJSONs', function(data) {
+        JSONs = data;
+    });
+    socket.emit('pullJSONs', "");
+    console.log(JSONs);
+
     // for (var x = 10; x < 120; x += 10) {
     //     for (var y = 10; y < 70; y += 10) {
     //         setGridValue(x, y, 1);
@@ -153,7 +161,7 @@ function draw() {
                     let color = setLight(change, paletteSeed);
                     fill(red(color), green(color), blue(color), 50);
                     // console.log(color);
-                    for (let i = 0; i < 3500 / 16; i++) {
+                    for (let i = 0; i < 3500 / 4; i++) {
                         var randomX = random(x * tileWidth, (x + 1) * tileWidth);
                         var randomY = random(y * tileWidth, (y + 1) * tileWidth);
                         ellipse(randomX, randomY, 1.25);
@@ -321,6 +329,22 @@ function seedPalette() {
 // 249, 1, 2, 209, 77, 6, 137, 223, 4
 // Rose, gris, vert
 // 163, 0, 9, 178, 145, 8, 244, 144, 2
+// Mauve et turquoise
+// 208, 153, 5, 50, 136, 1, 122, 80, 6
+// Autre mauve et turquoise, moins bon
+// 111, 204, 7, 53, 141, 1, 86, 62, 7
+// Orange et brun verdâtre
+// 99, 71, 9, 78, 93, 1, 130, 253, 3
+// Surprenant mélange de rose, orange et brun
+// 12, 111, 3, 57, 16, 4, 92, 248, 7
+// Autre mauve et turquoise
+// 252, 212, 5, 80, 26, 8, 99, 25, 2
+// Saumon, vert et gris
+// 25, 181, 2, 133, 60, 8, 88, 231, 8
+// Orange brunâtre et rose
+// 216, 62, 4, 67, 100, 6, 153, 90, 9
+// Orange vif et rose
+// 174, 39, 9, 54, 43, 9, 243, 94, 8
 
 function makePalette(rO, rMi, rMa, gO, gMi, gMa, bO, bMi, bMax) {
     return {
@@ -389,6 +413,14 @@ function keyPressed() {
         looping = true;
         exporting = true;
     }
+
+    if (key == 'o' || key == 'O') {
+        socket.emit('saveJSON', { data: paletteSeed, path: "./objects/palette-" });
+    }
+    if (key == 'h' || key == 'H') {
+        paletteSeed = seedPalette();
+    }
+
 }
 
 function mousePressed() {
