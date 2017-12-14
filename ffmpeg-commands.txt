@@ -8,3 +8,7 @@ ffmpeg -f image2 -framerate 3 -i ./frames/game-of-life-%05d.png -c:v libx264 -s 
 ffmpeg -f image2 -framerate 2 -i ./frames/game-of-life-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest game-of-life-2fps.mp4
 ffmpeg -f image2 -framerate 2 -i ./frames2/game-of-life-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest game-of-life-2-2fps.mp4
 ffmpeg -f image2 -framerate 6 -i ./frames2/game-of-life-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest game-of-life-2-6fps.mp4
+ffmpeg -f image2 -framerate 2 -i ./frames/scene002b/game-of-life-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest ./video-renders/game-of-life-13-dec-2fps.mp4
+ffmpeg -f image2 -framerate 2 -i ./frames/scene002c/game-of-life-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest ./video-renders/game-of-life-scene002c-2fps.mp4
+ffmpeg -f image2 -framerate 4 -i ./frames/scene002c/game-of-life-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest ./video-renders/game-of-life-scene002c-4fps.mp4
+ffmpeg -f image2 -framerate 4 -i ./frames/scene002d/game-of-life-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest ./video-renders/game-of-life-scene002d-4fps.mp4
