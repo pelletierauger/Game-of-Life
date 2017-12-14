@@ -8,7 +8,7 @@
 \setmainlanguage{french}
 \newfontfamily{\lstsansserif}[Scale=1]{Inconsolata}
 \usepackage[T1]{fontenc}
-\usepackage{listings}
+\usepackage{listings, xcolor}
 \DeclareTextCommandDefault{\nobreakspace}{\leavevmode\nobreak\ }
 \makeatletter
 \g@addto@macro\@floatboxreset{\centering}
@@ -29,7 +29,7 @@
 
 \lstdefinelanguage{JavaScript}{
     keywords={break, case, catch, const, continue, debugger, default, delete, do, else, false, finally, for, function, if, in, instanceof, let, new, null, return, switch, this, throw, true, try, typeof, var, void, while, with},
-    keywordstyle=\color{darkblue}\lstsansserif,
+    keywordstyle=\lst@ifdisplaystyle\color{darkblue}\lstsansserif\fi,
     ndkeywords={class, export, boolean, throw, implements, import, this},
     ndkeywordstyle=\color{darkgray}\lstsansserif,
     identifierstyle=\color{black},
@@ -46,13 +46,13 @@
     morekeywords={background,blendMode,createVector,createCanvas,dist,ellipse,fill,
     lerp,line,map,rect,translate,
     abs,acos,asin,atan,atan2,cos,floor,round,sin,stroke,strokeWeight,tan,pow},
-    keywordstyle=\color{p5pink}\lstsansserif
+    keywordstyle=\lst@ifdisplaystyle\color{p5pink}\lstsansserif\fi
 }
 
 \lstset{backgroundcolor=\color{grey},
     numbers=left,
     columns=fullflexible,
-    basicstyle=\fontsize{11}{13}\lstsansserif,
+    basicstyle=\lstsansserif\lst@ifdisplaystyle\fontsize{10}{12}\fi,
     language=JavaScript,
     numberstyle=\color{darkgray},
     xleftmargin=12pt,xrightmargin=12pt,
@@ -74,6 +74,8 @@
     {8}{{{\color{darkgreen}8}}}1
     {9}{{{\color{darkgreen}9}}}1
 }
+\def\inline{\lstinline[basicstyle=\ttfamily, keywords={},keywordstyle={}]}
+
 
 \author{Guillaume Pelletier-Auger}
 \title{Expérimentations animées\protect\\avec le \textit{jeu de la vie} de John Conway}

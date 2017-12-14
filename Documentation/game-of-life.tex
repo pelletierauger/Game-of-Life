@@ -12,6 +12,37 @@
 \end{enumerate}
 
 \newpage
+\section{Structure du programme}
+\noindent Je dois penser à la structure du programme avant tout le reste. Premièrement, puisque je \textit{pull} des données JSON sur le serveur, je dois créer un programme qui attend l'arrivée de ces données avant de démarrer le film. Ensuite, je dois créer un système qui initialise une scène. En fait, je dois avoir des x-sheets, aussi. Des x-sheets qui diffèrent considérablement de celles des \textit{Joies confuses}.
+
+\subsection{Modes}
+\noindent Premièrement, j'ai deux modes différents d'affichage. Comment les nommer? \lstinline|simple| et \lstinline|grainy|?
+
+\subsection{Initialiser la grille}
+\begin{lstlisting}
+// This variable will hold the JSON assets when there are pushed by the server.
+let JSONs;
+// This variable will hold the scene when it's ready.
+let scene;
+// This variable will indicate that the grid is initialized.
+let gridInitialized = false;
+
+function draw() {
+    if (JSONs) {
+        scene.initializeGrid();
+    }
+    if (scene.gridInitialized) {
+        scene.runGrid();
+    }
+}
+
+function initializeGrid() {
+    gridInitialized = true;
+} 
+
+\end{lstlisting}
+
+\newpage
 \section{Génération et archivage de palettes de couleur}
 \begin{lstlisting}
 socket.on('pushJSONs', function(data) {
@@ -34,3 +65,32 @@ for (let i = 0; i < gridYAmount - wY * 2; i++) {
 }
 \end{lstlisting}
 \noindent Il y aura clairement deux types de formes primitives : des formes qui s'adaptent aux dimensions de la grille et des formes qui en sont indépendantes.
+
+\newpage
+\section{Idées errantes}
+\begin{enumerate}
+\item Je pourrais avoir des scènes qui seraient définies comme étant plus rapides que d'autres. 
+\item Je pourrais avoir un système pour sauvegarder une \lstinline|shape| et la réutiliser par la suite, la connecter à une scène. 
+\item Je pourrais avoir un \textit{offset} pour les valeurs dans l'array \lstinline|changes| qui enverrait une valeur différente aux fonctions de colorisation, puisque certaines palettes sont particulièrements belles à différents moments.
+\end{enumerate}
+
+\newpage
+\section{Le flot dessinateur de la fonction \lstinline|draw()|}
+\noindent L'impression d'une image démarre avec le dessin d'un \lstinline|background| noir. Ensuite, le \textit{flot dessinateur} cherche dans la grille la prochaine case dont la valeur est de 1. Il imprime une case qui est de valeur 1 à chaque \textit{frame}. Lorsqu'il a imprimé chaque case de la grille, il exporte l'image, incrémente la variable \lstinline|frameToExport|, renouvelle la grille et donne à la booléenne \lstinline|printedBackground| la valeur \lstinline|false|.
+
+La nouvelle grille est ensuite imprimée de la même façon. \lstinline|frameToExport| ne sert qu'à nommer le fichier PNG qui est sauvegardé.
+\begin{lstlisting}
+if (boxToPrint >= grid.length - 1 && exporting == true) {
+    console.log("This is working");
+    boxToPrint = 0;
+    frameExport(frameToExport);
+    frameToExport++;
+    updateGrid();
+    printedBackground = false;
+}
+\end{lstlisting}Maintenant, je dois changer \lstinline|updateGrid()| pour \lstinline|updateScene()|, parce qu'une scène va réagir de façon différente. Une scène possède une propriété \lstinline|counter| et ne va mettre à jour sa grille que lorsque cette propriété répond à un test. De cette façon, je pourrai créer des scènes lentes dont les images graineuses vont vaciller.
+
+En fait, tout ce que j'ai besoin de faire c'est d'encapsuler le \textit{flot dessinateur} dans un système de scènes. Ces scènes doivent pouvoir avoir des vitesses différentes.
+
+\newpage
+\section{La classe \lstinline|scene|}
