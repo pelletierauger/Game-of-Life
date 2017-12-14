@@ -1,6 +1,6 @@
 let looping = true;
 let socket, cnvs, ctx, canvasDOM;
-let fileName = "./frames2/game-of-life";
+let fileName = "./frames/scene002d/game-of-life";
 let maxFrames = 20;
 let JSONs;
 
@@ -18,7 +18,7 @@ let paletteSeed = seedPalette();
 
 // Super beau rouge et bleu : 
 // 222, 60, 4, 9, 116, 4, 205, 26, 3
-// paletteSeed = makePalette(3, 26, 205, 4, 116, 9, 4, 60, 222);
+paletteSeed = makePalette(3, 26, 205, 4, 116, 9, 4, 60, 222);
 
 //Rose, gris et vert
 // 151, 110, 6, 37, 250, 5, 213, 46, 6
@@ -29,7 +29,7 @@ let paletteSeed = seedPalette();
 // paletteSeed = makePalette(4, 223, 137, 6, 77, 209, 2, 1, 249);
 
 //
-let printing = false;
+let printing = true;
 let printedBackground = false;
 let boxOfDots = [];
 let boxToPrint = 0;
@@ -90,43 +90,43 @@ function setup() {
     // }
     let wX = 30;
     let wY = 10;
-    let x = wX;
+    //let x = wX;
+    let x = gridXAmount / 2;
     let y = wY;
     for (let i = 0; i < gridYAmount - wY * 2; i++) {
-        setGridValue(x, y, 1);
+        // setGridValue(x, y, 1);
         y++;
     }
     y = wY;
     x = gridXAmount - wX;
     for (let i = 0; i < gridYAmount - wY * 2; i++) {
-        setGridValue(x, y, 1);
+        // setGridValue(x, y, 1);
         y++;
     }
     x = wX;
     y = wY;
     for (let i = 0; i < gridXAmount - wX * 2; i++) {
-        setGridValue(x, y, 1);
+        // setGridValue(x, y, 1);
         x++;
     }
     x = wX;
-    y = wY + (gridYAmount - wY * 2) - 1;
+    // y = wY + (gridYAmount - wY * 2) - 1;
+    y = gridYAmount / 2;
     for (let i = 0; i < gridXAmount - wX * 2; i++) {
         setGridValue(x, y, 1);
         x++;
     }
-    setGridValue(gridXAmount / 2, gridYAmount / 2, 1);
-    setGridValue((gridXAmount / 2) + 0, (gridYAmount / 2) + 1, 1);
-    x = 0
-    y = gridYAmount / 2;
-    for (let i = 0; i < gridXAmount; i++) {
-        x = i;
-        setGridValue(x, y, 1);
-    }
+    // setGridValue(gridXAmount / 2, gridYAmount / 2, 1);
+    // setGridValue((gridXAmount / 2) + 0, (gridYAmount / 2) + 1, 1);
+    // x = 0
+    // y = gridYAmount / 2;
+    // for (let i = 0; i < gridXAmount; i++) {
+    //     x = i;
+    //     setGridValue(x, y, 1);
+    // }
 }
 
 function draw() {
-    // translate(width / 2, -height);
-    // rotate(45);
     if (!printing) {
         for (var x = 0; x < gridXAmount; x++) {
             for (var y = 0; y < gridYAmount; y++) {
@@ -159,7 +159,7 @@ function draw() {
                 if (grid[boxToPrint].state == 1) {
                     let change = changes[boxToPrint];
                     let color = setLight(change, paletteSeed);
-                    fill(red(color), green(color), blue(color), 50);
+                    fill(red(color), green(color), blue(color), 55);
                     // console.log(color);
                     for (let i = 0; i < 3500 / 4; i++) {
                         var randomX = random(x * tileWidth, (x + 1) * tileWidth);
@@ -413,7 +413,9 @@ function keyPressed() {
         looping = true;
         exporting = true;
     }
-
+    if (key == 'i' || key == 'I') {
+        socket.emit('saveJSON', { data: paletteSeed, path: "./objects/palette-" });
+    }
     if (key == 'o' || key == 'O') {
         socket.emit('saveJSON', { data: paletteSeed, path: "./objects/palette-" });
     }
@@ -424,7 +426,7 @@ function keyPressed() {
 }
 
 function mousePressed() {
-    if (!exporting) {
+    if (!exporting && !printing) {
         var x = floor(map(mouseX, 0, width, 0, gridXAmount));
         var y = floor(map(mouseY, 0, height, 0, gridYAmount));
         setGridValue(x, y, 1);
@@ -435,7 +437,7 @@ function mousePressed() {
 }
 
 function mouseDragged() {
-    if (!exporting) {
+    if (!exporting && !printing) {
         var x = floor(map(mouseX, 0, width, 0, gridXAmount));
         var y = floor(map(mouseY, 0, height, 0, gridYAmount));
         setGridValue(x, y, 1);
