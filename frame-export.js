@@ -11,7 +11,7 @@ for (let i = 0; i < query.length; i++) {
 let exporting = (GET["exporting"] && GET["exporting"] == "true") ? true : false;
 
 function frameExport(n) {
-    var frameName = fileName;
+    var frameName = scene.fileName;
     var formattedFrameCount = "" + n;
     while (formattedFrameCount.length < 5) {
         formattedFrameCount = "0" + formattedFrameCount;
