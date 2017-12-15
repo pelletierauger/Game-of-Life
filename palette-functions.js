@@ -1,26 +1,27 @@
 function seedPalette() {
-    let redOsc = Math.floor(Math.random() * 10);
-    let redMin = Math.floor(Math.random() * 255);
-    let redMax = Math.floor(Math.random() * 255);
-    let greenOsc = Math.floor(Math.random() * 10);
-    let greenMin = Math.floor(Math.random() * 255);
-    let greenMax = Math.floor(Math.random() * 255);
-    let blueOsc = Math.floor(Math.random() * 10);
-    let blueMin = Math.floor(Math.random() * 255);
-    let blueMax = Math.floor(Math.random() * 255);
     return {
-        redOsc: redOsc,
-        redMin: redMin,
-        redMax: redMax,
-        greenOsc: greenOsc,
-        greenMin: greenMin,
-        greenMax: greenMax,
-        blueOsc: blueOsc,
-        blueMin: blueMin,
-        blueMax: blueMax,
+        name: "randomlyGenerated",
+        data: {
+            redOsc: Math.floor(Math.random() * 10),
+            redMin: Math.floor(Math.random() * 255),
+            redMax: Math.floor(Math.random() * 255),
+            greenOsc: Math.floor(Math.random() * 10),
+            greenMin: Math.floor(Math.random() * 255),
+            greenMax: Math.floor(Math.random() * 255),
+            blueOsc: Math.floor(Math.random() * 10),
+            blueMin: Math.floor(Math.random() * 255),
+            blueMax: Math.floor(Math.random() * 255)
+        }
     }
 }
 
+//Rose, gris et vert
+// 151, 110, 6, 37, 250, 5, 213, 46, 6
+// paletteSeed = makePalette(6, 46, 213, 5, 250, 37, 6, 110, 151);
+
+// Cyan, brun, jaune
+// 249, 1, 2, 209, 77, 6, 137, 223, 4
+// paletteSeed = makePalette(4, 223, 137, 6, 77, 209, 2, 1, 249);
 
 // Good seedPalettes : format : blue, green, red (Max, Min, Osc);
 // 38, 72, 7, 196, 88, 4, 169, 215, 5

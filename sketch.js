@@ -195,10 +195,10 @@ function keyPressed() {
         });
     }
     if (key == 'o' || key == 'O') {
-        socket.emit('saveJSON', { data: paletteSeed, path: "./objects/palette-" });
+        socket.emit('saveJSON', { data: scene.palette.data, path: "./objects/palette-" });
     }
     if (key == 'h' || key == 'H') {
-        paletteSeed = seedPalette();
+        scene.palette = seedPalette();
     }
     if (key == 'm' || key == 'M') {
         redraw();
