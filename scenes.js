@@ -186,14 +186,172 @@ scene001.updateGrid = scene002d.updateGrid;
 
 let biggerFractal = new Scene({
     fileName: "./frames/scene002d/game-of-life",
-    gridScalar: 32,
+    gridScalar: 16,
     paletteName: "red-blue-pink",
     speedModulo: 3,
-    dotPerTile: 3500 / 64,
+    zoom: 2,
+    dotPerTile: 3500 / 16,
     maxFrames: 40
 });
 
 biggerFractal.applyShapes = bigFractal.applyShapes;
 biggerFractal.updateGrid = bigFractal.updateGrid;
 
-let scene = biggerFractal;
+//----------otherFractal----------------------------------------------//
+
+let otherFractal = new Scene({
+    fileName: "./frames/scene002d/game-of-life",
+    gridSeedName: "gridseed-sat-dec-16-2017-012528",
+    paletteName: "palette-sat-dec-16-2017-015606",
+    speedModulo: 3,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxFrames: 40
+});
+otherFractal.updateGrid = scene002d.updateGrid;
+
+//----------gameOfLife----------------------------------------------//
+
+let gameOfLife = new Scene({
+    fileName: "./frames/scene002d/game-of-life",
+    gridScalar: 4,
+    paletteName: "palette-sat-dec-16-2017-015606",
+    speedModulo: 3,
+    zoom: 1,
+    dotPerTile: 3500 / 1,
+    maxFrames: 40
+});
+gameOfLife.applyShapes = function() {
+    let wX = 4;
+    let wY = 4;
+    let x = wX;
+    // let x = gridXAmount / 2;
+    let y = wY;
+    for (let i = 0; i < this.gridYAmount - wY * 2; i++) {
+        this.setGridValue(x, y, 1);
+        y++;
+    }
+    y = wY;
+    x = this.gridXAmount - wX;
+    for (let i = 0; i < this.gridYAmount - wY * 2; i++) {
+        this.setGridValue(x, y, 1);
+        y++;
+    }
+    x = wX;
+    y = wY;
+    for (let i = 0; i < this.gridXAmount - wX * 2; i++) {
+        this.setGridValue(x, y, 1);
+        x++;
+    }
+    x = wX;
+    y = wY + (this.gridYAmount - wY * 2) - 1;
+    // y = gridYAmount / 2;
+    for (let i = 0; i < this.gridXAmount - wX * 2; i++) {
+        this.setGridValue(x, y, 1);
+        x++;
+    }
+};
+gameOfLife.updateGrid = function() {
+    for (var x = 0; x < this.gridXAmount; x++) {
+        for (var y = 0; y < this.gridYAmount; y++) {
+            var oneDValue = x + (y * this.gridXAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            let changed = false;
+            if (value == 1) {
+                if (neighbors >= 4 || neighbors <= 1) {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    changed = true;
+                    this.incrementChanges(x, y);
+                }
+            } else {
+                if (neighbors == 3) {
+                    this.next[oneDValue] = { state: 1, changed: true };
+                    changed = true;
+                    this.incrementChanges(x, y);
+                }
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+
+//----------gameOfLife----------------------------------------------//
+
+let gameOfLifeAlt = new Scene({
+    fileName: "./frames/scene002d/game-of-life",
+    gridScalar: 16,
+    paletteName: "palette-sat-dec-16-2017-015606",
+    speedModulo: 3,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxFrames: 40
+});
+gameOfLifeAlt.applyShapes = function() {
+    // let wX = 60;
+   // let wY = 60;
+   // let x = wX;
+   // // let x = gridXAmount / 2;
+   // let y = wY;
+   // for (let i = 0; i < this.gridYAmount - wY * 2; i++) {
+   //     this.setGridValue(x, y, 1);
+   //     y++;
+   // }
+   // y = wY;
+   // x = this.gridXAmount - wX;
+   // for (let i = 0; i < this.gridYAmount - wY * 2; i++) {
+   //     this.setGridValue(x, y, 1);
+   //     y++;
+   // }
+   // x = wX;
+   // y = wY;
+   // for (let i = 0; i < this.gridXAmount - wX * 2; i++) {
+   //     this.setGridValue(x, y, 1);
+   //     x++;
+   // }
+   // x = wX;
+   // y = wY + (this.gridYAmount - wY * 2) - 1;
+   // // y = gridYAmount / 2;
+   // for (let i = 0; i < this.gridXAmount - wX * 2; i++) {
+   //     this.setGridValue(x, y, 1);
+   //     x++;
+   // }
+};
+gameOfLifeAlt.updateGrid = function() {
+    for (var x = 0; x < this.gridXAmount; x++) {
+        for (var y = 0; y < this.gridYAmount; y++) {
+            var oneDValue = x + (y * this.gridXAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            let changed = false;
+            if (value == 1) {
+                if (neighbors >= 6 || neighbors <= 1 || neighbors == 2) {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    changed = true;
+                    this.incrementChanges(x, y);
+                }
+            } else {
+                if (neighbors == 5 || neighbors == 2) {
+                    this.next[oneDValue] = { state: 1, changed: true };
+                    changed = true;
+                    this.incrementChanges(x, y);
+                }
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+let scene = gameOfLifeAlt;
