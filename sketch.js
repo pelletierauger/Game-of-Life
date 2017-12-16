@@ -38,7 +38,6 @@ function draw() {
         scene.initialize();
     }
     if (scene.initialized) {
-        // console.log("init!");
         if (!printing) {
             scene.update();
             for (var x = 0; x < scene.gridXAmount; x++) {
@@ -89,7 +88,7 @@ function draw() {
                     }
                 }
                 if (boxToPrint >= scene.grid.length - 1 && exporting == true) {
-                    console.log("This is working");
+                    console.log(`Frame ${frameToExport} is done printing.`);
                     boxToPrint = 0;
                     frameExport(frameToExport);
                     frameToExport++;
