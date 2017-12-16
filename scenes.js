@@ -182,4 +182,18 @@ scene001.applyShapes = function() {
 
 scene001.updateGrid = scene002d.updateGrid;
 
-let scene = scene002d;
+//----------biggerFractal----------------------------------------------//
+
+let biggerFractal = new Scene({
+    fileName: "./frames/scene002d/game-of-life",
+    gridScalar: 32,
+    paletteName: "red-blue-pink",
+    speedModulo: 3,
+    dotPerTile: 3500 / 64,
+    maxFrames: 40
+});
+
+biggerFractal.applyShapes = bigFractal.applyShapes;
+biggerFractal.updateGrid = bigFractal.updateGrid;
+
+let scene = biggerFractal;
