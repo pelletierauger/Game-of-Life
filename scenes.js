@@ -296,33 +296,33 @@ let gameOfLifeAlt = new Scene({
 });
 gameOfLifeAlt.applyShapes = function() {
     // let wX = 60;
-   // let wY = 60;
-   // let x = wX;
-   // // let x = gridXAmount / 2;
-   // let y = wY;
-   // for (let i = 0; i < this.gridYAmount - wY * 2; i++) {
-   //     this.setGridValue(x, y, 1);
-   //     y++;
-   // }
-   // y = wY;
-   // x = this.gridXAmount - wX;
-   // for (let i = 0; i < this.gridYAmount - wY * 2; i++) {
-   //     this.setGridValue(x, y, 1);
-   //     y++;
-   // }
-   // x = wX;
-   // y = wY;
-   // for (let i = 0; i < this.gridXAmount - wX * 2; i++) {
-   //     this.setGridValue(x, y, 1);
-   //     x++;
-   // }
-   // x = wX;
-   // y = wY + (this.gridYAmount - wY * 2) - 1;
-   // // y = gridYAmount / 2;
-   // for (let i = 0; i < this.gridXAmount - wX * 2; i++) {
-   //     this.setGridValue(x, y, 1);
-   //     x++;
-   // }
+    // let wY = 60;
+    // let x = wX;
+    // // let x = gridXAmount / 2;
+    // let y = wY;
+    // for (let i = 0; i < this.gridYAmount - wY * 2; i++) {
+    //     this.setGridValue(x, y, 1);
+    //     y++;
+    // }
+    // y = wY;
+    // x = this.gridXAmount - wX;
+    // for (let i = 0; i < this.gridYAmount - wY * 2; i++) {
+    //     this.setGridValue(x, y, 1);
+    //     y++;
+    // }
+    // x = wX;
+    // y = wY;
+    // for (let i = 0; i < this.gridXAmount - wX * 2; i++) {
+    //     this.setGridValue(x, y, 1);
+    //     x++;
+    // }
+    // x = wX;
+    // y = wY + (this.gridYAmount - wY * 2) - 1;
+    // // y = gridYAmount / 2;
+    // for (let i = 0; i < this.gridXAmount - wX * 2; i++) {
+    //     this.setGridValue(x, y, 1);
+    //     x++;
+    // }
 };
 gameOfLifeAlt.updateGrid = function() {
     for (var x = 0; x < this.gridXAmount; x++) {
@@ -354,4 +354,43 @@ gameOfLifeAlt.updateGrid = function() {
     }
     this.currentState++;
 };
-let scene = gameOfLifeAlt;
+
+//----
+
+let gridUponGrid = new Scene({
+    fileName: "./frames/scene002d/game-of-life",
+    gridScalar: 16,
+    paletteName: "palette-sat-dec-16-2017-015606",
+    speedModulo: 3,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxFrames: 40
+});
+gridUponGrid.applyShapes = function() {
+    let xSections = 5;
+    let ySections = 5;
+    let xOffset = 50;
+    let yOffset = 50;
+    let xSize = (this.gridXAmount - (xOffset * 2)) / (xSections - 1);
+    let ySize = (this.gridYAmount - (yOffset * 2)) / (ySections - 1);
+    // console.log(`xSize : ${xSize}, ySize: ${ySize}`);
+    let x = xOffset;
+    let y = yOffset;
+    this.setGridValue(x, y, 1);
+    for (let i = 0; i < xSections; i++) {
+        for (let j = 0; j < ySections; j++) {
+            this.setGridValue(Math.floor(x - 1), Math.floor(y), 1);
+            this.setGridValue(Math.floor(x), Math.floor(y + 1), 1);
+            this.setGridValue(Math.floor(x + 1), Math.floor(y), 1);
+            this.setGridValue(Math.floor(x), Math.floor(y - 1), 1);
+            y += ySize;
+
+        }
+        x += xSize;
+        y = yOffset;
+    }
+};
+gridUponGrid.updateGrid = scene002d.updateGrid;
+
+
+let scene = gridUponGrid;
