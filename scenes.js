@@ -138,4 +138,48 @@ bigFractal.updateGrid = function() {
     this.currentState++;
 };
 
-let scene = bigFractal;
+//----------scene001----------------------------------------------//
+
+let scene001 = new Scene({
+    fileName: "./frames/scene002d/game-of-life",
+    gridScalar: 8,
+    paletteName: "red-blue-pink",
+    speedModulo: 3,
+    dotPerTile: 3500 / 4,
+    maxFrames: 40
+});
+
+scene001.applyShapes = function() {
+    let wX = 30;
+    let wY = 10;
+    let x = wX;
+    // let x = gridXAmount / 2;
+    let y = wY;
+    for (let i = 0; i < this.gridYAmount - wY * 2; i++) {
+        this.setGridValue(x, y, 1);
+        y++;
+    }
+    y = wY;
+    x = this.gridXAmount - wX;
+    for (let i = 0; i < this.gridYAmount - wY * 2; i++) {
+        this.setGridValue(x, y, 1);
+        y++;
+    }
+    x = wX;
+    y = wY;
+    for (let i = 0; i < this.gridXAmount - wX * 2; i++) {
+        this.setGridValue(x, y, 1);
+        x++;
+    }
+    x = wX;
+    y = wY + (this.gridYAmount - wY * 2) - 1;
+    // y = gridYAmount / 2;
+    for (let i = 0; i < this.gridXAmount - wX * 2; i++) {
+        this.setGridValue(x, y, 1);
+        x++;
+    }
+};
+
+scene001.updateGrid = scene002d.updateGrid;
+
+let scene = scene001;
