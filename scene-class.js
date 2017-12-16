@@ -8,9 +8,14 @@ class Scene {
         if (input.gridSeedName) {
             this.gridSeedName = input.gridSeedName;
         }
+
         this.paletteName = input.paletteName || null;
         this.speedModulo = input.speedModulo || 1;
         this.dotPerTile = input.dotPerTile || 3500 / 4;
+        if (input.zoom) {
+            this.zoom = input.zoom;
+            this.dotPerTile *= (Math.pow(input.zoom, 2));
+        }
         this.grid = [];
         this.next = [];
         this.changes = [];

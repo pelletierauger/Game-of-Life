@@ -38,6 +38,13 @@ function draw() {
         scene.initialize();
     }
     if (scene.initialized) {
+        let zoomReciprocal;
+        if (scene.zoom) {
+            let z = scene.zoom;
+            zoomReciprocal = 1 / z;
+            scale(scene.zoom, scene.zoom);
+            translate(((width * z) - width) / (z * -2), ((height * z) - height) / (z * -2));
+        }
         if (!printing) {
             scene.update();
             for (var x = 0; x < scene.gridXAmount; x++) {
@@ -74,7 +81,12 @@ function draw() {
                         for (let i = 0; i < scene.dotPerTile; i++) {
                             var randomX = random(x * tW, (x + 1) * tW);
                             var randomY = random(y * tW, (y + 1) * tW);
-                            ellipse(randomX, randomY, 1.25);
+                            if (scene.zoom) {
+                                ellipse(randomX, randomY, 1.25 * zoomReciprocal);
+                            } else {
+                                ellipse(randomX, randomY, 1.25);
+                            }
+
                         }
                     }
                 }
