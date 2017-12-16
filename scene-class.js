@@ -1,5 +1,6 @@
 class Scene {
     constructor(input) {
+        this.fileName = input.fileName;
         // gridScalar = 1 means that the grid is 16 * 9.
         if (input.gridScalar) {
             this.gridScalar = input.gridScalar;
@@ -53,11 +54,11 @@ class Scene {
         }
         // This counter is incremented each time the Scene is hit by the x-sheet,
         // and a modulo function controls at what frequency the scene upgrades its grid.
-        this.counter = 0;
+        this.counter = 1;
         this.initialized = true;
     }
     update() {
-        if (this.currentState == 0) {
+        if (!exporting && this.currentState == 0) {
             this.currentState++;
         } else {
             if (!printing) {
