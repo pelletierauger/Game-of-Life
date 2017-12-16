@@ -23,58 +23,6 @@ function setup() {
     });
     socket.emit('pullJSONs', "");
 
-    // for (var x = 10; x < 120; x += 10) {
-    //     for (var y = 10; y < 70; y += 10) {
-    //         setGridValue(x, y, 1);
-    //         setGridValue(x + 7, y + 1, 1);
-    //         setGridValue(x + 6, y + 1, 1);
-    //         setGridValue(x + 5, y + 1, 1);
-    //         setGridValue(x + 4, y + 1, 1);
-    //         setGridValue(x + 3, y + 5, 1);
-    //         setGridValue(x + 2, y + 6, 1);
-    //         setGridValue(x + 1, y + 7, 1);
-    //     }
-    // }
-    // for (var x = 20; x < 100; x += 30) {
-    //     for (var y = 20; y < 50; y += 10) {
-    //         setGridValue(x, y, 1);
-    //         setGridValue(x + 7, y + 1, 1);
-    //         setGridValue(x + 6, y + 1, 1);
-    //         setGridValue(x + 5, y + 1, 1);
-    //         setGridValue(x + 4, y + 1, 1);
-    //         setGridValue(x + 3, y + 5, 1);
-    //         setGridValue(x + 2, y + 6, 1);
-    //         setGridValue(x + 1, y + 7, 1);
-    //     }
-    // }
-    // let wX = 30;
-    // let wY = 10;
-    // let x = wX;
-    // // let x = gridXAmount / 2;
-    // let y = wY;
-    // for (let i = 0; i < gridYAmount - wY * 2; i++) {
-    //     // setGridValue(x, y, 1);
-    //     y++;
-    // }
-    // y = wY;
-    // x = gridXAmount - wX;
-    // for (let i = 0; i < gridYAmount - wY * 2; i++) {
-    //     // setGridValue(x, y, 1);
-    //     y++;
-    // }
-    // x = wX;
-    // y = wY;
-    // for (let i = 0; i < gridXAmount - wX * 2; i++) {
-    //     // setGridValue(x, y, 1);
-    //     x++;
-    // }
-    // x = wX;
-    // y = wY + (gridYAmount - wY * 2) - 1;
-    // // y = gridYAmount / 2;
-    // for (let i = 0; i < gridXAmount - wX * 2; i++) {
-    //     // setGridValue(x, y, 1);
-    //     x++;
-    // }
     // setGridValue(gridXAmount / 2, gridYAmount / 2, 1);
     // setGridValue((gridXAmount / 2) + 0, (gridYAmount / 2) + 1, 1);
     // x = 0
