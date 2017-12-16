@@ -41,10 +41,10 @@ let secondScene = new Scene({
 //----------scene002d----------------------------------------------//
 
 let scene002d = new Scene({
-    fileName: "./frames/scene002d/game-of-life",
+    fileName: "./frames/scene002d-tests/game-of-life",
     gridScalar: 8,
     paletteName: "red-blue-pink",
-    speedModulo: 3,
+    speedModulo: 6,
     dotPerTile: 3500 / 4,
     maxFrames: 40
 });
@@ -182,4 +182,4 @@ scene001.applyShapes = function() {
 
 scene001.updateGrid = scene002d.updateGrid;
 
-let scene = scene001;
+let scene = scene002d;
