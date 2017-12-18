@@ -151,7 +151,6 @@ class Scene {
     }
     setGridSeedValue(x, y, newState) {
         var oneDValue = x + (y * this.gridXAmount);
-        console.log(oneDValue);
         if (this.gridSeed[oneDValue] !== null) {
             this.gridSeed[oneDValue] = newState;
         }
