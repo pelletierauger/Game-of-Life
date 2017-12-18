@@ -359,16 +359,16 @@ gameOfLifeAlt.updateGrid = function() {
 
 let gridUponGrid = new Scene({
     fileName: "./frames/scene002d/game-of-life",
-    gridScalar: 16,
-    paletteName: "palette-sat-dec-16-2017-015606",
+    gridScalar: 8,
+    paletteName: "palette-mon-dec-18-2017-003351",
     speedModulo: 3,
     zoom: 1,
-    dotPerTile: 3500 / 16,
+    dotPerTile: 3500 / 4,
     maxFrames: 40
 });
 gridUponGrid.applyShapes = function() {
-    let xSections = 5;
-    let ySections = 5;
+    let xSections = 2;
+    let ySections = 2;
     let xOffset = 50;
     let yOffset = 50;
     let xSize = (this.gridXAmount - (xOffset * 2)) / (xSections - 1);
@@ -376,7 +376,7 @@ gridUponGrid.applyShapes = function() {
     // console.log(`xSize : ${xSize}, ySize: ${ySize}`);
     let x = xOffset;
     let y = yOffset;
-    this.setGridValue(x, y, 1);
+    // this.setGridValue(x, y, 1);
     for (let i = 0; i < xSections; i++) {
         for (let j = 0; j < ySections; j++) {
             this.setGridValue(Math.floor(x - 1), Math.floor(y), 1);
@@ -390,7 +390,156 @@ gridUponGrid.applyShapes = function() {
         y = yOffset;
     }
 };
-gridUponGrid.updateGrid = scene002d.updateGrid;
+gridUponGrid.updateGrid = bigFractal.updateGrid;
+
+//----
+
+let gridUponGrid2 = new Scene({
+    fileName: "./frames/scene002d/game-of-life",
+    gridScalar: 8,
+    paletteName: "palette-mon-dec-18-2017-023411",
+    speedModulo: 3,
+    zoom: 1,
+    dotPerTile: 3500 / 4,
+    maxFrames: 40
+});
+gridUponGrid2.applyShapes = function() {
+    let xSections = 3;
+    let ySections = 2;
+    let xOffset = 30;
+    let yOffset = 30;
+    let xSize = (this.gridXAmount - (xOffset * 2)) / (xSections - 1);
+    let ySize = (this.gridYAmount - (yOffset * 2)) / (ySections - 1);
+    // console.log(`xSize : ${xSize}, ySize: ${ySize}`);
+    let x = xOffset;
+    let y = yOffset;
+    // this.setGridValue(x, y, 1);
+    for (let i = 0; i < xSections; i++) {
+        for (let j = 0; j < ySections; j++) {
+            this.setGridValue(Math.floor(x), Math.floor(y), 1);
+            // this.setGridValue(Math.floor(x), Math.floor(y + 1), 1);
+            // this.setGridValue(Math.floor(x + 1), Math.floor(y), 1);
+            // this.setGridValue(Math.floor(x), Math.floor(y - 1), 1);
+            y += ySize;
+
+        }
+        x += xSize;
+        y = yOffset;
+    }
+};
+gridUponGrid2.updateGrid = bigFractal.updateGrid;
+
+//----
+
+let gridUponGrid3 = new Scene({
+    fileName: "./frames/scene002d/game-of-life",
+    gridScalar: 8,
+    paletteName: "palette-mon-dec-18-2017-023411",
+    speedModulo: 3,
+    zoom: 1,
+    dotPerTile: 3500 / 4,
+    maxFrames: 40
+});
+gridUponGrid3.applyShapes = function() {
+    let xSections = 1;
+    let ySections = 1;
+    let xOffset = this.gridXAmount / 2;
+    let yOffset = this.gridYAmount / 2;
+    let xSize = (this.gridXAmount - (xOffset * 2)) / (xSections - 1);
+    let ySize = (this.gridYAmount - (yOffset * 2)) / (ySections - 1);
+    // console.log(`xSize : ${xSize}, ySize: ${ySize}`);
+    let x = xOffset;
+    let y = yOffset;
+    // this.setGridValue(x, y, 1);
+    for (let i = 0; i < xSections; i++) {
+        for (let j = 0; j < ySections; j++) {
+            this.setGridValue(Math.floor(x), Math.floor(y), 1);
+            this.setGridValue(Math.floor(x), Math.floor(y + 1), 1);
+            this.setGridValue(Math.floor(x + 1), Math.floor(y), 1);
+            this.setGridValue(Math.floor(x), Math.floor(y - 1), 1);
+            y += ySize;
+
+        }
+        x += xSize;
+        y = yOffset;
+    }
+};
+gridUponGrid3.updateGrid = bigFractal.updateGrid;
+gridUponGrid3.update = function() {
+    if (this.currentState % 4 !== 0) {
+        this.updateGrid = gameOfLife.updateGrid;
+    } else {
+        this.updateGrid = scene002d.updateGrid;
+    }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+
+//----
+
+let gridUponGrid4 = new Scene({
+    fileName: "./frames/scene002d/game-of-life",
+    gridScalar: 8,
+    paletteName: "palette-mon-dec-18-2017-023411",
+    speedModulo: 3,
+    zoom: 1,
+    dotPerTile: 3500 / 4,
+    maxFrames: 40
+});
+gridUponGrid4.applyShapes = function() {
+    let xSections = 10;
+    let ySections = 5;
+    let xOffset = 20;
+    let yOffset = 20;
+    let xSize = (this.gridXAmount - (xOffset * 2)) / (xSections - 1);
+    let ySize = (this.gridYAmount - (yOffset * 2)) / (ySections - 1);
+    // console.log(`xSize : ${xSize}, ySize: ${ySize}`);
+    let x = xOffset;
+    let y = yOffset;
+    // this.setGridValue(x, y, 1);
+    for (let i = 0; i < xSections; i++) {
+        for (let j = 0; j < ySections; j++) {
+            this.setGridValue(Math.floor(x), Math.floor(y), 1);
+            this.setGridValue(Math.floor(x), Math.floor(y + 1), 1);
+            this.setGridValue(Math.floor(x + 1), Math.floor(y), 1);
+            this.setGridValue(Math.floor(x), Math.floor(y - 1), 1);
+            y += ySize;
+
+        }
+        x += xSize;
+        y = yOffset;
+    }
+};
+gridUponGrid4.updateGrid = bigFractal.updateGrid;
+gridUponGrid4.update = function() {
+    if (this.currentState % 4 !== 0) {
+        this.updateGrid = gameOfLife.updateGrid;
+    } else {
+        this.updateGrid = scene002d.updateGrid;
+    }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
 
 
-let scene = gridUponGrid;
+let scene = gridUponGrid4;
