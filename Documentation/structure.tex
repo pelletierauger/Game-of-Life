@@ -6,7 +6,7 @@
 \usepackage{polyglossia}
 \usepackage{amsmath}
 \setmainlanguage{french}
-\newfontfamily{\lstsansserif}[Scale=1]{Inconsolata}
+\usepackage{inconsolata}
 \usepackage[T1]{fontenc}
 \usepackage{listings, xcolor}
 \DeclareTextCommandDefault{\nobreakspace}{\leavevmode\nobreak\ }
@@ -29,15 +29,15 @@
 
 \lstdefinelanguage{JavaScript}{
     keywords={break, case, catch, const, continue, debugger, default, delete, do, else, false, finally, for, function, if, in, instanceof, let, new, null, return, switch, this, throw, true, try, typeof, var, void, while, with},
-    keywordstyle=\lst@ifdisplaystyle\color{darkblue}\lstsansserif\fi,
+    keywordstyle=\lst@ifdisplaystyle\color{darkblue}\ttfamily\fi,
     ndkeywords={class, export, boolean, throw, implements, import, this},
-    ndkeywordstyle=\color{darkgray}\lstsansserif,
+    ndkeywordstyle=\color{darkgray}\ttfamily,
     identifierstyle=\color{black},
     sensitive=false,
     comment=[l]{//},
     morecomment=[s]{/*}{*/},
-    commentstyle=\color{darkgray}\lstsansserif,
-    stringstyle=\color{darkorange}\lstsansserif,
+    commentstyle=\color{darkgray}\ttfamily,
+    stringstyle=\color{darkorange}\ttfamily,
     morestring=[b]',
     morestring=[b]",
     keepspaces=true,
@@ -46,13 +46,13 @@
     morekeywords={background,blendMode,createVector,createCanvas,dist,ellipse,fill,
     lerp,line,map,rect,translate,
     abs,acos,asin,atan,atan2,cos,floor,round,sin,stroke,strokeWeight,tan,pow},
-    keywordstyle=\lst@ifdisplaystyle\color{p5pink}\lstsansserif\fi
+    keywordstyle=\lst@ifdisplaystyle\color{p5pink}\ttfamily\fi
 }
 
 \lstset{backgroundcolor=\color{grey},
     numbers=left,
     columns=fullflexible,
-    basicstyle=\lstsansserif\lst@ifdisplaystyle\fontsize{10}{12}\fi,
+    basicstyle=\ttfamily\lst@ifdisplaystyle\fontsize{10}{12}\fi,
     language=JavaScript,
     numberstyle=\color{darkgray},
     xleftmargin=12pt,xrightmargin=12pt,
