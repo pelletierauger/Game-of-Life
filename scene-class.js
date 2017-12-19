@@ -34,6 +34,8 @@ class Scene {
                 this.gridSeed.push(seed.data.gridSeed[i]);
                 this.grid.push({ state: seed.data.gridSeed[i], changed: true });
                 this.changes.push(0);
+                // This is only there for some experimental, inconclusive scenes.
+                this.next.push({ state: 0, changed: false });
             }
         } else {
             this.gridXAmount = 16 * this.gridScalar;
@@ -43,6 +45,8 @@ class Scene {
             for (var i = 0; i < this.gridXAmount * this.gridYAmount; i++) {
                 this.grid.push({ state: 0, changed: true });
                 this.changes.push(0);
+                // This is only there for some experimental, inconclusive scenes.
+                this.next.push({ state: 0, changed: false });
             }
         }
 
@@ -147,6 +151,12 @@ class Scene {
         if (this.grid[oneDValue]) {
             this.grid[oneDValue].state = newState;
             this.grid[oneDValue].changed = true;
+        }
+    }
+    setNextValue(x, y, newState) {
+        var oneDValue = x + (y * this.gridXAmount);
+        if (this.next[oneDValue]) {
+            this.next[oneDValue] = newState;
         }
     }
     setGridSeedValue(x, y, newState) {
