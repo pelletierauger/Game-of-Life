@@ -541,5 +541,384 @@ gridUponGrid4.update = function() {
     }
 };
 
+//----
 
-let scene = gridUponGrid4;
+let newFractalExperiment = new Scene({
+    fileName: "./frames/newFractalExperiment/game-of-life",
+    gridScalar: 8,
+    paletteName: "palette-mon-dec-18-2017-023411",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 4,
+    maxFrames: 40
+});
+newFractalExperiment.applyShapes = function() {
+    let xSections = 5;
+    let ySections = 5;
+    let xOffset = 20;
+    let yOffset = 20;
+    let xSize = (this.gridXAmount - (xOffset * 2)) / (xSections - 1);
+    let ySize = (this.gridYAmount - (yOffset * 2)) / (ySections - 1);
+    // console.log(`xSize : ${xSize}, ySize: ${ySize}`);
+    let x = xOffset;
+    let y = yOffset;
+    // this.setGridValue(x, y, 1);
+    for (let i = 0; i < xSections; i++) {
+        for (let j = 0; j < ySections; j++) {
+            this.setGridValue(Math.floor(x), Math.floor(y), 1);
+            // this.setGridValue(Math.floor(x), Math.floor(y + 1), 1);
+            // this.setGridValue(Math.floor(x + 1), Math.floor(y), 1);
+            // this.setGridValue(Math.floor(x), Math.floor(y - 1), 1);
+            y += ySize;
+
+        }
+        x += xSize;
+        y = yOffset;
+    }
+};
+newFractalExperiment.updateGrid = function() {
+    // if (this.currentState % (10) == 0) {
+    //     console.log("Inserted random!");
+    //     var randomX = random(0, this.gridXAmount);
+    //     var randomY = random(0, this.gridYAmount);
+    //     let oneDValue = randomX + (randomY * this.gridXAmount);
+    //     this.grid[oneDValue] = { state: 1, changed: false };
+    //     // this.incrementChanges(randomX, randomY);
+    // }
+    for (var x = 0; x < this.gridXAmount; x++) {
+        for (var y = 0; y < this.gridYAmount; y++) {
+            let oneDValue = x + (y * this.gridXAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            let changed = false;
+            if (value == 1) {
+                this.setNextValue(x - 2, y, { state: 1, changed: true });
+                this.setNextValue(x, y - 2, { state: 1, changed: true });
+                this.setNextValue(x + 2, y, { state: 1, changed: true });
+                this.setNextValue(x, y + 2, { state: 1, changed: true });
+                this.next[oneDValue] = { state: 0, changed: true };
+                // if (neighbors >= 6 || neighbors <= 1 || neighbors == 2) {
+                //     this.next[oneDValue] = { state: 0, changed: true };
+                //     
+                //     
+                // }
+                changed = true;
+                this.incrementChanges(x, y);
+            } else {
+                // if (neighbors == 5 || neighbors == 2) {
+                //     this.next[oneDValue] = { state: 1, changed: true };
+                //     changed = true;
+                //     this.incrementChanges(x, y);
+                // }
+            }
+            if (!changed && !this.next[oneDValue].changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+//----
+
+let newFractalExperiment2 = new Scene({
+    fileName: "./frames/scene002d/game-of-life",
+    gridScalar: 8,
+    paletteName: "palette-mon-dec-18-2017-023411",
+    speedModulo: 3,
+    zoom: 1,
+    dotPerTile: 3500 / 4,
+    maxFrames: 40
+});
+newFractalExperiment2.applyShapes = function() {
+    let xSections = 1;
+    let ySections = 1;
+    let xOffset = this.gridXAmount / 2;
+    let yOffset = this.gridYAmount / 2;
+    // xOffset = 20;
+    // yOffset = 20;
+    let xSize = (this.gridXAmount - (xOffset * 2)) / (xSections - 1);
+    let ySize = (this.gridYAmount - (yOffset * 2)) / (ySections - 1);
+    // console.log(`xSize : ${xSize}, ySize: ${ySize}`);
+    let x = xOffset;
+    let y = yOffset;
+    // this.setGridValue(x, y, 1);
+    for (let i = 0; i < xSections; i++) {
+        for (let j = 0; j < ySections; j++) {
+            this.setGridValue(Math.floor(x), Math.floor(y), 1);
+            // this.setGridValue(Math.floor(x), Math.floor(y + 1), 1);
+            // this.setGridValue(Math.floor(x + 1), Math.floor(y), 1);
+            // this.setGridValue(Math.floor(x), Math.floor(y - 1), 1);
+            y += ySize;
+
+        }
+        x += xSize;
+        y = yOffset;
+    }
+};
+newFractalExperiment2.updateGrid = function() {
+    for (var x = 0; x < this.gridXAmount; x++) {
+        for (var y = 0; y < this.gridYAmount; y++) {
+            var oneDValue = x + (y * this.gridXAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            let changed = false;
+            if (value == 1) {
+
+                if (neighbors == 0) {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    changed = true;
+                    this.incrementChanges(x, y);
+                } else if (neighbors == 1 || neighbors == 3) {
+                    //Do nothing
+                } else if (neighbors == 2 ||  neighbors >= 4) {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    changed = true;
+                    this.incrementChanges(x, y);
+                }
+            } else {
+                if (neighbors == 1) {
+                    this.next[oneDValue] = { state: 1, changed: true };
+                    changed = true;
+                    this.incrementChanges(x, y);
+                }
+            }
+            if (!changed && !this.next[oneDValue].changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+//----
+
+let newFractalExperiment3 = new Scene({
+    fileName: "./frames/scene002d/game-of-life",
+    gridScalar: 8,
+    paletteName: "palette-mon-dec-18-2017-171422",
+    speedModulo: 3,
+    zoom: 1,
+    dotPerTile: 3500 / 4,
+    maxFrames: 40
+});
+newFractalExperiment3.applyShapes = function() {
+    let xSections = 1;
+    let ySections = 1;
+    let xOffset = this.gridXAmount / 2;
+    let yOffset = this.gridYAmount / 2;
+    // xOffset = 20;
+    // yOffset = 20;
+    let xSize = (this.gridXAmount - (xOffset * 2)) / (xSections - 1);
+    let ySize = (this.gridYAmount - (yOffset * 2)) / (ySections - 1);
+    // console.log(`xSize : ${xSize}, ySize: ${ySize}`);
+    let x = xOffset;
+    let y = yOffset;
+    // this.setGridValue(x, y, 1);
+    for (let i = 0; i < xSections; i++) {
+        for (let j = 0; j < ySections; j++) {
+            this.setGridValue(Math.floor(x), Math.floor(y), 1);
+            // this.setGridValue(Math.floor(x), Math.floor(y + 1), 1);
+            // this.setGridValue(Math.floor(x + 1), Math.floor(y), 1);
+            // this.setGridValue(Math.floor(x), Math.floor(y - 1), 1);
+            y += ySize;
+
+        }
+        x += xSize;
+        y = yOffset;
+    }
+};
+newFractalExperiment3.updateGrid = function() {
+    for (var x = 0; x < this.gridXAmount; x++) {
+        for (var y = 0; y < this.gridYAmount; y++) {
+            var oneDValue = x + (y * this.gridXAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            let changed = false;
+            if (value == 1) {
+                if (neighbors == 0) {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    changed = true;
+                    this.incrementChanges(x, y);
+                } else if (neighbors == 1 || neighbors == 4) {
+                    // Do nothing
+                } else if (neighbors == 3) {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    changed = true;
+                    this.incrementChanges(x, y);
+                }
+            } else {
+                if (neighbors == 1) {
+                    this.next[oneDValue] = { state: 1, changed: true };
+                    changed = true;
+                    this.incrementChanges(x, y);
+                }
+            }
+            if (!changed && !this.next[oneDValue].changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+//----
+
+let newFractalExperiment4 = new Scene({
+    fileName: "./frames/scene002d/game-of-life",
+    gridScalar: 16,
+    paletteName: "palette-mon-dec-18-2017-173007",
+    speedModulo: 3,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxFrames: 40
+});
+newFractalExperiment4.applyShapes = function() {
+    let xSections = 10;
+    let ySections = 5;
+    let xOffset = this.gridXAmount / 2;
+    let yOffset = this.gridYAmount / 2;
+    xOffset = 20;
+    yOffset = 20;
+    let xSize = (this.gridXAmount - (xOffset * 2)) / (xSections - 1);
+    let ySize = (this.gridYAmount - (yOffset * 2)) / (ySections - 1);
+    // console.log(`xSize : ${xSize}, ySize: ${ySize}`);
+    let x = xOffset;
+    let y = yOffset;
+    // this.setGridValue(x, y, 1);
+    for (let i = 0; i < xSections; i++) {
+        for (let j = 0; j < ySections; j++) {
+            this.setGridValue(Math.floor(x), Math.floor(y), 1);
+            // this.setGridValue(Math.floor(x), Math.floor(y + 1), 1);
+            // this.setGridValue(Math.floor(x + 1), Math.floor(y), 1);
+            // this.setGridValue(Math.floor(x), Math.floor(y - 1), 1);
+            y += ySize;
+
+        }
+        x += xSize;
+        y = yOffset;
+    }
+};
+newFractalExperiment4.updateGrid = function() {
+    for (var x = 0; x < this.gridXAmount; x++) {
+        for (var y = 0; y < this.gridYAmount; y++) {
+            var oneDValue = x + (y * this.gridXAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            let changed = false;
+            if (value == 1) {
+                if (neighbors == 0) {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    changed = true;
+                    this.incrementChanges(x, y);
+                } else if (neighbors == 1 || neighbors == 4) {
+                    // Do nothing
+                } else if (neighbors == 3) {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    changed = true;
+                    this.incrementChanges(x, y);
+                }
+            } else {
+                if (neighbors == 1) {
+                    this.next[oneDValue] = { state: 1, changed: true };
+                    changed = true;
+                    this.incrementChanges(x, y);
+                }
+            }
+            if (!changed && !this.next[oneDValue].changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+//----
+
+let newFractalExperiment5 = new Scene({
+    fileName: "./frames/scene002d/game-of-life",
+    gridScalar: 8,
+    paletteName: "palette-mon-dec-18-2017-171422",
+    speedModulo: 3,
+    zoom: 1,
+    dotPerTile: 3500 / 4,
+    maxFrames: 40
+});
+newFractalExperiment5.applyShapes = function() {
+    let xSections = 10;
+    let ySections = 5;
+    let xOffset = 0;
+    let yOffset = this.gridYAmount / 2;
+    xOffset = 20;
+    yOffset = 20;
+    let xSize = (this.gridXAmount - (xOffset * 2)) / (xSections - 1);
+    let ySize = (this.gridYAmount - (yOffset * 2)) / (ySections - 1);
+    // console.log(`xSize : ${xSize}, ySize: ${ySize}`);
+    let x = xOffset;
+    let y = yOffset;
+    // this.setGridValue(x, y, 1);
+    for (let i = 0; i < xSections; i++) {
+        for (let j = 0; j < ySections; j++) {
+            this.setGridValue(Math.floor(x), Math.floor(y), 1);
+            // this.setGridValue(Math.floor(x - 1), Math.floor(y), 1);
+            // this.setGridValue(Math.floor(x), Math.floor(y - 1), 1);
+            // this.setGridValue(Math.floor(x + 1), Math.floor(y), 1);
+            // this.setGridValue(Math.floor(x), Math.floor(y + 1), 1);
+            y += ySize;
+
+        }
+        x += xSize;
+        y = yOffset;
+    }
+};
+newFractalExperiment5.updateGrid = function() {
+    let n = this.currentState;
+    for (var x = 0; x < this.gridXAmount; x++) {
+        for (var y = 0; y < this.gridYAmount; y++) {
+            var oneDValue = x + (y * this.gridXAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            let changed = false;
+            let tl = this.getGridValue(x - 1, y - 1);
+            let t = this.getGridValue(x, y - 1);
+            let tr = this.getGridValue(x + 1, y - 1);
+            let l = this.getGridValue(x - 1, y);
+            let r = this.getGridValue(x + 1, y);
+            let bl = this.getGridValue(x - 1, y + 1);
+            let b = this.getGridValue(x, y + 1);
+            let br = this.getGridValue(x + 1, y + 1);
+            if (value == 1) {
+                if ((tl && br)) {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    changed = true;
+                    this.incrementChanges(x, y);
+                }
+            } else {
+                if ((tl || bl) || (bl && tr)) {
+                    this.next[oneDValue] = { state: 1, changed: true };
+                    changed = true;
+                    this.incrementChanges(x, y);
+                }
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+let scene = bigFractal;
