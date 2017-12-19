@@ -13,3 +13,8 @@ ffmpeg -f image2 -framerate 2 -i ./frames/scene002c/game-of-life-%05d.png -c:v l
 ffmpeg -f image2 -framerate 4 -i ./frames/scene002c/game-of-life-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest ./video-renders/game-of-life-scene002c-4fps.mp4
 ffmpeg -f image2 -framerate 4 -i ./frames/scene002d/game-of-life-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest ./video-renders/game-of-life-scene002d-4fps.mp4
 ffmpeg -f image2 -framerate 24 -i ./frames/scene002d-tests/game-of-life-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest ./video-renders/game-of-life-scene002d-tests-4fps.mp4
+ffmpeg -f image2 -framerate 4 -i ./frames/newFractalExperiment/game-of-life-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest ./video-renders/newFractalExperiment-4fps.mp4
+ffmpeg -f image2 -framerate 8 -i ./frames/newFractalExperiment/game-of-life-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest ./video-renders/newFractalExperiment-8fps.mp4
+ffmpeg -f image2 -framerate 12 -i ./frames/newFractalExperiment/game-of-life-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest ./video-renders/newFractalExperiment-12fps.mp4
+
+ffmpeg -f image2 -framerate 4 -i ./frames/scene002d/game-of-life-%05d.png -filter colorlevels=rimax=0.8:gimax=0.8:bimax=0.8 -c:v libx264 -s 2560x1440 -pix_fmt yuv420p ./video-renders/game-of-life-scene002d-4fps-levels.mp4
