@@ -159,6 +159,26 @@ function keyPressed() {
     if (key == 'h' || key == 'H') {
         scene.palette = seedPalette();
     }
+    if (key == 'g' || key == 'G') {
+        scene.palette = seedPalette();
+        for (var x = 0; x < scene.gridXAmount; x++) {
+            for (var y = 0; y < scene.gridYAmount; y++) {
+                var oneDValue = x + (y * scene.gridXAmount);
+                var value = scene.grid[oneDValue].state;
+                var change = scene.changes[oneDValue];
+                if (change !== 0) {
+                    var light = setLight(change, scene.palette.data);
+                    if (value) {
+                        fill(light);
+                    } else {
+                        fill(0);
+                    }
+                    var tW = scene.tileWidth;
+                    rect(x * tW, y * tW, tW, tW);
+                }
+            }
+        }
+    }
     if (key == 'm' || key == 'M') {
         redraw();
     }
