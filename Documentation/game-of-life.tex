@@ -93,4 +93,5 @@ if (boxToPrint >= grid.length - 1 && exporting == true) {
 En fait, tout ce que j'ai besoin de faire c'est d'encapsuler le \textit{flot dessinateur} dans un système de scènes. Ces scènes doivent pouvoir avoir des vitesses différentes.
 
 \newpage
-\section{La classe \lstinline|scene|}
+\section{Un système plus élégant et fonctionnel}
+Présentement, je définis une scène ainsi : la quantité de colonnes de la grille est un multiple de 16, et la quantité de rangées de la grille est un multiple de 9. Ces deux valeurs sont multipliées par la propriété \lstinline|gridScalar| d'une instance de \lstinline|Scene|. Dans un système idéal, je devrais pouvoir définir une grille de n'importe quelle taille, définir un \lstinline|xOffset|, un \lstinline|yOffset| et un \lstinline|gridScalar| et ensuite afficher un sous-ensemble de la grille. Et ce sous-ensemble aurait des dimensions dans le format 16 : 9.

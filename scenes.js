@@ -921,4 +921,54 @@ newFractalExperiment5.updateGrid = function() {
     }
     this.currentState++;
 };
-let scene = bigFractal;
+
+let hugeFractal = new Scene({
+    fileName: "./frames/scene002d/game-of-life",
+    gridScalar: 8,
+    offset: { x: 50, y: 50 },
+    fixedGridSize: { width: 1000, height: 1000 },
+    paletteName: "red-blue-pink",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 64,
+    maxFrames: 40
+});
+
+hugeFractal.applyShapes = function() {
+    this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    // this.setGridValue(51, 51, 1);
+
+};
+
+hugeFractal.updateGrid = function() {
+    console.log("Updating the grid!");
+    for (var x = 0; x < this.fixedGridSize.width; x++) {
+        for (var y = 0; y < this.fixedGridSize.height; y++) {
+            var oneDValue = x + (y * this.gridXAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            let changed = false;
+            if (value == 1) {
+                if (neighbors >= 3 || neighbors <= 2) {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    changed = true;
+                    this.incrementChanges(x, y);
+                }
+            } else {
+                if (neighbors == 3 || neighbors == 1) {
+                    this.next[oneDValue] = { state: 1, changed: true };
+                    changed = true;
+                    this.incrementChanges(x, y);
+                }
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+let scene = hugeFractal;

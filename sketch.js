@@ -49,7 +49,9 @@ function draw() {
             scene.update();
             for (var x = 0; x < scene.gridXAmount; x++) {
                 for (var y = 0; y < scene.gridYAmount; y++) {
-                    var oneDValue = x + (y * scene.gridXAmount);
+                    var oneDValue = (x + scene.offset.x) + ((y + scene.offset.y) * scene.gridXAmount);
+                    // console.log(oneDValue);
+
                     var value = scene.grid[oneDValue].state;
                     if (scene.grid[oneDValue].changed) {
                         var change = scene.changes[oneDValue];

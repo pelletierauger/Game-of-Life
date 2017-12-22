@@ -17,6 +17,8 @@ class Scene {
             this.dotPerTile *= (Math.pow(input.zoom, 2));
         }
         this.grid = [];
+        this.offset = input.offset || { x: 0, y: 0 };
+        this.fixedGridSize = input.fixedGridSize ||  null;
         this.next = [];
         this.changes = [];
         this.currentState = 0;
@@ -38,16 +40,30 @@ class Scene {
                 this.next.push({ state: 0, changed: false });
             }
         } else {
-            this.gridXAmount = 16 * this.gridScalar;
-            this.gridYAmount = 9 * this.gridScalar;
-            this.tileWidth = width / this.gridXAmount - 1 / this.gridXAmount;
-            // Fill the grid with 0 values and the changes array with 0 values.
-            for (var i = 0; i < this.gridXAmount * this.gridYAmount; i++) {
-                this.grid.push({ state: 0, changed: true });
-                this.changes.push(0);
-                // This is only there for some experimental, inconclusive scenes.
-                this.next.push({ state: 0, changed: false });
+            if (this.fixedGridSize) {
+                this.gridXAmount = 16 * this.gridScalar;
+                this.gridYAmount = 9 * this.gridScalar;
+                this.tileWidth = width / this.gridXAmount - 1 / this.gridXAmount;
+                // Fill the grid with 0 values and the changes array with 0 values.
+                for (var i = 0; i < this.fixedGridSize.width * this.fixedGridSize.height; i++) {
+                    this.grid.push({ state: 0, changed: true });
+                    this.changes.push(0);
+                    // This is only there for some experimental, inconclusive scenes.
+                    this.next.push({ state: 0, changed: false });
+                }
+            } else {
+                this.gridXAmount = 16 * this.gridScalar;
+                this.gridYAmount = 9 * this.gridScalar;
+                this.tileWidth = width / this.gridXAmount - 1 / this.gridXAmount;
+                // Fill the grid with 0 values and the changes array with 0 values.
+                for (var i = 0; i < this.gridXAmount * this.gridYAmount; i++) {
+                    this.grid.push({ state: 0, changed: true });
+                    this.changes.push(0);
+                    // This is only there for some experimental, inconclusive scenes.
+                    this.next.push({ state: 0, changed: false });
+                }
             }
+
         }
 
         // initialize() is only called when the palettes are loaded,
