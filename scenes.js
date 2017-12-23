@@ -923,28 +923,31 @@ newFractalExperiment5.updateGrid = function() {
 };
 
 let hugeFractal = new Scene({
-    fileName: "./frames/scene002d/game-of-life",
+    fileName: "./frames/huge-fractal/huge-fractal",
     gridScalar: 8,
-    offset: { x: 50, y: 50 },
+    offset: { x: 500, y: 500 },
     fixedGridSize: { width: 1000, height: 1000 },
     paletteName: "red-blue-pink",
     speedModulo: 1,
     zoom: 1,
-    dotPerTile: 3500 / 64,
-    maxFrames: 40
+    dotPerTile: 3500 / 4,
+    maxSteps: 129
 });
 
 hugeFractal.applyShapes = function() {
-    this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
-    // this.setGridValue(51, 51, 1);
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    this.setGridValue(500 + (this.gridXAmount / 2), 500 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(501, 501, 1);
 
 };
 
 hugeFractal.updateGrid = function() {
-    console.log("Updating the grid!");
-    for (var x = 0; x < this.fixedGridSize.width; x++) {
-        for (var y = 0; y < this.fixedGridSize.height; y++) {
-            var oneDValue = x + (y * this.gridXAmount);
+    // console.log("Updating the grid!");
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
             var value = this.grid[oneDValue].state;
             var neighbors = this.calculateNeighbors(x, y);
             let changed = false;
@@ -971,4 +974,35 @@ hugeFractal.updateGrid = function() {
     }
     this.currentState++;
 };
-let scene = hugeFractal;
+
+let biggestFractal = new Scene({
+    fileName: "./frames/biggest-fractal/biggest-fractal",
+    gridScalar: 16,
+    offset: { x: 500, y: 500 },
+    fixedGridSize: { width: 1000, height: 1000 },
+    paletteName: "red-blue-pink",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxFrames: 40
+});
+
+biggestFractal.applyShapes = hugeFractal.applyShapes;
+biggestFractal.updateGrid = hugeFractal.updateGrid;
+
+let ultimateFractal = new Scene({
+    fileName: "./frames/ultimate-fractal-2/ultimate-fractal",
+    gridScalar: 32,
+    offset: { x: 500, y: 500 },
+    fixedGridSize: { width: 1000, height: 1000 },
+    paletteName: "red-blue-pink",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 64,
+    maxFrames: 40
+});
+
+ultimateFractal.applyShapes = hugeFractal.applyShapes;
+ultimateFractal.updateGrid = hugeFractal.updateGrid;
+
+let scene = ultimateFractal;
