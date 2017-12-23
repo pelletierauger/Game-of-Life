@@ -18,3 +18,26 @@ ffmpeg -f image2 -framerate 8 -i ./frames/newFractalExperiment/game-of-life-%05d
 ffmpeg -f image2 -framerate 12 -i ./frames/newFractalExperiment/game-of-life-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest ./video-renders/newFractalExperiment-12fps.mp4
 
 ffmpeg -f image2 -framerate 4 -i ./frames/scene002d/game-of-life-%05d.png -filter colorlevels=rimax=0.8:gimax=0.8:bimax=0.8 -c:v libx264 -s 2560x1440 -pix_fmt yuv420p ./video-renders/game-of-life-scene002d-4fps-levels.mp4
+
+ffmpeg -f image2 -framerate 8 -i ./frames/huge-fractal/huge-fractal-%05d.png -filter colorlevels=rimax=0.8:gimax=0.8:bimax=0.8 -c:v libx264 -s 2560x1440 -pix_fmt yuv420p ./video-renders/huge-fractal-8fps-levels.mp4
+
+ffmpeg -f image2 -framerate 12 -i ./frames/huge-fractal/huge-fractal-%05d.png -filter colorlevels=rimax=0.8:gimax=0.8:bimax=0.8 -c:v libx264 -s 2560x1440 -pix_fmt yuv420p ./video-renders/huge-fractal-12fps-levels.mp4
+
+//This works
+ffmpeg -f concat -safe 0 -r 8 -i input.txt -filter colorlevels=rimax=0.8:gimax=0.8:bimax=0.8 -c:v libx264 -s 2560x1440 -pix_fmt yuv420p ./video-renders/concat-fractals-8fps-levels.mp4
+
+ffmpeg -f concat -safe 0 -r 8 -i ffmpeg-input.txt -filter colorlevels=rimax=0.8:gimax=0.8:bimax=0.8 -c:v libx264 -s 2560x1440 -pix_fmt yuv420p ./video-renders/concat-fractals-8fps-levels.mp4
+
+ffmpeg -f concat -safe 0 -r 12 -i ffmpeg-input.txt -filter colorlevels=rimax=0.8:gimax=0.8:bimax=0.8 -c:v libx264 -s 2560x1440 -pix_fmt yuv420p ./video-renders/concat-fractals-12fps-levels.mp4
+
+ffmpeg -f concat -safe 0 -r 12 -i input-order.txt -filter colorlevels=rimax=0.8:gimax=0.8:bimax=0.8 -c:v libx264 -s 2560x1440 -pix_fmt yuv420p ./video-renders/concat-fractals-12fps-levels.mp4
+
+ffmpeg -f concat -safe 0 -r 12 -i './frames/huge-fractal/huge-fractal-[00001-00064].png', './frames/biggest-fractal/biggest-fractal-[00065-00128].png' -filter colorlevels=rimax=0.8:gimax=0.8:bimax=0.8 -c:v libx264 -s 2560x1440 -pix_fmt yuv420p ./video-renders/concat-fractals-12fps-levels.mp4
+
+//This works
+ffmpeg -f concat -safe 0 -r 8 -i ffmpeg-input.txt -filter colorlevels=rimax=0.8:gimax=0.8:bimax=0.8 -c:v libx264 -s 2560x1440 -pix_fmt yuv420p ./video-renders/concat-fractals-8fps-levels.mp4
+
+ffmpeg -f concat -safe 0 -r 4 -i ffmpeg-input.txt -filter colorlevels=rimax=0.8:gimax=0.8:bimax=0.8 -c:v libx264 -s 2560x1440 -pix_fmt yuv420p ./video-renders/concat-fractals-4fps-levels.mp4
+
+
+ffmpeg -f concat -safe 0 -r 8 -i ffmpeg-input2.txt -filter colorlevels=rimax=0.8:gimax=0.8:bimax=0.8 -c:v libx264 -s 2560x1440 -pix_fmt yuv420p ./video-renders/concat-fractals-8fps-levels.mp4
