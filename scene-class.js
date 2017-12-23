@@ -97,9 +97,11 @@ class Scene {
         }
     }
     updateGrid() {
-        for (var x = 0; x < this.gridXAmount; x++) {
-            for (var y = 0; y < this.gridYAmount; y++) {
-                var oneDValue = x + (y * this.gridXAmount);
+        let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+        let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+        for (var x = 0; x < xAmount; x++) {
+            for (var y = 0; y < yAmount; y++) {
+                var oneDValue = x + (y * xAmount);
                 var value = this.grid[oneDValue].state;
                 var neighbors = this.calculateNeighbors(x, y);
                 let changed = false;
@@ -159,30 +161,35 @@ class Scene {
         return sum;
     }
     getGridValue(x, y) {
-        var oneDValue = x + (y * this.gridXAmount);
+        let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+        var oneDValue = x + (y * xAmount);
         return this.grid[oneDValue] ? this.grid[oneDValue].state : 0;
     }
     setGridValue(x, y, newState) {
-        var oneDValue = x + (y * this.gridXAmount);
+        let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+        var oneDValue = x + (y * xAmount);
         if (this.grid[oneDValue]) {
             this.grid[oneDValue].state = newState;
             this.grid[oneDValue].changed = true;
         }
     }
     setNextValue(x, y, newState) {
-        var oneDValue = x + (y * this.gridXAmount);
+        let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+        var oneDValue = x + (y * xAmount);
         if (this.next[oneDValue]) {
             this.next[oneDValue] = newState;
         }
     }
     setGridSeedValue(x, y, newState) {
-        var oneDValue = x + (y * this.gridXAmount);
+        let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+        var oneDValue = x + (y * xAmount);
         if (this.gridSeed[oneDValue] !== null) {
             this.gridSeed[oneDValue] = newState;
         }
     }
     incrementChanges(x, y) {
-        var oneDValue = x + (y * this.gridXAmount);
+        let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+        var oneDValue = x + (y * xAmount);
         if (this.changes[oneDValue] !== null) {
             this.changes[oneDValue]++;
         }

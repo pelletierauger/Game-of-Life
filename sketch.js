@@ -1,5 +1,5 @@
-let looping = false;
-let printing = false;
+let looping = true;
+let printing = true;
 let socket, cnvs, ctx, canvasDOM;
 let JSONs;
 let frameToExport = 1;
@@ -25,9 +25,7 @@ function setup() {
 
     // setGridValue(gridXAmount / 2, gridYAmount / 2, 1);
     // setGridValue((gridXAmount / 2) + 0, (gridYAmount / 2) + 1, 1);
-    // x = 0
-    // y = gridYAmount / 2;
-    // for (let i = 0; i < gridXAmount; i++) {
+    // x = 0// y = gridYAmount / 2;// for (let i = 0; i < gridXAmount; i++) {
     //     x = i;
     //     setGridValue(x, y, 1);
     // }
@@ -47,17 +45,18 @@ function draw() {
         }
         if (!printing) {
             scene.update();
-            for (var x = 0; x < scene.gridXAmount; x++) {
-                for (var y = 0; y < scene.gridYAmount; y++) {
-                    var oneDValue = (x + scene.offset.x) + ((y + scene.offset.y) * scene.gridXAmount);
+            let xAmount = (scene.fixedGridSize) ? scene.fixedGridSize.width : scene.gridXAmount;
+            for (let x = 0; x < scene.gridXAmount; x++) {
+                for (let y = 0; y < scene.gridYAmount; y++) {
+                    let oneDValue = (x + scene.offset.x) + ((y + scene.offset.y) * xAmount);
                     // console.log(oneDValue);
-
                     var value = scene.grid[oneDValue].state;
                     if (scene.grid[oneDValue].changed) {
                         var change = scene.changes[oneDValue];
                         var light = setLight(change, scene.palette.data);
                         if (value) {
                             fill(light);
+                            // console.log(`oneDValue : ${oneDValue}, x: ${x}, y: ${y}.`);
                         } else {
                             fill(0);
                         }
@@ -67,52 +66,110 @@ function draw() {
                 }
             }
         } else {
-            for (let i = 0; i < 3; i++) {
-                if (!printedBackground) {
-                    background(0);
-                    printedBackground = true;
-                }
-                let y = floor(boxToPrint / scene.gridXAmount);
-                let x = boxToPrint - (y * scene.gridXAmount);
-                if (scene.grid[boxToPrint]) {
-                    if (scene.grid[boxToPrint].state == 1) {
-                        let change = scene.changes[boxToPrint];
-                        let color = setLight(change, scene.palette.data);
-                        fill(red(color), green(color), blue(color), 55);
-                        let tW = scene.tileWidth;
-                        for (let i = 0; i < scene.dotPerTile; i++) {
-                            var randomX = random(x * tW, (x + 1) * tW);
-                            var randomY = random(y * tW, (y + 1) * tW);
-                            if (scene.zoom) {
-                                ellipse(randomX, randomY, 1.25 * zoomReciprocal);
-                            } else {
-                                ellipse(randomX, randomY, 1.25);
-                            }
+            if (scene.fixedGridSize) {
+                for (let i = 0; i < 3 * (scene.gridScalar / 16); i++) {
+                    if (!printedBackground) {
+                        background(0);
+                        printedBackground = true;
+                    }
+                    let printingArray = [];
+                    let printingChanges = [];
+                    for (let y = 0; y < scene.gridYAmount; y++) {
+                        for (let x = 0; x < scene.gridXAmount; x++) {
+                            let oneDValue = (x + scene.offset.x) + ((y + scene.offset.y) * scene.fixedGridSize.width);
+                            printingArray.push(scene.grid[oneDValue]);
+                            printingChanges.push(scene.changes[oneDValue]);
+                        }
+                    }
+                    // console.log(printingArray);
+                    let y = floor(boxToPrint / scene.gridXAmount);
+                    let x = boxToPrint - (y * scene.gridXAmount);
 
+                    // what should this do?
+                    if (printingArray[boxToPrint]) {
+                        if (printingArray[boxToPrint].state == 1) {
+                            // console.log(`x: ${x}, y: ${y}, boxToPrint: ${boxToPrint}`);
+                            let change = printingChanges[boxToPrint];
+                            let color = setLight(change, scene.palette.data);
+                            fill(red(color), green(color), blue(color), 55);
+                            let tW = scene.tileWidth;
+                            for (let i = 0; i < scene.dotPerTile; i++) {
+                                var randomX = random(x * tW, (x + 1) * tW);
+                                var randomY = random(y * tW, (y + 1) * tW);
+                                if (scene.zoom) {
+                                    ellipse(randomX, randomY, 1.25 * zoomReciprocal);
+                                } else {
+                                    ellipse(randomX, randomY, 1.25);
+                                }
+
+                            }
                         }
                     }
-                }
-                if (scene.grid[boxToPrint]) {
-                    if (scene.grid[boxToPrint].state == 1) {
-                        boxToPrint++;
-                    } else {
-                        while (scene.grid[boxToPrint].state == 0 && boxToPrint < scene.grid.length - 1) {
+                    if (printingArray[boxToPrint]) {
+                        if (printingArray[boxToPrint].state == 1) {
                             boxToPrint++;
+                        } else {
+                            while (printingArray[boxToPrint].state == 0 && boxToPrint < printingArray.length - 1) {
+                                boxToPrint++;
+                            }
                         }
                     }
+                    if (boxToPrint >= printingArray.length - 1 && exporting == true) {
+                        console.log(`Frame ${frameToExport} is done printing.`);
+                        boxToPrint = 0;
+                        frameExport(frameToExport);
+                        frameToExport++;
+                        scene.update();
+                        printedBackground = false;
+                    }
                 }
-                if (boxToPrint >= scene.grid.length - 1 && exporting == true) {
-                    console.log(`Frame ${frameToExport} is done printing.`);
-                    boxToPrint = 0;
-                    frameExport(frameToExport);
-                    frameToExport++;
-                    scene.update();
-                    printedBackground = false;
+            } else {
+                for (let i = 0; i < 3; i++) {
+                    if (!printedBackground) {
+                        background(0);
+                        printedBackground = true;
+                    }
+                    let y = floor(boxToPrint / scene.gridXAmount);
+                    let x = boxToPrint - (y * scene.gridXAmount);
+                    if (scene.grid[boxToPrint]) {
+                        if (scene.grid[boxToPrint].state == 1) {
+                            let change = scene.changes[boxToPrint];
+                            let color = setLight(change, scene.palette.data);
+                            fill(red(color), green(color), blue(color), 55);
+                            let tW = scene.tileWidth;
+                            for (let i = 0; i < scene.dotPerTile; i++) {
+                                var randomX = random(x * tW, (x + 1) * tW);
+                                var randomY = random(y * tW, (y + 1) * tW);
+                                if (scene.zoom) {
+                                    ellipse(randomX, randomY, 1.25 * zoomReciprocal);
+                                } else {
+                                    ellipse(randomX, randomY, 1.25);
+                                }
+
+                            }
+                        }
+                    }
+                    if (scene.grid[boxToPrint]) {
+                        if (scene.grid[boxToPrint].state == 1) {
+                            boxToPrint++;
+                        } else {
+                            while (scene.grid[boxToPrint].state == 0 && boxToPrint < scene.grid.length - 1) {
+                                boxToPrint++;
+                            }
+                        }
+                    }
+                    if (boxToPrint >= scene.grid.length - 1 && exporting == true) {
+                        console.log(`Frame ${frameToExport} is done printing.`);
+                        boxToPrint = 0;
+                        frameExport(frameToExport);
+                        frameToExport++;
+                        scene.update();
+                        printedBackground = false;
+                    }
                 }
             }
-
-
         }
+
         if (!printing) {
             noStroke();
         }
@@ -165,7 +222,12 @@ function keyPressed() {
         scene.palette = seedPalette();
         for (var x = 0; x < scene.gridXAmount; x++) {
             for (var y = 0; y < scene.gridYAmount; y++) {
-                var oneDValue = x + (y * scene.gridXAmount);
+                let oneDValue;
+                if (scene.fixedGridSize) {
+                    oneDValue = (x + scene.offset.x) + ((y + scene.offset.y) * scene.fixedGridSize.width);
+                } else {
+                    oneDValue = x + (y * scene.gridXAmount);
+                }
                 var value = scene.grid[oneDValue].state;
                 var change = scene.changes[oneDValue];
                 if (change !== 0) {
