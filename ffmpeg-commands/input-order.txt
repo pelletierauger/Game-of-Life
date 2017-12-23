@@ -1,0 +1,2 @@
+file './frames/huge-fractal/huge-fractal-[00001-00064].png'
+file './frames/biggest-fractal/biggest-fractal-[00065-00128].png'
