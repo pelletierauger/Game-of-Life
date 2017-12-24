@@ -220,4 +220,26 @@ class Scene {
             console.log(`gridSeed ${gridSeedName} not found`);
         }
     }
+    applyPalette() {
+        for (var x = 0; x < this.gridXAmount; x++) {
+            for (var y = 0; y < this.gridYAmount; y++) {
+                let oneDValue;
+                if (this.fixedGridSize) {
+                    oneDValue = (x + this.offset.x) + ((y + this.offset.y) * this.fixedGridSize.width);
+                } else {
+                    oneDValue = x + (y * this.gridXAmount);
+                }
+                var value = this.grid[oneDValue].state;
+                var change = this.changes[oneDValue];
+                if (change !== 0) {
+                    if (value) {
+                        var light = setLight(change, this.palette.data);
+                        fill(light);
+                        var tW = this.tileWidth;
+                        rect(x * tW, y * tW, tW, tW);
+                    }
+                }
+            }
+        }
+    }
 }

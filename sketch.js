@@ -213,56 +213,21 @@ function keyPressed() {
     if (key == 'h' || key == 'H') {
         scene.palette = seedPalette();
     }
+    if (key == 'd' || key == 'D') {
+        scene.applyPalette();
+    }
     if (key == 'f' || key == 'F') {
         let i = floor(random(JSONs.length));
         while (JSONs[i].name[0] !== "p") {
             i = floor(random(JSONs.length));
         }
         scene.palette = JSONs[i];
-        for (var x = 0; x < scene.gridXAmount; x++) {
-            for (var y = 0; y < scene.gridYAmount; y++) {
-                let oneDValue;
-                if (scene.fixedGridSize) {
-                    oneDValue = (x + scene.offset.x) + ((y + scene.offset.y) * scene.fixedGridSize.width);
-                } else {
-                    oneDValue = x + (y * scene.gridXAmount);
-                }
-                var value = scene.grid[oneDValue].state;
-                var change = scene.changes[oneDValue];
-                if (change !== 0) {
-                    if (value) {
-                        var light = setLight(change, scene.palette.data);
-                        fill(light);
-                        var tW = scene.tileWidth;
-                        rect(x * tW, y * tW, tW, tW);
-                    }
-                }
-            }
-        }
+        scene.applyPalette();
     }
 
     if (key == 'g' || key == 'G') {
         scene.palette = seedPalette();
-        for (var x = 0; x < scene.gridXAmount; x++) {
-            for (var y = 0; y < scene.gridYAmount; y++) {
-                let oneDValue;
-                if (scene.fixedGridSize) {
-                    oneDValue = (x + scene.offset.x) + ((y + scene.offset.y) * scene.fixedGridSize.width);
-                } else {
-                    oneDValue = x + (y * scene.gridXAmount);
-                }
-                var value = scene.grid[oneDValue].state;
-                var change = scene.changes[oneDValue];
-                if (change !== 0) {
-                    if (value) {
-                        var light = setLight(change, scene.palette.data);
-                        fill(light);
-                        var tW = scene.tileWidth;
-                        rect(x * tW, y * tW, tW, tW);
-                    }
-                }
-            }
-        }
+        scene.applyPalette();
     }
     if (key == 'm' || key == 'M') {
         redraw();
