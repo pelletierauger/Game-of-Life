@@ -230,14 +230,12 @@ function keyPressed() {
                 var value = scene.grid[oneDValue].state;
                 var change = scene.changes[oneDValue];
                 if (change !== 0) {
-                    var light = setLight(change, scene.palette.data);
                     if (value) {
+                        var light = setLight(change, scene.palette.data);
                         fill(light);
-                    } else {
-                        fill(0);
+                        var tW = scene.tileWidth;
+                        rect(x * tW, y * tW, tW, tW);
                     }
-                    var tW = scene.tileWidth;
-                    rect(x * tW, y * tW, tW, tW);
                 }
             }
         }
@@ -256,14 +254,12 @@ function keyPressed() {
                 var value = scene.grid[oneDValue].state;
                 var change = scene.changes[oneDValue];
                 if (change !== 0) {
-                    var light = setLight(change, scene.palette.data);
                     if (value) {
+                        var light = setLight(change, scene.palette.data);
                         fill(light);
-                    } else {
-                        fill(0);
+                        var tW = scene.tileWidth;
+                        rect(x * tW, y * tW, tW, tW);
                     }
-                    var tW = scene.tileWidth;
-                    rect(x * tW, y * tW, tW, tW);
                 }
             }
         }
