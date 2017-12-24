@@ -1186,4 +1186,45 @@ beforeTheRiverFractal4.applyShapes = function() {
 };
 beforeTheRiverFractal4.updateGrid = hugeFractal.updateGrid;
 
-let scene = beforeTheRiverFractal2;
+//----Before the River-5--//
+
+let beforeTheRiverFractal5 = new Scene({
+    fileName: "./frames/huge-fractal/huge-fractal",
+    gridScalar: 16,
+    offset: { x: 500, y: 500 },
+    fixedGridSize: { width: 1000, height: 1000 },
+    paletteName: "palette-sun-dec-24-2017-003950",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+beforeTheRiverFractal5.applyShapes = function() {
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    // this.setGridValue(500 + (this.gridXAmount / 2), 500 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(501, 501, 1);
+    let xSections = 3;
+    let ySections = 3;
+    let xOffset = 40;
+    let yOffset = 20;
+    let xSize = (this.gridXAmount - (xOffset * 2)) / (xSections - 1);
+    let ySize = (this.gridYAmount - (yOffset * 2)) / (ySections - 1);
+    // console.log(`xSize : ${xSize}, ySize: ${ySize}`);
+    let x = xOffset + this.offset.x;
+    let y = yOffset + this.offset.y;
+    // this.setGridValue(x, y, 1);
+    for (let i = 0; i < xSections; i++) {
+        for (let j = 0; j < ySections; j++) {
+            this.setGridValue(Math.floor(x), Math.floor(y), 1);
+            y += ySize;
+
+        }
+        x += xSize;
+        y = yOffset + this.offset.y;
+    }
+
+};
+beforeTheRiverFractal5.updateGrid = hugeFractal.updateGrid;
+
+let scene = hugeFractal;
