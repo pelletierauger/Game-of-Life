@@ -44,4 +44,4 @@ ffmpeg -f concat -safe 0 -r 8 -i ffmpeg-input2.txt -filter colorlevels=rimax=0.8
 
 ffmpeg -f concat -safe 0 -r 4 -i ffmpeg-input4.txt -filter colorlevels=rimax=0.8:gimax=0.8:bimax=0.8 -c:v libx264 -s 2560x1440 -pix_fmt yuv420p ./video-renders/concat-fractals-4fps-levels.mp4
 
-ffmpeg -f concat -safe 0 -r 8 -i ./ffmpeg-input/ffmpeg-input4.txt -filter colorlevels=rimax=0.8:gimax=0.8:bimax=0.8 -c:v libx264 -s 2560x1440 -pix_fmt yuv420p ./video-renders/concat-fractals-8fps-levels.mp4
+ffmpeg -f concat -safe 0 -r 8 -i ./ffmpeg-commands/ffmpeg-input4.txt -filter colorlevels=rimax=0.8:gimax=0.8:bimax=0.8 -c:v libx264 -s 2560x1440 -pix_fmt yuv420p ./video-renders/concat-fractals-8fps-levels.mp4
