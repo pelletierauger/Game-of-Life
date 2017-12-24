@@ -395,10 +395,10 @@ gridUponGrid.updateGrid = bigFractal.updateGrid;
 //----
 
 let gridUponGrid2 = new Scene({
-    fileName: "./frames/scene002d/game-of-life",
+    fileName: "./frames/grid-upon-grid-2/game-of-life",
     gridScalar: 8,
     paletteName: "palette-mon-dec-18-2017-023411",
-    speedModulo: 3,
+    speedModulo: 1,
     zoom: 1,
     dotPerTile: 3500 / 4,
     maxFrames: 40
@@ -1005,4 +1005,21 @@ let ultimateFractal = new Scene({
 ultimateFractal.applyShapes = hugeFractal.applyShapes;
 ultimateFractal.updateGrid = hugeFractal.updateGrid;
 
-let scene = ultimateFractal;
+let moreUltimateFractal = new Scene({
+    fileName: "./frames/ultimate-fractal-2/ultimate-fractal",
+    gridScalar: 64,
+    offset: { x: 1000, y: 1000 },
+    fixedGridSize: { width: 2000, height: 2000 },
+    paletteName: "red-blue-pink",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 256,
+    maxFrames: 40
+});
+
+moreUltimateFractal.applyShapes = function() {
+    this.setGridValue(1000 + (this.gridXAmount / 2), 1000 + (this.gridYAmount / 2), 1);
+};
+moreUltimateFractal.updateGrid = hugeFractal.updateGrid;
+
+let scene = hugeFractal;
