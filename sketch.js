@@ -1,9 +1,10 @@
-let looping = true;
-let printing = true;
+let looping = false;
+let printing = false;
 let socket, cnvs, ctx, canvasDOM;
 let JSONs;
 let frameToExport = 1;
 let printedBackground = false;
+let drawnGrid = false;
 let boxToPrint = 0;
 
 function setup() {
@@ -16,7 +17,8 @@ function setup() {
     if (printing) {
         noStroke();
     } else {
-        stroke(255, 20);
+        // stroke(255, 20);
+        noStroke();
     }
     socket.on('pushJSONs', function(data) {
         JSONs = data;
@@ -44,6 +46,19 @@ function draw() {
             translate(((width * z) - width) / (z * -2), ((height * z) - height) / (z * -2));
         }
         if (!printing) {
+            if (!drawnGrid) {
+                stroke(255, 50);
+                strokeWeight(0.5);
+                var tW = scene.tileWidth;
+                for (let x = 0; x < scene.gridXAmount; x++) {
+                    line(tW * x, 0, tW * x, height);
+                }
+                for (let y = 0; y < scene.gridYAmount; y++) {
+                    line(0, tW * y, width, tW * y);
+                }
+                noStroke();
+                drawnGrid = true;
+            }
             scene.update();
             let xAmount = (scene.fixedGridSize) ? scene.fixedGridSize.width : scene.gridXAmount;
             for (let x = 0; x < scene.gridXAmount; x++) {
@@ -218,6 +233,38 @@ function keyPressed() {
     if (key == 'h' || key == 'H') {
         scene.palette = seedPalette();
     }
+    if (key == 'f' || key == 'F') {
+        // scene.palette = seedPalette();
+        let i = floor(random(JSONs.length));
+        while (JSONs[i].name[0] !== "p") {
+            i = floor(random(JSONs.length));
+        }
+        console.log(JSONs[i]);
+        scene.palette = JSONs[i];
+        for (var x = 0; x < scene.gridXAmount; x++) {
+            for (var y = 0; y < scene.gridYAmount; y++) {
+                let oneDValue;
+                if (scene.fixedGridSize) {
+                    oneDValue = (x + scene.offset.x) + ((y + scene.offset.y) * scene.fixedGridSize.width);
+                } else {
+                    oneDValue = x + (y * scene.gridXAmount);
+                }
+                var value = scene.grid[oneDValue].state;
+                var change = scene.changes[oneDValue];
+                if (change !== 0) {
+                    var light = setLight(change, scene.palette.data);
+                    if (value) {
+                        fill(light);
+                    } else {
+                        fill(0);
+                    }
+                    var tW = scene.tileWidth;
+                    rect(x * tW, y * tW, tW, tW);
+                }
+            }
+        }
+    }
+
     if (key == 'g' || key == 'G') {
         scene.palette = seedPalette();
         for (var x = 0; x < scene.gridXAmount; x++) {
@@ -253,8 +300,10 @@ function mousePressed() {
     if (!exporting && !printing) {
         var x = floor(map(mouseX, 0, width, 0, scene.gridXAmount));
         var y = floor(map(mouseY, 0, height, 0, scene.gridYAmount));
-        scene.setGridValue(x, y, 1);
-        scene.setGridSeedValue(x, y, 1);
+        let oX = scene.offset.x;
+        let oY = scene.offset.y;
+        scene.setGridValue(x + oX, y + oY, 1);
+        scene.setGridSeedValue(x + oX, y + oY, 1);
         fill(255);
         let tW = scene.tileWidth;
         rect(x * tW, y * tW, tW, tW);
@@ -266,8 +315,10 @@ function mouseDragged() {
     if (!exporting && !printing) {
         var x = floor(map(mouseX, 0, width, 0, scene.gridXAmount));
         var y = floor(map(mouseY, 0, height, 0, scene.gridYAmount));
-        scene.setGridValue(x, y, 1);
-        scene.setGridSeedValue(x, y, 1);
+        let oX = scene.offset.x;
+        let oY = scene.offset.y;
+        scene.setGridValue(x + oX, y + oY, 1);
+        scene.setGridSeedValue(x + oX, y + oY, 1);
         fill(255);
         let tW = scene.tileWidth;
         rect(x * tW, y * tW, tW, tW);
