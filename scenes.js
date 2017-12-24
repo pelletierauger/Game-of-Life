@@ -1227,4 +1227,430 @@ beforeTheRiverFractal5.applyShapes = function() {
 };
 beforeTheRiverFractal5.updateGrid = hugeFractal.updateGrid;
 
-let scene = hugeFractal;
+//-----//
+let beforeTheRiverFractal6 = new Scene({
+    fileName: "./frames/huge-fractal/huge-fractal",
+    gridScalar: 8,
+    offset: { x: 500, y: 500 },
+    fixedGridSize: { width: 1000, height: 1000 },
+    paletteName: "red-blue-pink",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 4,
+    maxSteps: 129
+});
+
+beforeTheRiverFractal6.applyShapes = function() {
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    this.setGridValue(500 + (this.gridXAmount / 2), 500 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(501, 501, 1);
+
+};
+
+beforeTheRiverFractal6.updateGrid = function() {
+    // console.log("Updating the grid!");
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            let changed = false;
+            if (value == 1) {
+                if (neighbors >= 8 || neighbors <= 6) {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    changed = true;
+                    this.incrementChanges(x, y);
+                }
+            } else {
+                if (neighbors <= 4 && neighbors > 0) {
+                    this.next[oneDValue] = { state: 1, changed: true };
+                    changed = true;
+                    this.incrementChanges(x, y);
+                }
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+beforeTheRiverFractal6.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+
+
+//-----//
+let beforeTheRiverFractal7 = new Scene({
+    fileName: "./frames/huge-fractal/huge-fractal",
+    gridScalar: 16,
+    offset: { x: 500, y: 500 },
+    fixedGridSize: { width: 1000, height: 1000 },
+    paletteName: "red-blue-pink",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+beforeTheRiverFractal7.applyShapes = function() {
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    this.setGridValue(500 + (this.gridXAmount / 2), 500 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(501, 501, 1);
+
+};
+
+beforeTheRiverFractal7.updateGrid = function() {
+    // console.log("Updating the grid!");
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            let changed = false;
+            if (value == 1) {
+                if (neighbors == 7) {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    this.changes[oneDValue] = this.currentState;
+                    changed = true;
+                    // this.incrementChanges(x, y);
+                }
+            } else {
+                if (neighbors <= 1 && neighbors > 0) {
+                    this.next[oneDValue] = { state: 1, changed: true };
+                    this.changes[oneDValue] = this.currentState;
+                    changed = true;
+                    // this.incrementChanges(x, y);
+                }
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+beforeTheRiverFractal7.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+beforeTheRiverFractal7.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+
+//-----//
+let beforeTheRiverFractal8 = new Scene({
+    fileName: "./frames/huge-fractal/huge-fractal",
+    gridScalar: 16,
+    offset: { x: 500, y: 500 },
+    fixedGridSize: { width: 1000, height: 1000 },
+    paletteName: "red-blue-pink",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+beforeTheRiverFractal8.applyShapes = function() {
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    this.setGridValue(500 + (this.gridXAmount / 2), 500 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(501, 501, 1);
+
+};
+
+beforeTheRiverFractal8.updateGrid = function() {
+    // console.log("Updating the grid!");
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            let changed = false;
+            if (value == 1) {
+                if (neighbors == 8) {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    this.changes[oneDValue] = this.currentState;
+                    changed = true;
+                    // this.incrementChanges(x, y);
+                }
+            } else {
+                if (neighbors <= 2 && neighbors > 0) {
+                    this.next[oneDValue] = { state: 1, changed: true };
+                    this.changes[oneDValue] = this.currentState;
+                    changed = true;
+                    // this.incrementChanges(x, y);
+                }
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+beforeTheRiverFractal8.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+beforeTheRiverFractal8.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+
+//-----//
+let beforeTheRiverFractal9 = new Scene({
+    fileName: "./frames/huge-fractal/huge-fractal",
+    gridScalar: 16,
+    offset: { x: 500, y: 500 },
+    fixedGridSize: { width: 1000, height: 1000 },
+    paletteName: "red-blue-pink",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+beforeTheRiverFractal9.applyShapes = function() {
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    this.setGridValue(500 + (this.gridXAmount / 2), 500 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(501, 501, 1);
+
+};
+
+beforeTheRiverFractal9.updateGrid = function() {
+    // console.log("Updating the grid!");
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            let changed = false;
+            if (value == 1) {
+                if (neighbors == 6) {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    this.changes[oneDValue] = this.currentState;
+                    changed = true;
+                    // this.incrementChanges(x, y);
+                }
+            } else {
+                if (neighbors <= 2 && neighbors > 0) {
+                    this.next[oneDValue] = { state: 1, changed: true };
+                    this.changes[oneDValue] = this.currentState;
+                    changed = true;
+                    // this.incrementChanges(x, y);
+                }
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+beforeTheRiverFractal9.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+beforeTheRiverFractal9.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+
+//-----//
+let beforeTheRiverFractal10 = new Scene({
+    fileName: "./frames/huge-fractal/huge-fractal",
+    gridScalar: 16,
+    offset: { x: 500, y: 500 },
+    fixedGridSize: { width: 1000, height: 1000 },
+    paletteName: "red-blue-pink",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+beforeTheRiverFractal10.applyShapes = function() {
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    this.setGridValue(500 + (this.gridXAmount / 2), 500 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(501, 501, 1);
+
+};
+
+beforeTheRiverFractal10.updateGrid = function() {
+    // console.log("Updating the grid!");
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            let changed = false;
+            if (this.currentState % 2 == 0) {
+                if (value == 1) {
+                    if (neighbors == 8) {
+                        this.next[oneDValue] = { state: 0, changed: true };
+                        this.changes[oneDValue] = this.currentState;
+                        changed = true;
+                    }
+                } else {
+                    if (neighbors == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState;
+                        changed = true;
+                    }
+                }
+            } else {
+                if (value == 1) {
+                    if (neighbors == 8 ||  neighbors >= 5) {
+                        this.next[oneDValue] = { state: 0, changed: true };
+                        this.changes[oneDValue] = this.currentState;
+                        changed = true;
+                    }
+                } else {
+                    if (neighbors >= 3) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState;
+                        changed = true;
+                    }
+                }
+            }
+
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+beforeTheRiverFractal10.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+beforeTheRiverFractal10.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+let scene = beforeTheRiverFractal8;
