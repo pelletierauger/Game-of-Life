@@ -34,7 +34,7 @@ class Scene {
             this.tileWidth = width / this.gridXAmount - 1 / this.gridXAmount;
             for (var i = 0; i < seed.data.gridSeed.length; i++) {
                 this.gridSeed.push(seed.data.gridSeed[i]);
-                this.grid.push({ state: seed.data.gridSeed[i], changed: true });
+                this.grid.push({ state: seed.data.gridSeed[i], changed: false });
                 this.changes.push(0);
                 // This is only there for some experimental, inconclusive scenes.
                 this.next.push({ state: 0, changed: false });
@@ -46,7 +46,7 @@ class Scene {
                 this.tileWidth = width / this.gridXAmount - 1 / this.gridXAmount;
                 // Fill the grid with 0 values and the changes array with 0 values.
                 for (var i = 0; i < this.fixedGridSize.width * this.fixedGridSize.height; i++) {
-                    this.grid.push({ state: 0, changed: true });
+                    this.grid.push({ state: 0, changed: false });
                     this.changes.push(0);
                     // This is only there for some experimental, inconclusive scenes.
                     this.next.push({ state: 0, changed: false });
@@ -57,7 +57,7 @@ class Scene {
                 this.tileWidth = width / this.gridXAmount - 1 / this.gridXAmount;
                 // Fill the grid with 0 values and the changes array with 0 values.
                 for (var i = 0; i < this.gridXAmount * this.gridYAmount; i++) {
-                    this.grid.push({ state: 0, changed: true });
+                    this.grid.push({ state: 0, changed: false });
                     this.changes.push(0);
                     // This is only there for some experimental, inconclusive scenes.
                     this.next.push({ state: 0, changed: false });
