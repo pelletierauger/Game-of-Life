@@ -14,23 +14,11 @@ function setup() {
     canvasDOM = document.getElementById('defaultCanvas0');
     frameRate(30);
     background(0);
-    if (printing) {
-        noStroke();
-    } else {
-        // stroke(255, 20);
-        noStroke();
-    }
+    noStroke();
     socket.on('pushJSONs', function(data) {
         JSONs = data;
     });
     socket.emit('pullJSONs', "");
-
-    // setGridValue(gridXAmount / 2, gridYAmount / 2, 1);
-    // setGridValue((gridXAmount / 2) + 0, (gridYAmount / 2) + 1, 1);
-    // x = 0// y = gridYAmount / 2;// for (let i = 0; i < gridXAmount; i++) {
-    //     x = i;
-    //     setGridValue(x, y, 1);
-    // }
 }
 
 function draw() {
@@ -96,14 +84,10 @@ function draw() {
                             printingChanges.push(scene.changes[oneDValue]);
                         }
                     }
-                    // console.log(printingArray);
                     let y = floor(boxToPrint / scene.gridXAmount);
                     let x = boxToPrint - (y * scene.gridXAmount);
-
-                    // what should this do?
                     if (printingArray[boxToPrint]) {
                         if (printingArray[boxToPrint].state == 1) {
-                            // console.log(`x: ${x}, y: ${y}, boxToPrint: ${boxToPrint}`);
                             let change = printingChanges[boxToPrint];
                             let color = setLight(change, scene.palette.data);
                             fill(red(color), green(color), blue(color), 55);
@@ -184,10 +168,6 @@ function draw() {
                 }
             }
         }
-
-        if (!printing) {
-            noStroke();
-        }
         if (!looping) {
             noLoop();
         }
@@ -234,12 +214,10 @@ function keyPressed() {
         scene.palette = seedPalette();
     }
     if (key == 'f' || key == 'F') {
-        // scene.palette = seedPalette();
         let i = floor(random(JSONs.length));
         while (JSONs[i].name[0] !== "p") {
             i = floor(random(JSONs.length));
         }
-        console.log(JSONs[i]);
         scene.palette = JSONs[i];
         for (var x = 0; x < scene.gridXAmount; x++) {
             for (var y = 0; y < scene.gridYAmount; y++) {
@@ -307,7 +285,6 @@ function mousePressed() {
         fill(255);
         let tW = scene.tileWidth;
         rect(x * tW, y * tW, tW, tW);
-        // pressed.push({ x: x, y: y });
     }
 }
 
@@ -322,6 +299,5 @@ function mouseDragged() {
         fill(255);
         let tW = scene.tileWidth;
         rect(x * tW, y * tW, tW, tW);
-        // pressed.push({ x: x, y: y });
     }
 }
