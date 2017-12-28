@@ -8,7 +8,8 @@ class Scene {
         if (input.gridSeedName) {
             this.gridSeedName = input.gridSeedName;
         }
-
+        this.horizontalScalar = input.horizontalScalar || 16;
+        this.verticalScalar = input.verticalScalar || 9;
         this.paletteName = input.paletteName || null;
         this.speedModulo = input.speedModulo || 1;
         this.dotPerTile = input.dotPerTile || 3500 / 4;
@@ -29,8 +30,8 @@ class Scene {
         if (this.gridSeedName) {
             let seed = this.fetchGridSeed(this.gridSeedName);
             this.gridScalar = seed.data.gridScalar;
-            this.gridXAmount = 16 * this.gridScalar;
-            this.gridYAmount = 9 * this.gridScalar;
+            this.gridXAmount = (this.horizontalScalar * this.gridScalar) + 1;
+            this.gridYAmount = (this.verticalScalar * this.gridScalar) + 1;
             this.tileWidth = width / this.gridXAmount - 1 / this.gridXAmount;
             for (var i = 0; i < seed.data.gridSeed.length; i++) {
                 this.gridSeed.push(seed.data.gridSeed[i]);
@@ -41,8 +42,8 @@ class Scene {
             }
         } else {
             if (this.fixedGridSize) {
-                this.gridXAmount = 16 * this.gridScalar;
-                this.gridYAmount = 9 * this.gridScalar;
+                this.gridXAmount = (this.horizontalScalar * this.gridScalar) + 1;
+                this.gridYAmount = (this.verticalScalar * this.gridScalar) + 1;
                 this.tileWidth = width / this.gridXAmount - 1 / this.gridXAmount;
                 // Fill the grid with 0 values and the changes array with 0 values.
                 for (var i = 0; i < this.fixedGridSize.width * this.fixedGridSize.height; i++) {
@@ -52,8 +53,8 @@ class Scene {
                     this.next.push({ state: 0, changed: false });
                 }
             } else {
-                this.gridXAmount = 16 * this.gridScalar;
-                this.gridYAmount = 9 * this.gridScalar;
+                this.gridXAmount = (this.horizontalScalar * this.gridScalar) + 1;
+                this.gridYAmount = (this.verticalScalar * this.gridScalar) + 1;
                 this.tileWidth = width / this.gridXAmount - 1 / this.gridXAmount;
                 // Fill the grid with 0 values and the changes array with 0 values.
                 for (var i = 0; i < this.gridXAmount * this.gridYAmount; i++) {
@@ -162,12 +163,12 @@ class Scene {
     }
     getGridValue(x, y) {
         let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
-        var oneDValue = x + (y * xAmount);
+        var oneDValue = Math.floor(x) + (Math.floor(y) * xAmount);
         return this.grid[oneDValue] ? this.grid[oneDValue].state : 0;
     }
     setGridValue(x, y, newState) {
         let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
-        var oneDValue = x + (y * xAmount);
+        var oneDValue = Math.floor(x) + (Math.floor(y) * xAmount);
         if (this.grid[oneDValue]) {
             this.grid[oneDValue].state = newState;
             this.grid[oneDValue].changed = true;
@@ -175,21 +176,21 @@ class Scene {
     }
     setNextValue(x, y, newState) {
         let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
-        var oneDValue = x + (y * xAmount);
+        var oneDValue = Math.floor(x) + (Math.floor(y) * xAmount);
         if (this.next[oneDValue]) {
             this.next[oneDValue] = newState;
         }
     }
     setGridSeedValue(x, y, newState) {
         let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
-        var oneDValue = x + (y * xAmount);
+        var oneDValue = Math.floor(x) + (Math.floor(y) * xAmount);
         if (this.gridSeed[oneDValue] !== null) {
             this.gridSeed[oneDValue] = newState;
         }
     }
     incrementChanges(x, y) {
         let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
-        var oneDValue = x + (y * xAmount);
+        var oneDValue = Math.floor(x) + (Math.floor(y) * xAmount);
         if (this.changes[oneDValue] !== null) {
             this.changes[oneDValue]++;
         }
