@@ -73,9 +73,44 @@ function makePalette(rO, rMi, rMa, gO, gMi, gMa, bO, bMi, bMax) {
     }
 }
 
-function setLight(c, p) {
-    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
-    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
-    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
-    return color(red, green, blue);
+function adjustLevels(dark, mid, light, values) {
+    var originalMid = 255 / 2;
+    var stretchedMid = map(originalMid, 0, 255, 0 + dark, 255 + light);
+    var vals = [values.r, values.g, values.b];
+    for (var i = 0; i < vals.length; i++) {
+
+        vals[i] = map(vals[i], 0, 255, 0 + dark, 255 + light);
+
+        // midPoint Shifting Algorithm : what is between 0 and 128 must be mapped between 0 and 178,
+        // what is between 129 and 255 must be mapped between 179 and 255.
+
+        // Adjusted for dark and light : 
+        // what is between dark and originalMid must mapped between dark and (originalMid + mid),
+        // what is between originalMid and light must be mapped between (originalMid + mid) and light;
+        // console.log(vals[i]);
+        if (vals[i] >= 0 + dark && vals[i] <= stretchedMid) {
+            // console.log("Darker! : " + vals[i]);
+            vals[i] = map(vals[i], dark, stretchedMid, dark, stretchedMid + mid);
+            // console.log("Darker after ! : " + vals[i]);
+        } else if (vals[i] > originalMid && vals[i] <= 255 + light) {
+            // console.log("Lighter! : " + vals[i]);
+            vals[i] = map(vals[i], stretchedMid, light, stretchedMid + mid, light);
+            // console.log("Lighter after! : " + vals[i]);
+        }
+
+        //Then we constrain the value to proper rgb values.
+        vals[i] = constrain(vals[i], 0, 255);
+        //We round the value.
+        vals[i] = Math.round(vals[i]);
+
+    }
+    values.r = vals[0];
+    values.g = vals[1];
+    values.b = vals[2];
+    return values;
+    //For every argument starting at arguments[3], do this...
+    // for (var i = 3; i < arguments.length; i++) {
+
+    // }
+
 }
