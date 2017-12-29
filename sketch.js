@@ -55,8 +55,7 @@ function draw() {
                     // console.log(oneDValue);
                     var value = scene.grid[oneDValue].state;
                     if (scene.grid[oneDValue].changed) {
-                        var change = scene.changes[oneDValue];
-                        var light = setLight(change, scene.palette.data);
+                        var light = scene.getColor(oneDValue);
                         if (value) {
                             fill(light);
                             // console.log(`oneDValue : ${oneDValue}, x: ${x}, y: ${y}.`);
@@ -88,8 +87,7 @@ function draw() {
                     let x = boxToPrint - (y * scene.gridXAmount);
                     if (printingArray[boxToPrint]) {
                         if (printingArray[boxToPrint].state == 1) {
-                            let change = printingChanges[boxToPrint];
-                            let color = setLight(change, scene.palette.data);
+                            let color = scene.getColor(boxToPrint, printingChanges);
                             fill(red(color), green(color), blue(color), 55);
                             let tW = scene.tileWidth;
                             for (let i = 0; i < scene.dotPerTile; i++) {
@@ -132,8 +130,7 @@ function draw() {
                     let x = boxToPrint - (y * scene.gridXAmount);
                     if (scene.grid[boxToPrint]) {
                         if (scene.grid[boxToPrint].state == 1) {
-                            let change = scene.changes[boxToPrint];
-                            let color = setLight(change, scene.palette.data);
+                            let color = scene.getColor(boxToPrint);
                             fill(red(color), green(color), blue(color), 55);
                             let tW = scene.tileWidth;
                             for (let i = 0; i < scene.dotPerTile; i++) {

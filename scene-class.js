@@ -221,6 +221,19 @@ class Scene {
             console.log(`gridSeed ${gridSeedName} not found`);
         }
     }
+    getColor(oneDValue, optionalArray) {
+        let c;
+        if (optionalArray !== null) {
+            c = optionalArray[oneDValue];
+        } else {
+            c = this.changes[oneDValue];
+        }
+        let p = this.palette.data;
+        let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+        let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+        let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+        return color(red, green, blue);
+    }
     applyPalette() {
         for (var x = 0; x < this.gridXAmount; x++) {
             for (var y = 0; y < this.gridYAmount; y++) {
@@ -234,7 +247,7 @@ class Scene {
                 var change = this.changes[oneDValue];
                 if (change !== 0) {
                     if (value) {
-                        var light = setLight(change, this.palette.data);
+                        var light = this.getColor(oneDValue);
                         fill(light);
                         var tW = this.tileWidth;
                         rect(x * tW, y * tW, tW, tW);
