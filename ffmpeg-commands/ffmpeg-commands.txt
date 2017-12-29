@@ -95,3 +95,5 @@ ffmpeg -f concat -safe 0 -r 6 -i ./ffmpeg-commands/frames-square-notultimate.txt
 ffmpeg -f concat -safe 0 -r 4 -i ./ffmpeg-commands/frames-square-notultimate.txt -filter colorlevels=rimax=0.6:gimax=0.6:bimax=0.6 -s 720x720 ./video-renders/fractal-notultimate-4fps.gif
 
 ffmpeg -f concat -safe 0 -r 2 -i ./ffmpeg-commands/frames-square-notultimate.txt -filter colorlevels=rimax=0.6:gimax=0.6:bimax=0.6 -s 720x720 ./video-renders/fractal-notultimate-2fps.gif
+
+ffmpeg -f concat -safe 0 -r 4 -i ./ffmpeg-commands/frames-square-withmiddle.txt -filter colorlevels=rimax=0.6:gimax=0.6:bimax=0.6 -s 720x720 ./video-renders/fractal-withmiddle-4fps.gif
