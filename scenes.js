@@ -2747,4 +2747,142 @@ bigRiver9.update = function() {
         }
     }
 };
-let scene = bigRiver9;
+
+
+//-----//
+let bigRiver10 = new Scene({
+    fileName: "./frames/huge-fractal/huge-fractal",
+    gridScalar: 16,
+    horizontalScalar: 16,
+    verticalScalar: 16,
+    offset: { x: 500, y: 500 },
+    fixedGridSize: { width: 1000, height: 1000 },
+    paletteName: "red-blue-pink",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+bigRiver10.applyShapes = function() {
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    this.setGridValue(500 + (this.gridXAmount / 2), 500 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(501, 501, 1);
+
+};
+
+bigRiver10.updateGrid = function() {
+    // console.log("Updating the grid!");
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            let changed = false;
+            if (value == 1) {
+                if (neighbors == 7) {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    this.changes[oneDValue] = this.currentState;
+                    changed = true;
+                    // this.incrementChanges(x, y);
+                }
+            } else {
+                if (neighbors <= 1 && neighbors > 0) {
+                    this.next[oneDValue] = { state: 1, changed: true };
+                    this.changes[oneDValue] = this.currentState;
+                    changed = true;
+                    // this.incrementChanges(x, y);
+                }
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+bigRiver10.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+bigRiver10.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+let da = 0;
+let mi = 0;
+let li = 150;
+let st = 50;
+let en = 135;
+bigRiver10.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+
+    let q = {
+        name: "palette-fri-dec-29-2017-024251",
+        redOsc: 6,
+        redMin: 213,
+        redMax: 162,
+        greenOsc: 1,
+        greenMin: 82,
+        greenMax: 154,
+        blueOsc: 3,
+        blueMin: 27,
+        blueMax: 132
+    };
+
+    let red0 = map(sin(c / q.redOsc), -1, 1, q.redMin, q.redMax);
+    let green0 = map(sin(c / q.greenOsc), -1, 1, q.greenMin, q.greenMax);
+    let blue0 = map(sin(c / q.blueOsc), 1, -1, q.blueMin, q.blueMax);
+    let a = adjustLevels(da, mi, li, { r: red0, g: green0, b: blue0 });
+
+
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    let adjusted = adjustLevels(da, mi, li, { r: red, g: green, b: blue });
+
+    adjusted = { r: (adjusted.r + a.r) / 2, g: (adjusted.g + a.g) / 2, b: (adjusted.b + a.b) / 2 };
+    let fade = map(c, st, en, 0, 1);
+    fade = constrain(fade, 0, 1);
+    let redFade = 0;
+    let greenFade = 0;
+    let blueFade = 50;
+    let redLerp = lerp(adjusted.r, redFade, fade);
+    let greenLerp = lerp(adjusted.g, greenFade, fade);
+    let blueLerp = lerp(adjusted.b, blueFade, fade);
+    return color(redLerp, greenLerp, blueLerp);
+};
+let scene = bigRiver10;
