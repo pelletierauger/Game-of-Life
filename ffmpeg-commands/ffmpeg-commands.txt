@@ -45,3 +45,53 @@ ffmpeg -f concat -safe 0 -r 8 -i ffmpeg-input2.txt -filter colorlevels=rimax=0.8
 ffmpeg -f concat -safe 0 -r 4 -i ffmpeg-input4.txt -filter colorlevels=rimax=0.8:gimax=0.8:bimax=0.8 -c:v libx264 -s 2560x1440 -pix_fmt yuv420p ./video-renders/concat-fractals-4fps-levels.mp4
 
 ffmpeg -f concat -safe 0 -r 8 -i ./ffmpeg-commands/ffmpeg-input4.txt -filter colorlevels=rimax=0.8:gimax=0.8:bimax=0.8 -c:v libx264 -s 2560x1440 -pix_fmt yuv420p ./video-renders/concat-fractals-8fps-levels.mp4
+
+ffmpeg -f concat -safe 0 -r 4 -i ./ffmpeg-commands/ffmpeg-input4.txt -filter colorlevels=rimax=0.8:gimax=0.8:bimax=0.8 -s 1280x720 ./video-renders/concat-fractals-4fps-levels-720p.gif
+
+ffmpeg -f concat -safe 0 -r 4 -i ./ffmpeg-commands/frames-square.txt -filter colorlevels=rimax=0.8:gimax=0.8:bimax=0.8 -s 720x720 ./video-renders/fractal-square-4fps.gif
+
+//---------------------------------------------------------------------------------------//
+
+//--------- Trying a new sequence with a new first scene, little-fractal ----------------//
+
+ffmpeg -f concat -safe 0 -r 8 -i ./ffmpeg-commands/frames-square-little.txt -filter colorlevels=rimax=0.8:gimax=0.8:bimax=0.8 -s 720x720 ./video-renders/fractal-square-little-8fps.gif
+
+ffmpeg -f concat -safe 0 -r 4 -i ./ffmpeg-commands/frames-square-little.txt -filter colorlevels=rimax=0.8:gimax=0.8:bimax=0.8 -s 720x720 ./video-renders/fractal-square-little-4fps.gif
+
+ffmpeg -f concat -safe 0 -r 4 -i ./ffmpeg-commands/frames-square-little.txt -filter colorlevels=rimax=0.7:gimax=0.7:bimax=0.7 -s 720x720 ./video-renders/fractal-square-little-b-4fps.gif
+
+ffmpeg -f concat -safe 0 -r 12 -i ./ffmpeg-commands/frames-square-little.txt -filter colorlevels=rimax=0.6:gimax=0.6:bimax=0.6 -s 720x720 ./video-renders/fractal-square-little-06-12fps.gif
+
+ffmpeg -f concat -safe 0 -r 8 -i ./ffmpeg-commands/frames-square-little.txt -filter colorlevels=rimax=0.6:gimax=0.6:bimax=0.6 -s 720x720 ./video-renders/fractal-square-little-cl06-8fps.gif
+
+./ffmpeg-commands/gif-encoder.sh ./ffmpeg-commands/frames-square-little.tx -filter colorlevels=rimax=0.6:gimax=0.6:bimax=0.6 -s 720x720 fractal-square-2pass.gif
+
+frames-square-little.txt
+
+
+//-------------------------
+
+//This works.
+ffmpeg -f concat -safe 0 -r 8 -i ./ffmpeg-commands/frames-square-little.txt -filter colorlevels=rimax=0.6:gimax=0.6:bimax=0.6 -s 720x720 -vf "fps=8,scale=320:-1:flags=lanczos, palettegen" -y ./ffmpeg-commands/palette.png
+
+ffmpeg -f concat -safe 0 -r 8 -i ./ffmpeg-commands/frames-square-little.txt -filter:v "colorlevels=rimax=0.6:gimax=0.6:bimax=0.6, scale=720:-1" -sws_flags lanczos -i ./ffmpeg-commands/palette.png -lavfi paletteuse fractal-square-2pass.gif
+
+
+
+
+ffmpeg -f concat -safe 0 -r 8 -i ./ffmpeg-commands/frames-square-little.txt -filter:v "colorlevels=rimax=0.6:gimax=0.6:bimax=0.6, scale=720:-1" -sws_flags lanczos ./video-renders/fractal-square-little-cl06-8fps-lanczos.gif
+
+
+ffmpeg -f concat -safe 0 -r 6 -i ./ffmpeg-commands/frames-square-little.txt -filter colorlevels=rimax=0.6:gimax=0.6:bimax=0.6 -s 720x720 ./video-renders/fractal-square-little-cl06-6fps.gif
+
+ffmpeg -f concat -safe 0 -r 4 -i ./ffmpeg-commands/frames-square-little.txt -filter colorlevels=rimax=0.6:gimax=0.6:bimax=0.6 -s 720x720 ./video-renders/fractal-square-little-cl06-4fps.gif
+
+ffmpeg -f concat -safe 0 -r 2 -i ./ffmpeg-commands/frames-square-little.txt -filter colorlevels=rimax=0.6:gimax=0.6:bimax=0.6 -s 720x720 ./video-renders/fractal-square-little-cl06-2fps.gif
+
+ffmpeg -f concat -safe 0 -r 8 -i ./ffmpeg-commands/frames-square-vspeed.txt -filter colorlevels=rimax=0.6:gimax=0.6:bimax=0.6 -s 720x720 ./video-renders/fractal-square-vspeed-8fps.gif
+
+ffmpeg -f concat -safe 0 -r 6 -i ./ffmpeg-commands/frames-square-notultimate.txt -filter colorlevels=rimax=0.6:gimax=0.6:bimax=0.6 -s 720x720 ./video-renders/fractal-notultimate-6fps.gif
+
+ffmpeg -f concat -safe 0 -r 4 -i ./ffmpeg-commands/frames-square-notultimate.txt -filter colorlevels=rimax=0.6:gimax=0.6:bimax=0.6 -s 720x720 ./video-renders/fractal-notultimate-4fps.gif
+
+ffmpeg -f concat -safe 0 -r 2 -i ./ffmpeg-commands/frames-square-notultimate.txt -filter colorlevels=rimax=0.6:gimax=0.6:bimax=0.6 -s 720x720 ./video-renders/fractal-notultimate-2fps.gif
