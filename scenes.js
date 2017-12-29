@@ -2836,12 +2836,13 @@ bigRiver10.update = function() {
         }
     }
 };
-let da = 0;
-let mi = 0;
-let li = 150;
-let st = 50;
-let en = 135;
+
 bigRiver10.getColor = function(oneDValue, optionalArray) {
+    let da = 0;
+    let mi = 0;
+    let li = 150;
+    let st = 50;
+    let en = 135;
     let c;
     if (optionalArray) {
         c = optionalArray[oneDValue];
