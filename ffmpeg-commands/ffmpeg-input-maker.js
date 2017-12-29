@@ -2,19 +2,24 @@ var fs = require('fs');
 let computedInput = "";
 
 let sequences = [{
-        path: "../frames/huge-fractal/huge-fractal-",
+        path: "../frames/little-fractal-square/little-fractal-",
         start: 1,
+        end: 32
+    },
+    {
+        path: "../frames/huge-fractal-square/huge-fractal-",
+        start: 33,
         end: 64
     },
     {
-        path: "../frames/biggest-fractal/biggest-fractal-",
+        path: "../frames/biggest-fractal-square/biggest-fractal-",
         start: 65,
         end: 128
     },
     {
-        path: "../frames/ultimate-fractal-2/ultimate-fractal-",
+        path: "../frames/ultimate-fractal-square/ultimate-fractal-",
         start: 129,
-        end: 257
+        end: 256
     }
 ];
 
@@ -29,10 +34,10 @@ for (s of sequences) {
     }
 }
 
-fs.writeFile('ffmpeg-input4.txt', computedInput, function(err) {
+fs.writeFile('frames-square-little.txt', computedInput, function(err) {
     if (err) {
         return console.error(err);
     } else {
-        console.log('ffmpeg-input4.txt written successfully.');
+        console.log('frames-square-little.txt written successfully.');
     }
 });
