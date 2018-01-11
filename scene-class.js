@@ -8,6 +8,9 @@ class Scene {
         if (input.gridSeedName) {
             this.gridSeedName = input.gridSeedName;
         }
+        if (input.animatedColors) {
+            this.animatedColors = input.animatedColors;
+        }
         this.horizontalScalar = input.horizontalScalar || 16;
         this.verticalScalar = input.verticalScalar || 9;
         this.paletteName = input.paletteName || null;

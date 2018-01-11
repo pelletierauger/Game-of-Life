@@ -54,7 +54,7 @@ function draw() {
                     let oneDValue = (x + scene.offset.x) + ((y + scene.offset.y) * xAmount);
                     // console.log(oneDValue);
                     var value = scene.grid[oneDValue].state;
-                    if (scene.grid[oneDValue].changed) {
+                    if (scene.grid[oneDValue].changed || (value && scene.animatedColors)) {
                         var light = scene.getColor(oneDValue);
                         if (value) {
                             fill(light);
