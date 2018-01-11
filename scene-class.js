@@ -223,7 +223,7 @@ class Scene {
     }
     getColor(oneDValue, optionalArray) {
         let c;
-        if (optionalArray !== null) {
+        if (optionalArray) {
             c = optionalArray[oneDValue];
         } else {
             c = this.changes[oneDValue];
