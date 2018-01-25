@@ -2206,19 +2206,20 @@ bigRiver4.update = function() {
 //-----//
 let bigRiver5 = new Scene({
     fileName: "./frames/huge-fractal/huge-fractal",
-    gridScalar: 32,
-    offset: { x: 500, y: 500 },
-    fixedGridSize: { width: 1000, height: 1000 },
-    paletteName: "palette-fri-dec-15-2017-185009",
+    gridScalar: 16,
+    // offset: { x: 500, y: 500 },
+    // fixedGridSize: { width: 1000, height: 1000 },
+    // paletteName: "palette-fri-dec-15-2017-185009",
+    paletteName: "palette-thu-jan-11-2018-172555",
     speedModulo: 1,
     zoom: 1,
-    dotPerTile: 3500 / 64,
+    dotPerTile: 3500 / 16,
     maxSteps: 129
 });
 
 bigRiver5.applyShapes = function() {
     // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
-    this.setGridValue(500 + (this.gridXAmount / 2), 500 + (this.gridYAmount / 2), 1);
+    this.setGridValue(0 + (this.gridXAmount / 2), 0 + (this.gridYAmount / 2), 1);
     // this.setGridValue(501, 501, 1);
 
 };
@@ -2241,13 +2242,13 @@ bigRiver5.updateGrid = function() {
                 if (scene.currentState % 2 == 0) {
                     if (neighborsRight == 2 && neighborsLeft == 2) {
                         this.next[oneDValue] = { state: 0, changed: true };
-                        this.changes[oneDValue] = this.currentState;
+                        this.changes[oneDValue] = this.currentState / 10;
                         changed = true;
                     }
                 } else {
                     if (neighborsTop == 2 && neighborsBottom == 2) {
                         this.next[oneDValue] = { state: 0, changed: true };
-                        this.changes[oneDValue] = this.currentState;
+                        this.changes[oneDValue] = this.currentState / 10;
                         changed = true;
                     }
                 }
@@ -2255,13 +2256,13 @@ bigRiver5.updateGrid = function() {
                 if (scene.currentState % 2 == 0) {
                     if (neighborsRight == 1 && neighborsLeft == 1) {
                         this.next[oneDValue] = { state: 1, changed: true };
-                        this.changes[oneDValue] = this.currentState;
+                        this.changes[oneDValue] = this.currentState / 10;
                         changed = true;
                     }
                 } else {
                     if (neighborsTop == 1 && neighborsBottom == 1) {
                         this.next[oneDValue] = { state: 1, changed: true };
-                        this.changes[oneDValue] = this.currentState;
+                        this.changes[oneDValue] = this.currentState / 10;
                         changed = true;
                     }
                 }
@@ -2312,15 +2313,30 @@ bigRiver5.update = function() {
         }
     }
 };
+bigRiver5.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
+    return color(a.r, a.g, a.b);
+};
 
 //-----//
 let bigRiver6 = new Scene({
     fileName: "./frames/huge-fractal/huge-fractal",
     gridScalar: 16,
-    offset: { x: 500, y: 500 },
-    fixedGridSize: { width: 1000, height: 1000 },
-    paletteName: "palette-fri-dec-15-2017-185009",
+    // palette-sun-dec-24-2017-135502
+    // palette-sun-dec-24-2017-023644
+    paletteName: "palette-sun-dec-24-2017-135502",
     speedModulo: 1,
+    // animatedColors: true,
     zoom: 1,
     dotPerTile: 3500 / 16,
     maxSteps: 129
@@ -2328,7 +2344,7 @@ let bigRiver6 = new Scene({
 
 bigRiver6.applyShapes = function() {
     // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
-    this.setGridValue(500 + (this.gridXAmount / 2), 500 + (this.gridYAmount / 2), 1);
+    this.setGridValue(0 + (this.gridXAmount / 2), 0 + (this.gridYAmount / 2), 1);
     // this.setGridValue(501, 501, 1);
 
 };
@@ -2351,13 +2367,13 @@ bigRiver6.updateGrid = function() {
                 if (scene.currentState % 2 == 0) {
                     if (neighborsRight == 3 && neighborsLeft == 3) {
                         this.next[oneDValue] = { state: 0, changed: true };
-                        this.changes[oneDValue] = this.currentState;
+                        this.changes[oneDValue] = this.currentState / 5;
                         changed = true;
                     }
                 } else {
                     if (neighborsTop == 3 && neighborsBottom == 3) {
                         this.next[oneDValue] = { state: 0, changed: true };
-                        this.changes[oneDValue] = this.currentState;
+                        this.changes[oneDValue] = this.currentState / 5;
                         changed = true;
                     }
                 }
@@ -2365,13 +2381,13 @@ bigRiver6.updateGrid = function() {
                 if (scene.currentState % 2 == 0) {
                     if (neighborsRight == 1 && neighborsLeft == 1) {
                         this.next[oneDValue] = { state: 1, changed: true };
-                        this.changes[oneDValue] = this.currentState;
+                        this.changes[oneDValue] = this.currentState / 5;
                         changed = true;
                     }
                 } else {
                     if (neighborsTop == 1 && neighborsBottom == 1) {
                         this.next[oneDValue] = { state: 1, changed: true };
-                        this.changes[oneDValue] = this.currentState;
+                        this.changes[oneDValue] = this.currentState / 5;
                         changed = true;
                     }
                 }
@@ -2401,6 +2417,11 @@ bigRiver6.calculateNeighbors = function(x, y) {
     return sum;
 };
 bigRiver6.update = function() {
+
+    //An interesting experimental way to animate colors :
+    // this.changes = this.changes.map(x => x + 1);
+
+
     // this.palette.data.redOsc *= 0.9;
     // this.palette.data.greenOsc *= 0.9;
     // this.palette.data.blueOsc *= 0.9;
@@ -2426,7 +2447,7 @@ bigRiver6.update = function() {
 //-----//
 let bigRiver7 = new Scene({
     fileName: "./frames/huge-fractal/huge-fractal",
-    gridScalar: 32,
+    gridScalar: 16,
     paletteName: "palette-fri-dec-15-2017-185009",
     speedModulo: 1,
     zoom: 1,
@@ -2459,13 +2480,13 @@ bigRiver7.updateGrid = function() {
                 if (scene.currentState % 2 == 0) {
                     if ((neighborsRight == 3 && neighborsLeft == 3)) {
                         this.next[oneDValue] = { state: 0, changed: true };
-                        this.changes[oneDValue] = this.currentState;
+                        this.changes[oneDValue] = this.currentState / 10;
                         changed = true;
                     }
                 } else {
                     if (neighborsTop == 2 && neighborsBottom == 2) {
                         this.next[oneDValue] = { state: 0, changed: true };
-                        this.changes[oneDValue] = this.currentState;
+                        this.changes[oneDValue] = this.currentState / 10;
                         changed = true;
                     }
                 }
@@ -2473,13 +2494,13 @@ bigRiver7.updateGrid = function() {
                 if (scene.currentState % 2 == 0) {
                     if (neighborsLeft == 1 && neighborsRight == 1) {
                         this.next[oneDValue] = { state: 1, changed: true };
-                        this.changes[oneDValue] = this.currentState;
+                        this.changes[oneDValue] = this.currentState / 10;
                         changed = true;
                     }
                 } else {
                     if (neighborsTop == 1 && neighborsBottom == 1) {
                         this.next[oneDValue] = { state: 1, changed: true };
-                        this.changes[oneDValue] = this.currentState;
+                        this.changes[oneDValue] = this.currentState / 10;
                         changed = true;
                     }
                 }
@@ -2535,7 +2556,7 @@ bigRiver7.update = function() {
 //-----//
 let bigRiver8 = new Scene({
     fileName: "./frames/huge-fractal/huge-fractal",
-    gridScalar: 32,
+    gridScalar: 16,
     paletteName: "palette-fri-dec-15-2017-185009",
     speedModulo: 1,
     zoom: 1,
@@ -2568,13 +2589,13 @@ bigRiver8.updateGrid = function() {
                 if (scene.currentState % 4 == 0) {
                     if ((neighborsRight == 2 && neighborsLeft == 2)) {
                         this.next[oneDValue] = { state: 0, changed: true };
-                        this.changes[oneDValue] = this.currentState;
+                        this.changes[oneDValue] = this.currentState * 0.1;
                         changed = true;
                     }
                 } else {
                     if (neighborsTop == 3 && neighborsBottom == 3) {
                         this.next[oneDValue] = { state: 0, changed: true };
-                        this.changes[oneDValue] = this.currentState;
+                        this.changes[oneDValue] = this.currentState * 0.1;
                         changed = true;
                     }
                 }
@@ -2582,13 +2603,13 @@ bigRiver8.updateGrid = function() {
                 if (scene.currentState % 4 == 0) {
                     if (neighborsLeft == 1 && neighborsRight == 1) {
                         this.next[oneDValue] = { state: 1, changed: true };
-                        this.changes[oneDValue] = this.currentState;
+                        this.changes[oneDValue] = this.currentState * 0.1;
                         changed = true;
                     }
                 } else {
                     if (neighborsTop == 1 && neighborsBottom == 1) {
                         this.next[oneDValue] = { state: 1, changed: true };
-                        this.changes[oneDValue] = this.currentState;
+                        this.changes[oneDValue] = this.currentState * 0.1;
                         changed = true;
                     }
                 }
@@ -2643,11 +2664,11 @@ bigRiver8.update = function() {
 //-----//
 let bigRiver9 = new Scene({
     fileName: "./frames/huge-fractal/huge-fractal",
-    gridScalar: 64,
+    gridScalar: 16,
     paletteName: "palette-fri-dec-15-2017-185009",
     speedModulo: 1,
     zoom: 1,
-    dotPerTile: 3500 / 256,
+    dotPerTile: 3500 / 16,
     maxSteps: 129
 });
 
@@ -2676,13 +2697,13 @@ bigRiver9.updateGrid = function() {
                 if (scene.currentState % 2 == 0) {
                     if ((neighborsRight == 3 && neighborsLeft == 3)) {
                         this.next[oneDValue] = { state: 0, changed: true };
-                        this.changes[oneDValue] = this.currentState;
+                        this.changes[oneDValue] = this.currentState * 0.1;
                         changed = true;
                     }
                 } else {
                     if (neighborsTop == 3 && neighborsBottom == 3) {
                         this.next[oneDValue] = { state: 0, changed: true };
-                        this.changes[oneDValue] = this.currentState;
+                        this.changes[oneDValue] = this.currentState * 0.1;
                         changed = true;
                     }
                 }
@@ -2690,13 +2711,13 @@ bigRiver9.updateGrid = function() {
                 if (scene.currentState % 2 !== 0) {
                     if (neighborsLeft == 1 && neighborsRight == 1) {
                         this.next[oneDValue] = { state: 1, changed: true };
-                        this.changes[oneDValue] = this.currentState;
+                        this.changes[oneDValue] = this.currentState * 0.1;
                         changed = true;
                     }
                 } else {
                     if (neighborsTop == 1 && neighborsBottom == 1) {
                         this.next[oneDValue] = { state: 1, changed: true };
-                        this.changes[oneDValue] = this.currentState;
+                        this.changes[oneDValue] = this.currentState * 0.1;
                         changed = true;
                     }
                 }
@@ -2886,4 +2907,2384 @@ bigRiver10.getColor = function(oneDValue, optionalArray) {
     let blueLerp = lerp(adjusted.b, blueFade, fade);
     return color(redLerp, greenLerp, blueLerp);
 };
-let scene = bigRiver10;
+
+//-----//
+let innerJanuary = new Scene({
+    fileName: "./frames/huge-fractal/huge-fractal",
+    gridScalar: 16,
+    // offset: { x: 500, y: 500 },
+    // fixedGridSize: { width: 1000, height: 1000 },
+    // paletteName: "palette-fri-dec-15-2017-185009",
+    paletteName: "palette-thu-jan-11-2018-172555",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+innerJanuary.applyShapes = function() {
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    let padding = 50;
+    let y = this.gridYAmount / 2;
+    for (let x = padding; x < this.gridXAmount - padding; x++) {
+        // this.setGridValue(x, y, 1);
+        // this.setGridValue(x, y - 1, 1);
+
+        // this.setGridValue(x, y + 1, 1);
+    }
+    this.setGridValue(0 + (this.gridXAmount / 2), 0 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(501, 501, 1);
+
+};
+
+innerJanuary.updateGrid = function() {
+    // console.log("Updating the grid!");
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            var neighborsTop = this.calculateNeighbors(x, y - 1);
+            var neighborsBottom = this.calculateNeighbors(x, y + 1);
+            var neighborsLeft = this.calculateNeighbors(x - 1, y);
+            var neighborsRight = this.calculateNeighbors(x + 1, y);
+            let changed = false;
+            if (value == 1) {
+                if (scene.currentState % 2 == 0) {
+                    if (neighborsRight == 1 || neighborsLeft == 1) {
+                        this.next[oneDValue] = { state: 0, changed: true };
+                        this.changes[oneDValue]++;
+                        changed = true;
+                    }
+                } else {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    this.changes[oneDValue]++;
+                    changed = true;
+                }
+            } else {
+                if (scene.currentState % 4 == 0) {
+                    if (neighborsRight == 1 || neighborsLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue]++;
+                        changed = true;
+                    }
+                } else {
+                    if (neighbors == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue]++;
+                        changed = true;
+                    }
+                }
+
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+innerJanuary.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+innerJanuary.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    // if (this.currentState % 2 == 0) {
+    //     this.updateGrid = biggestFractal.updateGrid;
+    // } else {
+    //     this.updateGrid = beforeTheRiverFractal10.updateGrid;
+    // }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+innerJanuary.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
+    return color(a.r, a.g, a.b);
+};
+
+
+//-----//
+let innerJanuary2 = new Scene({
+    fileName: "./frames/huge-fractal/huge-fractal",
+    gridScalar: 16,
+    // offset: { x: 500, y: 500 },
+    // fixedGridSize: { width: 1000, height: 1000 },
+    // paletteName: "palette-fri-dec-15-2017-185009",
+    paletteName: "palette-thu-jan-11-2018-172555",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+innerJanuary2.applyShapes = function() {
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    let padding = 50;
+    let y = this.gridYAmount / 2;
+    for (let x = padding; x < this.gridXAmount - padding; x++) {
+        // this.setGridValue(x, y, 1);
+        // this.setGridValue(x, y - 1, 1);
+
+        // this.setGridValue(x, y + 1, 1);
+    }
+    this.setGridValue(0 + (this.gridXAmount / 2), 0 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(501, 501, 1);
+
+};
+
+innerJanuary2.updateGrid = function() {
+    // console.log("Updating the grid!");
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            var neighborsTop = this.calculateNeighbors(x, y - 1);
+            var neighborsBottom = this.calculateNeighbors(x, y + 1);
+            var neighborsLeft = this.calculateNeighbors(x - 1, y);
+            var neighborsRight = this.calculateNeighbors(x + 1, y);
+            let changed = false;
+            if (value == 1) {
+                if (scene.currentState % 16 == 0) {
+                    if (neighborsRight == 1 || neighborsLeft == 1) {
+                        this.next[oneDValue] = { state: 0, changed: true };
+                        this.changes[oneDValue]++;
+                        changed = true;
+                    }
+                } else {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    this.changes[oneDValue]++;
+                    changed = true;
+                }
+            } else {
+                if (scene.currentState % 16 == 0) {
+                    if (neighborsRight == 1 && neighborsLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue]++;
+                        changed = true;
+                    }
+                } else {
+                    if (neighbors == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue]++;
+                        changed = true;
+                    }
+                }
+
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+innerJanuary2.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+innerJanuary2.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    // if (this.currentState % 2 == 0) {
+    //     this.updateGrid = biggestFractal.updateGrid;
+    // } else {
+    //     this.updateGrid = beforeTheRiverFractal10.updateGrid;
+    // }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+innerJanuary2.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
+    return color(a.r, a.g, a.b);
+};
+
+//-----//
+let innerJanuary3 = new Scene({
+    fileName: "./frames/huge-fractal/huge-fractal",
+    gridScalar: 16,
+    // offset: { x: 500, y: 500 },
+    // fixedGridSize: { width: 1000, height: 1000 },
+    // paletteName: "palette-fri-dec-15-2017-185009",
+    paletteName: "palette-thu-jan-11-2018-172555",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+innerJanuary3.applyShapes = function() {
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    let padding = 50;
+    let y = this.gridYAmount / 2;
+    for (let x = padding; x < this.gridXAmount - padding; x++) {
+        // this.setGridValue(x, y, 1);
+        // this.setGridValue(x, y - 1, 1);
+
+        // this.setGridValue(x, y + 1, 1);
+    }
+    this.setGridValue(0 + (this.gridXAmount / 2), 0 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(1 + (this.gridXAmount / 2), 0 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(501, 501, 1);
+
+};
+
+innerJanuary3.updateGrid = function() {
+    // console.log("Updating the grid!");
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            var neighborsTop = this.calculateNeighbors(x, y - 1);
+            var neighborsBottom = this.calculateNeighbors(x, y + 1);
+            var neighborsLeft = this.calculateNeighbors(x - 1, y);
+            var neighborsRight = this.calculateNeighbors(x + 1, y);
+            let changed = false;
+            if (value == 1) {
+                if (scene.currentState % 2 == 0) {
+                    if (neighbors >= 2) {
+                        this.next[oneDValue] = { state: 0, changed: true };
+                        this.changes[oneDValue]++;
+                        changed = true;
+                    }
+                } else {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    this.changes[oneDValue]++;
+                    changed = true;
+                }
+            } else {
+                if (scene.currentState % 2 == 0) {
+                    if (neighbors >= 2) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue]++;
+                        changed = true;
+                    }
+                } else {
+                    if (neighbors == 1 || neighbors == 2) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue]++;
+                        changed = true;
+                    }
+                }
+
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+innerJanuary3.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+innerJanuary3.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    // if (this.currentState % 2 == 0) {
+    //     this.updateGrid = biggestFractal.updateGrid;
+    // } else {
+    //     this.updateGrid = beforeTheRiverFractal10.updateGrid;
+    // }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+innerJanuary3.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
+    return color(a.r, a.g, a.b);
+};
+
+//-----//
+let innerJanuary4 = new Scene({
+    fileName: "./frames/huge-fractal/huge-fractal",
+    gridScalar: 16,
+    // offset: { x: 500, y: 500 },
+    // fixedGridSize: { width: 1000, height: 1000 },
+    // paletteName: "palette-fri-dec-15-2017-185009",
+    paletteName: "palette-thu-jan-11-2018-190338",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+innerJanuary4.applyShapes = function() {
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    let padding = 50;
+    let y = this.gridYAmount / 2;
+    for (let x = padding; x < this.gridXAmount - padding; x++) {
+        // this.setGridValue(x, y, 1);
+        // this.setGridValue(x, y - 1, 1);
+
+        // this.setGridValue(x, y + 1, 1);
+    }
+    this.setGridValue(0 + (this.gridXAmount / 2), 0 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(1 + (this.gridXAmount / 2), 0 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(501, 501, 1);
+
+};
+
+let januaryCounter = 0;
+
+innerJanuary4.updateGrid = function() {
+    // console.log("Updating the grid!");
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            var neighborTopLeft = this.getGridValue(x - 1, y - 1);
+            var neighborTopRight = this.getGridValue(x + 1, y - 1);
+            var neighborBottomLeft = this.getGridValue(x - 1, y + 1);
+            var neighborBottomRight = this.getGridValue(x + 1, y + 1);
+            let changed = false;
+            if (value == 1) {
+                this.next[oneDValue] = { state: 0, changed: true };
+                this.changes[oneDValue] += 5;
+                changed = true;
+            } else {
+                if (januaryCounter == 0) {
+                    if (neighborTopLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += 5;
+                        changed = true;
+                        januaryCounter++;
+                    }
+
+                } else if (januaryCounter == 1) {
+                    if (neighborTopRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += 5;
+                        changed = true;
+                        januaryCounter++;
+                    }
+
+                } else if (januaryCounter == 2) {
+                    if (neighborBottomLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += 5;
+                        changed = true;
+                        januaryCounter++;
+                    }
+
+                } else if (januaryCounter == 3) {
+                    if (neighborBottomRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += 5;
+                        changed = true;
+                        januaryCounter = 0;
+                    }
+
+                }
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+innerJanuary4.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+innerJanuary4.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    // if (this.currentState % 2 == 0) {
+    //     this.updateGrid = biggestFractal.updateGrid;
+    // } else {
+    //     this.updateGrid = beforeTheRiverFractal10.updateGrid;
+    // }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+innerJanuary4.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
+    return color(a.r, a.g, a.b);
+};
+
+
+//-----//
+let innerJanuary5 = new Scene({
+    fileName: "./frames/huge-fractal/huge-fractal",
+    gridScalar: 16,
+    // offset: { x: 500, y: 500 },
+    // fixedGridSize: { width: 1000, height: 1000 },
+    // paletteName: "palette-fri-dec-15-2017-185009",
+    paletteName: "palette-thu-jan-11-2018-190338",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+innerJanuary5.applyShapes = function() {
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    let padding = 50;
+    let y = this.gridYAmount / 2;
+    for (let x = padding; x < this.gridXAmount - padding; x++) {
+        // this.setGridValue(x, y, 1);
+        // this.setGridValue(x, y - 1, 1);
+
+        // this.setGridValue(x, y + 1, 1);
+    }
+    this.setGridValue(0 + (this.gridXAmount / 2), 0 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(1 + (this.gridXAmount / 2), 0 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(501, 501, 1);
+
+};
+
+januaryCounter = 0;
+
+innerJanuary5.updateGrid = function() {
+    // console.log("Updating the grid!");
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            var neighborTopLeft = this.getGridValue(x - 1, y - 1);
+            var neighborTop = this.getGridValue(x, y - 1);
+            var neighborTopRight = this.getGridValue(x + 1, y - 1);
+            var neighborRight = this.getGridValue(x + 1, y);
+            var neighborBottomRight = this.getGridValue(x + 1, y + 1);
+            var neighborBottom = this.getGridValue(x, y + 1);
+            var neighborBottomLeft = this.getGridValue(x - 1, y + 1);
+            var neighborLeft = this.getGridValue(x - 1, y);
+            let changed = false;
+            if (value == 1) {
+                if (neighbors >= 1) {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    this.changes[oneDValue] += 5;
+                    changed = true;
+                }
+
+            } else {
+                let increment = 0.2;
+                if (Math.floor(januaryCounter) == 0) {
+                    if (neighborTopLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += 5;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 1) {
+                    if (neighborTop == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += 5;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 2) {
+                    if (neighborTopRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += 5;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 3) {
+                    if (neighborRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += 5;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 4) {
+                    if (neighborBottomRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += 5;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 5) {
+                    if (neighborBottom == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += 5;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 6) {
+                    if (neighborBottomLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += 5;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 7) {
+                    if (neighborLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += 5;
+                        changed = true;
+                        januaryCounter += increment;
+                        if (januaryCounter >= 8) {
+                            januaryCounter = 0;
+                        }
+                    }
+                }
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+innerJanuary5.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+innerJanuary5.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    // if (this.currentState % 2 == 0) {
+    //     this.updateGrid = biggestFractal.updateGrid;
+    // } else {
+    //     this.updateGrid = beforeTheRiverFractal10.updateGrid;
+    // }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+innerJanuary5.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
+    return color(a.r, a.g, a.b);
+};
+
+
+
+//-----//
+let innerJanuary6 = new Scene({
+    fileName: "./frames/huge-fractal/huge-fractal",
+    gridScalar: 16,
+    // offset: { x: 500, y: 500 },
+    // fixedGridSize: { width: 1000, height: 1000 },
+    // paletteName: "palette-fri-dec-15-2017-185009",
+    paletteName: "palette-thu-jan-11-2018-190338",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+innerJanuary6.applyShapes = function() {
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    let padding = 50;
+    let y = this.gridYAmount / 2;
+    for (let x = padding; x < this.gridXAmount - padding; x++) {
+        // this.setGridValue(x, y, 1);
+        // this.setGridValue(x, y - 1, 1);
+
+        // this.setGridValue(x, y + 1, 1);
+    }
+    this.setGridValue(0 + (this.gridXAmount / 2), 0 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(1 + (this.gridXAmount / 2), 0 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(501, 501, 1);
+
+};
+
+januaryCounter = 0;
+
+innerJanuary6.updateGrid = function() {
+    // console.log("Updating the grid!");
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            var neighborTopLeft = this.getGridValue(x - 1, y - 1);
+            var neighborTop = this.getGridValue(x, y - 1);
+            var neighborTopRight = this.getGridValue(x + 1, y - 1);
+            var neighborRight = this.getGridValue(x + 1, y);
+            var neighborBottomRight = this.getGridValue(x + 1, y + 1);
+            var neighborBottom = this.getGridValue(x, y + 1);
+            var neighborBottomLeft = this.getGridValue(x - 1, y + 1);
+            var neighborLeft = this.getGridValue(x - 1, y);
+            let changed = false;
+            if (value == 1) {
+                if (neighbors >= 1) {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    this.changes[oneDValue] += 5;
+                    changed = true;
+                }
+
+            } else {
+
+                let increment = 0.2;
+                if (Math.floor(januaryCounter) == 0) {
+                    if (neighborTopLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += 5;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 1) {
+                    if (neighborTop == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += 5;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 2) {
+                    if (neighborTopRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += 5;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 3) {
+                    if (neighborRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += 5;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 4) {
+                    if (neighborBottomRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += 5;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 5) {
+                    if (neighborBottom == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += 5;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 6) {
+                    if (neighborBottomLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += 5;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 7) {
+                    if (neighborLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += 5;
+                        changed = true;
+                        januaryCounter += increment;
+                        if (januaryCounter >= 8) {
+                            januaryCounter = 0;
+                        }
+                    }
+                }
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+innerJanuary6.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+innerJanuary6.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    // if (this.currentState % 2 == 0) {
+    //     this.updateGrid = biggestFractal.updateGrid;
+    // } else {
+    //     this.updateGrid = beforeTheRiverFractal10.updateGrid;
+    // }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+innerJanuary6.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
+    return color(a.r, a.g, a.b);
+};
+
+
+//-----//
+let innerJanuary7 = new Scene({
+    fileName: "./frames/huge-fractal/huge-fractal",
+    gridScalar: 32,
+    // offset: { x: 500, y: 500 },
+    // fixedGridSize: { width: 1000, height: 1000 },
+    // paletteName: "palette-fri-dec-15-2017-185009",
+    paletteName: "palette-thu-jan-11-2018-190338",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 64,
+    maxSteps: 129
+});
+
+innerJanuary7.applyShapes = function() {
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    let padding = 50;
+    let y = this.gridYAmount / 2;
+    for (let x = padding; x < this.gridXAmount - padding; x++) {
+        // this.setGridValue(x, y, 1);
+        // this.setGridValue(x, y - 1, 1);
+
+        // this.setGridValue(x, y + 1, 1);
+    }
+    this.setGridValue(0 + (this.gridXAmount / 2), 0 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(1 + (this.gridXAmount / 2), 0 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(501, 501, 1);
+
+};
+
+januaryCounter = 0;
+
+innerJanuary7.updateGrid = function() {
+    // console.log("Updating the grid!");
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            var neighborTopLeft = this.getGridValue(x - 1, y - 1);
+            var neighborTop = this.getGridValue(x, y - 1);
+            var neighborTopRight = this.getGridValue(x + 1, y - 1);
+            var neighborRight = this.getGridValue(x + 1, y);
+            var neighborBottomRight = this.getGridValue(x + 1, y + 1);
+            var neighborBottom = this.getGridValue(x, y + 1);
+            var neighborBottomLeft = this.getGridValue(x - 1, y + 1);
+            var neighborLeft = this.getGridValue(x - 1, y);
+            let changed = false;
+            if (value == 1) {
+                if (neighbors >= 3) {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    this.changes[oneDValue] += 5;
+                    changed = true;
+                }
+
+
+            } else {
+
+                let increment = 0.15;
+                if (Math.floor(januaryCounter) == 0) {
+                    if (neighborTopLeft == 1 && neighbors == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * 0.1;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 1) {
+                    if (neighborTop == 1 && neighbors == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * 0.1;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 2) {
+                    if (neighborTopRight == 1 && neighbors == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * 0.1;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 3) {
+                    if (neighborRight == 1 && neighbors == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * 0.1;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 4) {
+                    if (neighborBottomRight == 1 && neighbors == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * 0.1;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 5) {
+                    if (neighborBottom == 1 && neighbors == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * 0.1;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 6) {
+                    if (neighborBottomLeft == 1 && neighbors == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * 0.1;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 7) {
+                    if (neighborLeft == 1 && neighbors == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * 0.1;
+                        changed = true;
+                        januaryCounter += increment;
+                        if (januaryCounter >= 8) {
+                            januaryCounter = 0;
+                        }
+                    }
+                }
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+innerJanuary7.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+innerJanuary7.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    // if (this.currentState % 2 == 0) {
+    //     this.updateGrid = biggestFractal.updateGrid;
+    // } else {
+    //     this.updateGrid = beforeTheRiverFractal10.updateGrid;
+    // }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+innerJanuary7.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
+    return color(a.r, a.g, a.b);
+};
+
+
+//-----//
+let innerJanuary8 = new Scene({
+    fileName: "./frames/huge-fractal/huge-fractal",
+    gridScalar: 32,
+    // offset: { x: 500, y: 500 },
+    // fixedGridSize: { width: 1000, height: 1000 },
+    // paletteName: "palette-fri-dec-15-2017-185009",
+    paletteName: "palette-thu-jan-11-2018-190338",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 64,
+    maxSteps: 129
+});
+
+innerJanuary8.applyShapes = function() {
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    let padding = 50;
+    let y = this.gridYAmount / 2;
+    for (let x = padding; x < this.gridXAmount - padding; x++) {
+        // this.setGridValue(x, y, 1);
+        // this.setGridValue(x, y - 1, 1);
+
+        // this.setGridValue(x, y + 1, 1);
+    }
+    this.setGridValue(0 + (this.gridXAmount / 2), 0 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(1 + (this.gridXAmount / 2), 0 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(501, 501, 1);
+
+};
+
+januaryCounter = 0;
+
+innerJanuary8.updateGrid = function() {
+    console.log(januaryCounter);
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            var neighborTopLeft = this.getGridValue(x - 1, y - 1);
+            var neighborTop = this.getGridValue(x, y - 1);
+            var neighborTopRight = this.getGridValue(x + 1, y - 1);
+            var neighborRight = this.getGridValue(x + 1, y);
+            var neighborBottomRight = this.getGridValue(x + 1, y + 1);
+            var neighborBottom = this.getGridValue(x, y + 1);
+            var neighborBottomLeft = this.getGridValue(x - 1, y + 1);
+            var neighborLeft = this.getGridValue(x - 1, y);
+            let changed = false;
+            if (value == 1) {
+                if (neighbors >= 1) {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    this.changes[oneDValue] += 5;
+                    changed = true;
+                }
+            } else {
+
+                let increment = 0.15;
+                if (Math.floor(januaryCounter) == 0) {
+                    if (neighborTopLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * 0.1;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 1) {
+                    if (neighborTop == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * 0.1;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 2) {
+                    if (neighborTopRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * 0.1;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 3) {
+                    if (neighborRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * 0.1;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 4) {
+                    if (neighborBottomRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * 0.1;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 5) {
+                    if (neighborBottom == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * 0.1;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 6) {
+                    if (neighborBottomLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * 0.1;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 7) {
+                    if (neighborLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * 0.1;
+                        changed = true;
+                        januaryCounter += increment;
+                        if (januaryCounter >= 8) {
+                            januaryCounter = 0;
+                        }
+                    }
+                }
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+innerJanuary8.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+innerJanuary8.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    // if (this.currentState % 2 == 0) {
+    //     this.updateGrid = biggestFractal.updateGrid;
+    // } else {
+    //     this.updateGrid = beforeTheRiverFractal10.updateGrid;
+    // }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+innerJanuary8.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    // let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
+    return color(red, green, blue);
+};
+
+//-----//
+let innerJanuary9 = new Scene({
+    fileName: "./frames/huge-fractal/huge-fractal",
+    gridScalar: 16,
+    // offset: { x: 500, y: 500 },
+    // fixedGridSize: { width: 1000, height: 1000 },
+    // paletteName: "palette-fri-dec-15-2017-185009",
+    paletteName: "palette-thu-jan-11-2018-190338",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+innerJanuary9.applyShapes = function() {
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    let padding = 50;
+    let y = this.gridYAmount / 2;
+    for (let x = padding; x < this.gridXAmount - padding; x++) {
+        // this.setGridValue(x, y, 1);
+        // this.setGridValue(x, y - 1, 1);
+
+        // this.setGridValue(x, y + 1, 1);
+    }
+    this.setGridValue(0 + (this.gridXAmount / 2), 0 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(1 + (this.gridXAmount / 2), 0 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(501, 501, 1);
+
+};
+
+januaryCounter = 0;
+
+innerJanuary9.updateGrid = function() {
+    // console.log("Updating the grid!");
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            var neighborTopLeft = this.getGridValue(x - 1, y - 1);
+            var neighborTop = this.getGridValue(x, y - 1);
+            var neighborTopRight = this.getGridValue(x + 1, y - 1);
+            var neighborRight = this.getGridValue(x + 1, y);
+            var neighborBottomRight = this.getGridValue(x + 1, y + 1);
+            var neighborBottom = this.getGridValue(x, y + 1);
+            var neighborBottomLeft = this.getGridValue(x - 1, y + 1);
+            var neighborLeft = this.getGridValue(x - 1, y);
+            let changed = false;
+            if (value == 1) {
+                if (neighbors >= 2) {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    this.changes[oneDValue] += 5;
+                    changed = true;
+                }
+            } else {
+                let changeIncrement = 0.1;
+                let increment = 0.05;
+                if (Math.floor(januaryCounter) == 0) {
+                    if (neighborTopLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 1) {
+                    if (neighborTop == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 2) {
+                    if (neighborTopRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 3) {
+                    if (neighborRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 4) {
+                    if (neighborBottomRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 5) {
+                    if (neighborBottom == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 6) {
+                    if (neighborBottomLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 7) {
+                    if (neighborLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                        if (januaryCounter >= 8) {
+                            januaryCounter = 0;
+                        }
+                    }
+                }
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+innerJanuary9.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+innerJanuary9.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    // if (this.currentState % 2 == 0) {
+    //     this.updateGrid = biggestFractal.updateGrid;
+    // } else {
+    //     this.updateGrid = beforeTheRiverFractal10.updateGrid;
+    // }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+innerJanuary9.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
+    return color(a.r, a.g, a.b);
+};
+
+
+//-----//
+let innerJanuary10 = new Scene({
+    fileName: "./frames/huge-fractal/huge-fractal",
+    gridScalar: 16,
+    // offset: { x: 500, y: 500 },
+    // fixedGridSize: { width: 1000, height: 1000 },
+    // paletteName: "palette-fri-dec-15-2017-185009",
+    paletteName: "palette-thu-jan-11-2018-190338",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+innerJanuary10.applyShapes = function() {
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    let padding = 50;
+    let y = this.gridYAmount / 2;
+    for (let x = padding; x < this.gridXAmount - padding; x++) {
+        // this.setGridValue(x, y, 1);
+        // this.setGridValue(x, y - 1, 1);
+
+        // this.setGridValue(x, y + 1, 1);
+    }
+    this.setGridValue(0 + (this.gridXAmount / 2), 0 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(1 + (this.gridXAmount / 2), 0 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(501, 501, 1);
+
+};
+
+januaryCounter = 0;
+
+innerJanuary10.updateGrid = function() {
+    // console.log("Updating the grid!");
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            var neighborTopLeft = this.getGridValue(x - 1, y - 1);
+            var neighborTop = this.getGridValue(x, y - 1);
+            var neighborTopRight = this.getGridValue(x + 1, y - 1);
+            var neighborRight = this.getGridValue(x + 1, y);
+            var neighborBottomRight = this.getGridValue(x + 1, y + 1);
+            var neighborBottom = this.getGridValue(x, y + 1);
+            var neighborBottomLeft = this.getGridValue(x - 1, y + 1);
+            var neighborLeft = this.getGridValue(x - 1, y);
+            let changed = false;
+            if (value == 1) {
+                if (this.currentState % 2 == 0) {
+                    if (neighbors >= 2) {
+                        this.next[oneDValue] = { state: 0, changed: true };
+                        this.changes[oneDValue] += 5;
+                        changed = true;
+                    }
+                } else {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    this.changes[oneDValue] += 5;
+                    changed = true;
+                }
+            } else {
+                let changeIncrement = 0.1;
+                let increment = 0.05;
+                if (Math.floor(januaryCounter) == 0) {
+                    if (neighborTopLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 1) {
+                    if (neighborTop == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 2) {
+                    if (neighborTopRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 3) {
+                    if (neighborRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 4) {
+                    if (neighborBottomRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 5) {
+                    if (neighborBottom == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 6) {
+                    if (neighborBottomLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 7) {
+                    if (neighborLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                        if (januaryCounter >= 8) {
+                            januaryCounter = 0;
+                        }
+                    }
+                }
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+innerJanuary10.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+innerJanuary10.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    // if (this.currentState % 2 == 0) {
+    //     this.updateGrid = biggestFractal.updateGrid;
+    // } else {
+    //     this.updateGrid = beforeTheRiverFractal10.updateGrid;
+    // }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+innerJanuary10.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
+    return color(a.r, a.g, a.b);
+};
+
+//-----//
+let innerJanuary11 = new Scene({
+    fileName: "./frames/huge-fractal/huge-fractal",
+    gridScalar: 16,
+    // offset: { x: 500, y: 500 },
+    // fixedGridSize: { width: 1000, height: 1000 },
+    // paletteName: "palette-fri-dec-15-2017-185009",
+    paletteName: "palette-thu-jan-11-2018-190338",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+innerJanuary11.applyShapes = function() {
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    let padding = 50;
+    let y = this.gridYAmount / 2;
+    for (let x = padding; x < this.gridXAmount - padding; x++) {
+        // this.setGridValue(x, y, 1);
+        // this.setGridValue(x, y - 1, 1);
+
+        // this.setGridValue(x, y + 1, 1);
+    }
+    this.setGridValue(0 + (this.gridXAmount / 3) * 2, 0 + (this.gridYAmount / 4), 1);
+    // this.setGridValue(1 + (this.gridXAmount / 2), 0 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(501, 501, 1);
+
+};
+
+januaryCounter = 0;
+
+innerJanuary11.updateGrid = function() {
+    // console.log("Updating the grid!");
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            var neighborTopLeft = this.getGridValue(x - 1, y - 1);
+            var neighborTop = this.getGridValue(x, y - 1);
+            var neighborTopRight = this.getGridValue(x + 1, y - 1);
+            var neighborRight = this.getGridValue(x + 1, y);
+            var neighborBottomRight = this.getGridValue(x + 1, y + 1);
+            var neighborBottom = this.getGridValue(x, y + 1);
+            var neighborBottomLeft = this.getGridValue(x - 1, y + 1);
+            var neighborLeft = this.getGridValue(x - 1, y);
+            let changed = false;
+            if (value == 1) {
+                if (this.currentState % 2 == 0) {
+                    if (neighbors >= 3) {
+                        this.next[oneDValue] = { state: 0, changed: true };
+                        this.changes[oneDValue] += 5;
+                        changed = true;
+                    }
+                } else {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    this.changes[oneDValue] += 5;
+                    changed = true;
+                }
+            } else {
+                let changeIncrement = 0.5;
+                let increment = 0.05;
+                if (Math.floor(januaryCounter) == 0) {
+                    if (neighborTopLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 1) {
+                    if (neighborTop == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 2) {
+                    if (neighborTopRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 3) {
+                    if (neighborRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 4) {
+                    if (neighborBottomRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 5) {
+                    if (neighborBottom == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 6) {
+                    if (neighborBottomLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 7) {
+                    if (neighborLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                        if (januaryCounter >= 8) {
+                            januaryCounter = 0;
+                        }
+                    }
+                }
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+innerJanuary11.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+innerJanuary11.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    // if (this.currentState % 2 == 0) {
+    //     this.updateGrid = biggestFractal.updateGrid;
+    // } else {
+    //     this.updateGrid = beforeTheRiverFractal10.updateGrid;
+    // }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+innerJanuary11.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
+    return color(a.r, a.g, a.b);
+};
+
+//-----//
+let innerJanuary12 = new Scene({
+    fileName: "./frames/huge-fractal/huge-fractal",
+    gridScalar: 16,
+    // offset: { x: 500, y: 500 },
+    // fixedGridSize: { width: 1000, height: 1000 },
+    // paletteName: "palette-fri-dec-15-2017-185009",
+    paletteName: "palette-thu-jan-11-2018-190338",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+innerJanuary12.applyShapes = function() {
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    let padding = 50;
+    let y = this.gridYAmount / 2;
+    for (let x = padding; x < this.gridXAmount - padding; x++) {
+        // this.setGridValue(x, y, 1);
+        // this.setGridValue(x, y - 1, 1);
+
+        // this.setGridValue(x, y + 1, 1);
+    }
+    this.setGridValue(0 + (this.gridXAmount / 3) * 2, 0 + (this.gridYAmount / 4), 1);
+    // this.setGridValue(1 + (this.gridXAmount / 2), 0 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(501, 501, 1);
+
+};
+
+januaryCounter = 0;
+
+innerJanuary12.updateGrid = function() {
+    // console.log("Updating the grid!");
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            var neighborTopLeft = this.getGridValue(x - 1, y - 1);
+            var neighborTop = this.getGridValue(x, y - 1);
+            var neighborTopRight = this.getGridValue(x + 1, y - 1);
+            var neighborRight = this.getGridValue(x + 1, y);
+            var neighborBottomRight = this.getGridValue(x + 1, y + 1);
+            var neighborBottom = this.getGridValue(x, y + 1);
+            var neighborBottomLeft = this.getGridValue(x - 1, y + 1);
+            var neighborLeft = this.getGridValue(x - 1, y);
+            let changed = false;
+            if (value == 1) {
+                if (this.currentState % 3 == 0) {
+                    if (neighbors >= 3) {
+                        this.next[oneDValue] = { state: 0, changed: true };
+                        this.changes[oneDValue] += 5;
+                        changed = true;
+                    }
+                } else {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    this.changes[oneDValue] += 5;
+                    changed = true;
+                }
+            } else {
+                let changeIncrement = 0.5;
+                let increment = 0.1;
+                if (Math.floor(januaryCounter) == 0) {
+                    if (neighborTopLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 1) {
+                    if (neighborTop == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 2) {
+                    if (neighborTopRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 3) {
+                    if (neighborRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 4) {
+                    if (neighborBottomRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 5) {
+                    if (neighborBottom == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 6) {
+                    if (neighborBottomLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 7) {
+                    if (neighborLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                        if (januaryCounter >= 8) {
+                            januaryCounter = 0;
+                        }
+                    }
+                }
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+innerJanuary12.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+innerJanuary12.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    // if (this.currentState % 2 == 0) {
+    //     this.updateGrid = biggestFractal.updateGrid;
+    // } else {
+    //     this.updateGrid = beforeTheRiverFractal10.updateGrid;
+    // }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+innerJanuary12.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
+    return color(a.r, a.g, a.b);
+};
+
+//-----//
+let innerJanuary13 = new Scene({
+    fileName: "./frames/huge-fractal/huge-fractal",
+    gridScalar: 16,
+    // offset: { x: 500, y: 500 },
+    // fixedGridSize: { width: 1000, height: 1000 },
+    // paletteName: "palette-fri-dec-15-2017-185009",
+    paletteName: "palette-fri-jan-12-2018-034139",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+innerJanuary13.applyShapes = function() {
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    let padding = 50;
+    let y = this.gridYAmount / 2;
+    for (let x = padding; x < this.gridXAmount - padding; x++) {
+        // this.setGridValue(x, y, 1);
+        // this.setGridValue(x, y - 1, 1);
+
+        // this.setGridValue(x, y + 1, 1);
+    }
+    this.setGridValue(0 + (this.gridXAmount / 4) * 3, 0 + (this.gridYAmount / 5), 1);
+    // this.setGridValue(1 + (this.gridXAmount / 2), 0 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(501, 501, 1);
+
+};
+
+januaryCounter = 0;
+
+innerJanuary13.updateGrid = function() {
+    // console.log("Updating the grid!");
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            var neighborTopLeft = this.getGridValue(x - 1, y - 1);
+            var neighborTop = this.getGridValue(x, y - 1);
+            var neighborTopRight = this.getGridValue(x + 1, y - 1);
+            var neighborRight = this.getGridValue(x + 1, y);
+            var neighborBottomRight = this.getGridValue(x + 1, y + 1);
+            var neighborBottom = this.getGridValue(x, y + 1);
+            var neighborBottomLeft = this.getGridValue(x - 1, y + 1);
+            var neighborLeft = this.getGridValue(x - 1, y);
+            let changed = false;
+            if (value == 1) {
+                if (this.currentState % 3 == 0) {
+                    if (neighbors >= 3) {
+                        this.next[oneDValue] = { state: 0, changed: true };
+                        this.changes[oneDValue] += 5;
+                        changed = true;
+                    }
+                } else {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    this.changes[oneDValue] += 5;
+                    changed = true;
+                }
+            } else {
+                let changeIncrement = 0.5;
+                let increment = 0.05;
+                if (Math.floor(januaryCounter) == 0) {
+                    if (neighborTopLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 1) {
+                    if (neighborTop == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 2) {
+                    if (neighborTopRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 3) {
+                    if (neighborRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 4) {
+                    if (neighborBottomRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 5) {
+                    if (neighborBottom == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 6) {
+                    if (neighborBottomLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 7) {
+                    if (neighborLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                        if (januaryCounter >= 8) {
+                            januaryCounter = 0;
+                        }
+                    }
+                }
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+innerJanuary13.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+innerJanuary13.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    // if (this.currentState % 2 == 0) {
+    //     this.updateGrid = biggestFractal.updateGrid;
+    // } else {
+    //     this.updateGrid = beforeTheRiverFractal10.updateGrid;
+    // }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+innerJanuary13.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
+    return color(a.r, a.g, a.b);
+};
+
+//-----//
+let innerJanuary14 = new Scene({
+    fileName: "./frames/inner-january-14/inner-january-14",
+    gridScalar: 16,
+    // offset: { x: 500, y: 500 },
+    // fixedGridSize: { width: 1000, height: 1000 },
+    // paletteName: "palette-fri-dec-15-2017-185009",
+    paletteName: "palette-sat-dec-16-2017-010605",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+innerJanuary14.applyShapes = function() {
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    let padding = 50;
+    let y = this.gridYAmount / 2;
+    for (let x = padding; x < this.gridXAmount - padding; x++) {
+        // this.setGridValue(x, y, 1);
+        // this.setGridValue(x, y - 1, 1);
+
+        // this.setGridValue(x, y + 1, 1);
+    }
+    this.setGridValue(0 + (this.gridXAmount / 5) * 4, 0 + (this.gridYAmount / 5), 1);
+    // this.setGridValue(1 + (this.gridXAmount / 2), 0 + (this.gridYAmount / 2), 1);
+    // this.setGridValue(501, 501, 1);
+
+};
+
+januaryCounter = 0;
+
+innerJanuary14.updateGrid = function() {
+    // console.log("Updating the grid!");
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            var neighborTopLeft = this.getGridValue(x - 1, y - 1);
+            var neighborTop = this.getGridValue(x, y - 1);
+            var neighborTopRight = this.getGridValue(x + 1, y - 1);
+            var neighborRight = this.getGridValue(x + 1, y);
+            var neighborBottomRight = this.getGridValue(x + 1, y + 1);
+            var neighborBottom = this.getGridValue(x, y + 1);
+            var neighborBottomLeft = this.getGridValue(x - 1, y + 1);
+            var neighborLeft = this.getGridValue(x - 1, y);
+            let changed = false;
+            if (value == 1) {
+                if (this.currentState % 2 == 0) {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    this.changes[oneDValue] += 5;
+                    changed = true;
+                } else {
+                    if (neighbors == 3 ||  neighbors == 1) {
+                        this.next[oneDValue] = { state: 0, changed: true };
+                        this.changes[oneDValue] += 5;
+                        changed = true;
+                    }
+
+                }
+            } else {
+                let changeIncrement = 0.5;
+                let increment = 0.05;
+                if (Math.floor(januaryCounter) == 0) {
+                    if (neighborTopLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 1) {
+                    if (neighborTop == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 2) {
+                    if (neighborTopRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 3) {
+                    if (neighborRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 4) {
+                    if (neighborBottomRight == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 5) {
+                    if (neighborBottom == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 6) {
+                    if (neighborBottomLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 7) {
+                    if (neighborLeft == 1) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] += changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                        if (januaryCounter >= 8) {
+                            januaryCounter = 0;
+                        }
+                    }
+                }
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+innerJanuary14.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+innerJanuary14.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    // if (this.currentState % 2 == 0) {
+    //     this.updateGrid = biggestFractal.updateGrid;
+    // } else {
+    //     this.updateGrid = beforeTheRiverFractal10.updateGrid;
+    // }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+innerJanuary14.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
+    return color(a.r, a.g, a.b);
+};
+let scene = innerJanuary14;
