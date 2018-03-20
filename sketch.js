@@ -69,7 +69,7 @@ function draw() {
             }
         } else {
             if (scene.fixedGridSize) {
-                for (let i = 0; i < 3 * (scene.gridScalar / 16); i++) {
+                for (let i = 0; i < 15 * (scene.gridScalar / 16); i++) {
                     if (!printedBackground) {
                         background(0);
                         printedBackground = true;
@@ -121,7 +121,7 @@ function draw() {
                     }
                 }
             } else {
-                for (let i = 0; i < 3; i++) {
+                for (let i = 0; i < 15 * (scene.gridScalar / 16); i++) {
                     if (!printedBackground) {
                         background(0);
                         printedBackground = true;
@@ -229,7 +229,9 @@ function keyPressed() {
     if (key == 'm' || key == 'M') {
         redraw();
     }
-
+    if (key == 'r' || key == 'R') {
+        window.location.reload();
+    }
 }
 
 function mousePressed() {
