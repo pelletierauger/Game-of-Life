@@ -99,3 +99,6 @@ ffmpeg -f concat -safe 0 -r 2 -i ./ffmpeg-commands/frames-square-notultimate.txt
 ffmpeg -f concat -safe 0 -r 4 -i ./ffmpeg-commands/frames-square-withmiddle.txt -filter colorlevels=rimax=0.6:gimax=0.6:bimax=0.6 -s 720x720 ./video-renders/fractal-withmiddle-4fps.gif
 
 ffmpeg -f image2 -framerate 24 -i ./frames/inner-january-14/inner-january-14-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest ./video-renders/inner-january-14-24fps.mp4
+
+
+ffmpeg -f image2 -framerate 24 -i ./frames/nights-of-march-6/nights-of-march-6-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest ./video-renders/nights-of-march-6-24fps.mp4
