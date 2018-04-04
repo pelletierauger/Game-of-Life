@@ -2121,6 +2121,7 @@ let bigRiver4 = new Scene({
     offset: { x: 500, y: 500 },
     fixedGridSize: { width: 1000, height: 1000 },
     paletteName: "palette-thu-dec-28-2017-025052",
+    paletteName: "palette-tue-dec-12-2017-131801",
     speedModulo: 1,
     zoom: 1,
     dotPerTile: 3500 / 16,
@@ -7577,8 +7578,8 @@ nightsOfMarch12.getColor = function(oneDValue, optionalArray) {
 let nightsOfMarch13 = new Scene({
     fileName: "./frames/inner-january-14/inner-january-14",
     gridScalar: 16,
-    // offset: { x: 500, y: 500 },
-    // fixedGridSize: { width: 1000, height: 1000 },
+    offset: { x: 0, y: 70 },
+    fixedGridSize: { width: 257, height: 145 + 70 },
     // paletteName: "palette-fri-dec-15-2017-185009",
     // paletteName: "palette-tue-dec-19-2017-173106",
 
@@ -7598,6 +7599,11 @@ let nightsOfMarch13 = new Scene({
     paletteName: "palette-sun-mar-18-2018-054224",
 
     paletteName: "palette-sun-mar-18-2018-152840",
+    paletteName: "palette-thu-jan-11-2018-161632",
+    paletteName: "palette-sun-mar-04-2018-041924",
+    paletteName: "palette-thu-jan-11-2018-190338",
+    paletteName: "palette-mon-mar-19-2018-224330",
+
 
 
 
@@ -7640,6 +7646,7 @@ nightsOfMarch13.updateGrid = function() {
     for (let i = 0; i < 2; i++) {
         if (Math.random() <= 0.9) {
             let y = map(this.currentState, 0, 800, this.gridYAmount - 20, 0);
+            y = constrain(y, 0, this.gridYAmount - 20);
             let x = Math.random() * this.gridXAmount;
             let w = Math.random() * 40;
             let yModifier = 0;
@@ -7656,7 +7663,8 @@ nightsOfMarch13.updateGrid = function() {
 
     for (let i = 0; i < 2; i++) {
         if (Math.random() <= 0.9) {
-            let y = Math.random() * this.gridYAmount * 0.2;
+            let y = ((this.gridYAmount * 0.5) + 20) + Math.random() * this.gridYAmount * 0.1;
+            y = map(this.currentState, 0, 800, y, 0);
             let x = this.gridXAmount * 0.7 + (Math.random() * this.gridXAmount * 0.02);
             let w = Math.random() * 100;
             let yModifier = 0;
@@ -7781,7 +7789,7 @@ nightsOfMarch13.getColor = function(oneDValue, optionalArray) {
     } else {
         c = this.changes[oneDValue];
     }
-    let blueLerp = map(c, 400 * 0.05, 850 * 0.05, 0, 1);
+    let blueLerp = map(c, 400 * 0.05, 750 * 0.05, 0, 1);
     blueLerp = constrain(blueLerp, 0, 1);
     let p = this.palette.data;
     let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
@@ -7789,8 +7797,8 @@ nightsOfMarch13.getColor = function(oneDValue, optionalArray) {
     let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
     let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
     a.r = lerp(a.r, 0, blueLerp);
-    a.g = lerp(a.g, 0, blueLerp);
-    a.b = lerp(a.b, 50, blueLerp);
+    a.g = lerp(a.g, 25, blueLerp);
+    a.b = lerp(a.b, 25, blueLerp);
     return color(a.r, a.g, a.b);
 };
 
@@ -7870,7 +7878,13 @@ nightsOfMarch14.updateGrid = function() {
             if (modifier) {
                 yModifier += plusMinus;
             }
-            this.setGridValue(x + i, y + yModifier, 1);
+            // this.setGridValue(x + i, y + yModifier, 1);
+            let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+            let oneDValue = (Math.floor(x) + i) + ((Math.floor(y) + yModifier) * xAmount);
+            if (this.changes[oneDValue] == 0) {
+                this.setGridValue(x + i, y + yModifier, 1);
+                this.changes[oneDValue] = this.currentState * 0.5;
+            }
         }
     }
 
@@ -8179,8 +8193,10 @@ nightsOfMarch15.getColor = function(oneDValue, optionalArray) {
     } else {
         c = this.changes[oneDValue];
     }
-    let blueLerp = map(c * 2, 0, 300, 0, 1);
+    let blueLerp = map(c * 2, 0, 235, 0, 1);
     blueLerp = constrain(blueLerp, 0, 1);
+    let blackLerp = map(c * 2, 235, 250, 0, 1);
+    blackLerp = constrain(blackLerp, 0, 1);
     let p = this.palette.data;
     let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
     let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
@@ -8190,6 +8206,9 @@ nightsOfMarch15.getColor = function(oneDValue, optionalArray) {
     a.r = lerp(a.r, 0, blueLerp);
     a.g = lerp(a.g, 0, blueLerp);
     a.b = lerp(a.b, 150, blueLerp);
+    a.r = lerp(a.r, 0, blackLerp);
+    a.g = lerp(a.g, 0, blackLerp);
+    a.b = lerp(a.b, 0, blackLerp);
     return color(a.r, a.g, a.b);
 };
 
@@ -8538,7 +8557,13 @@ nightsOfMarch18.updateGrid = function() {
             if (modifier) {
                 yModifier += plusMinus;
             }
-            this.setGridValue(x + i, y + yModifier, 1);
+            // this.setGridValue(x + i, y + yModifier, 1);
+            let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+            let oneDValue = (Math.floor(x) + i) + ((Math.floor(y) + yModifier + i) * xAmount);
+            if (this.changes[oneDValue] == 0) {
+                this.setGridValue(x + i, y + yModifier + i, 1);
+                this.changes[oneDValue] = this.currentState * 0.5;
+            }
         }
     }
     let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
@@ -8863,7 +8888,8 @@ let nightsOfMarch20 = new Scene({
 
     paletteName: "palette-tue-dec-12-2017-132118",
 
-
+    // palette-tue-dec-12-2017-131801
+    // palette-mon-dec-11-2017-211545
 
     //----------------------------------------
 
@@ -9237,7 +9263,10 @@ let nightsOfMarch22 = new Scene({
 
     paletteName: "palette-tue-dec-12-2017-221300",
 
-
+    // nightsOfMarch22 aussi très beau avec :
+    // palette-sat-dec-16-2017-142619
+    // palette-tue-dec-19-2017-172500
+    // palette-tue-dec-12-2017-220058
 
     //----------------------------------------
 
@@ -10831,6 +10860,15 @@ let nightsOfMarch30 = new Scene({
 
     // nightsOfMarch30
     paletteName: "palette-mon-dec-11-2017-211401",
+    paletteName: "palette-sat-dec-16-2017-142619",
+    // palette-fri-jan-12-2018-024639
+    // palette-sun-mar-04-2018-154033
+    // palette-tue-dec-19-2017-173106
+
+
+
+
+
     // palette-fri-jan-12-2018-024639
     // palette-sat-dec-16-2017-142619
     // palette-tue-mar-20-2018-040327
@@ -12347,4 +12385,1783 @@ nightsOfMarch36.getColor = function(oneDValue, optionalArray) {
     return color(a.r, a.g, a.b);
 };
 
-let scene = bigRiver4;
+
+//-------------------------------------------------------------
+
+let nightsOfMarch37 = new Scene({
+    fileName: "./frames/inner-january-14/inner-january-14",
+    gridScalar: 16,
+    // offset: { x: 500, y: 500 },
+    // fixedGridSize: { width: 1000, height: 1000 },
+    // paletteName: "palette-fri-dec-15-2017-185009",
+    // paletteName: "palette-tue-dec-19-2017-173106",
+
+    // beau
+    // paletteName: "palette-sat-dec-16-2017-150022",
+    // très beau
+    paletteName: "palette-tue-dec-12-2017-141143",
+    // aussi très beau
+    // paletteName: "palette-sat-mar-17-2018-153848",
+
+
+    // Beau avec nightsOfMarch19
+    paletteName: "palette-sun-mar-18-2018-205032",
+
+
+    paletteName: "palette-sun-dec-24-2017-140250",
+
+    paletteName: "palette-tue-dec-12-2017-132118",
+
+    paletteName: "palette-tue-dec-12-2017-221300",
+
+    // for nightsOfMarch27
+    paletteName: "palette-fri-jan-12-2018-024639",
+    paletteName: "palette-sat-dec-16-2017-014035",
+
+    // nightsOfMarch30
+    paletteName: "palette-mon-mar-19-2018-225739",
+    paletteName: "palette-tue-dec-12-2017-132913",
+    paletteName: "palette-sat-mar-17-2018-034450",
+    paletteName: "palette-fri-dec-15-2017-185711",
+    paletteName: "palette-fri-jan-12-2018-024639",
+    paletteName: "palette-sat-dec-16-2017-144333",
+    // paletteName: "palette-mon-dec-18-2017-140253",
+
+    paletteName: "palette-tue-mar-20-2018-015216",
+
+    paletteName: "palette-mon-dec-11-2017-211545",
+    paletteName: "palette-mon-dec-11-2017-211645",
+
+
+    paletteName: "palette-mon-mar-19-2018-224024",
+    paletteName: "palette-mon-mar-19-2018-225739",
+    paletteName: "palette-sat-dec-16-2017-143417",
+    paletteName: "palette-tue-mar-20-2018-015216",
+
+    paletteName: "palette-sat-mar-17-2018-034609",
+    // paletteName: "palette-sat-dec-16-2017-010605",
+    // palette-mon-dec-11-2017-211401
+
+    //Très beau avec nightsOfMarch37 :
+    // palette-wed-mar-28-2018-003835
+    // palette-sat-dec-16-2017-010605
+
+
+    // palette-fri-jan-12-2018-024639
+    // palette-sat-dec-16-2017-142619
+    // palette-tue-mar-20-2018-040327
+    // palette-sat-dec-16-2017-010605
+
+
+    // palette-tue-dec-19-2017-172500
+    // palette-tue-mar-20-2018-031234
+
+    //----------------------------------------
+
+    // Other nice options for nightsOfMarch19:
+    // palette-mon-dec-11-2017-211545
+    // palette-thu-jan-11-2018-172555
+    // palette-sat-mar-17-2018-152553
+    // palette-mon-mar-19-2018-224024
+    // palette-mon-mar-19-2018-224330
+
+    // Wonderful for nightsOfMarch19:
+    // palette-mon-mar-19-2018-224636
+
+    //palette-mon-mar-19-2018-225739
+    //palette-mon-mar-19-2018-231044
+    //palette-tue-mar-20-2018-013327
+    //palette-tue-mar-20-2018-015216
+
+    //----------------------------------------
+
+    // paletteName: "palette-sun-mar-04-2018-154033",
+    // palette-tue-dec-12-2017-141143
+
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+nightsOfMarch37.applyShapes = function() {
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    // this.setGridValue(this.gridXAmount / 2, 0, 1);
+    // this.setGridValue(0, this.gridYAmount / 2, 1);
+    // this.setGridValue(this.gridXAmount * 0.22, this.gridYAmount * 0.12, 1);
+    // this.setGridValue(this.gridXAmount * 0.8, this.gridYAmount * 0.5, 1);
+    // for (let y = 40; y < this.gridYAmount - 40; y++) {
+    //     this.setGridValue(0, y, 1);
+    // }
+    // this.setGridValue(0, this.gridYAmount / 2, 1);
+    // this.setGridValue(this.gridXAmount / 2, 0, 1);
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount - 1, 1);
+};
+
+nightsOfMarch37.updateGrid = function() {
+    for (var i = 0; i < 6; i++) {
+        if (Math.random() <= 0.25) {
+            let y = map(this.currentState, 0, 75, this.gridYAmount, 0);
+            let x = Math.random() * this.gridXAmount;
+            let w = Math.random() * 40;
+            let yModifier = 0;
+            let modifier = (Math.random() >= 0.5) ? true : false;
+            for (let i = 0; i < w; i++) {
+                let plusMinus = (Math.random() >= 0.5) ? -1 : 1;
+                // if (modifier) {
+                yModifier += plusMinus;
+                // }
+                let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+                let oneDValue = (Math.floor(x) + i) + ((Math.floor(y) + yModifier + i) * xAmount);
+                if (this.changes[oneDValue] == 0) {
+                    this.setGridValue(x + i, y + yModifier + i, 1);
+                    this.changes[oneDValue] = this.currentState * 0.5;
+                }
+            }
+        }
+    }
+    // if (this.currentState % 10 == 0 || this.currentState == 1) {
+    //     let yBase = map(this.currentState, 0, 75, this.gridYAmount, 0);
+    //     let ran = Math.random() * 50;
+    //     let increment = Math.random() * 20;
+    //     for (var x = 0; x < this.gridXAmount; x += increment) {
+    //         let y = yBase + (Math.sin(x + this.currentState) * 50);
+    //         let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    //         let oneDValue = Math.floor(x) + (Math.floor(y) * xAmount);
+    //         if (this.changes[oneDValue] == 0) {
+    //             let rando = (Math.round(Math.random())) ? -1 : 1;
+    //             this.setGridValue(x, y, 1);
+    //             this.setGridValue(x + 1, y + rando, 1);
+    //             this.changes[oneDValue] = this.currentState * 0.5;
+    //         }
+    //     }
+    // }
+
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            var neighborTopLeft = this.calculateNeighbors(x - 1, y - 1);
+            var neighborTop = this.calculateNeighbors(x, y - 1);
+            var neighborTopRight = this.calculateNeighbors(x + 1, y - 1);
+            var neighborRight = this.calculateNeighbors(x + 1, y);
+            var neighborBottomRight = this.calculateNeighbors(x + 1, y + 1);
+            var neighborBottom = this.calculateNeighbors(x, y + 1);
+            var neighborBottomLeft = this.calculateNeighbors(x - 1, y + 1);
+            var neighborLeft = this.calculateNeighbors(x - 1, y);
+            let changed = false;
+            if (value == 1) {
+                // if (this.currentState % 2 == 0) {
+                if (neighbors == 0 || neighbors == 1 || neighbors == 2 ||  neighbors == 3) {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    this.changes[oneDValue] = this.currentState * 0.5;
+                    changed = true;
+                }
+                // } else {
+                //     if (neighbors == 0 || neighbors == 1) {
+                //         this.next[oneDValue] = { state: 0, changed: true };
+                //         this.changes[oneDValue] = this.currentState * 0.5;
+                //         changed = true;
+                //     }
+                // }
+            } else {
+                if (this.currentState % 2 == 0) {
+                    if (neighborBottom <= 2 && neighborBottomRight <= 3 && neighborTop) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * 0.5;
+                        changed = true;
+                    }
+                } else {
+                    if (neighborBottom <= 1 && neighborBottomRight <= 2 && neighborLeft) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * 0.5;
+                        changed = true;
+                    }
+                }
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+nightsOfMarch37.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+nightsOfMarch37.update = function() {
+    // console.log("UPDATED!!!!");
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    // if (this.currentState % 2 == 0) {
+    //     this.updateGrid = biggestFractal.updateGrid;
+    // } else {
+    //     this.updateGrid = beforeTheRiverFractal10.updateGrid;
+    // }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+nightsOfMarch37.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    let blueLerp = map(c, 0, 60, 0, 1);
+    blueLerp = constrain(blueLerp, 0, 1);
+    let blackLerp = map(c, 60, 70, 0, 1);
+    blackLerp = constrain(blackLerp, 0, 1);
+    let thirdLerp = map(c, 70, 80, 0, 1);
+    thirdLerp = constrain(thirdLerp, 0, 1);
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    // let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
+    let a = { r: red, g: green, b: blue };
+    a.r = lerp(a.r, 0, blueLerp);
+    a.g = lerp(a.g, 25, blueLerp);
+    a.b = lerp(a.b, 50, blueLerp);
+    a.r = lerp(a.r, 0, blackLerp);
+    a.g = lerp(a.g, 0, blackLerp);
+    a.b = lerp(a.b, 50, blackLerp);
+    a.r = lerp(a.r, 0, thirdLerp);
+    a.g = lerp(a.g, 0, thirdLerp);
+    a.b = lerp(a.b, 0, thirdLerp);
+    return color(a.r, a.g, a.b);
+};
+
+
+//-------------------------------------------------------------
+
+let nightsOfMarch38 = new Scene({
+    fileName: "./frames/inner-january-14/inner-january-14",
+    gridScalar: 16,
+    // offset: { x: 500, y: 500 },
+    // fixedGridSize: { width: 1000, height: 1000 },
+    // paletteName: "palette-fri-dec-15-2017-185009",
+    // paletteName: "palette-tue-dec-19-2017-173106",
+
+    // beau
+    // paletteName: "palette-sat-dec-16-2017-150022",
+    // très beau
+    paletteName: "palette-tue-dec-12-2017-141143",
+    // aussi très beau
+    // paletteName: "palette-sat-mar-17-2018-153848",
+
+
+    // Beau avec nightsOfMarch19
+    paletteName: "palette-sun-mar-18-2018-205032",
+
+
+    paletteName: "palette-sun-dec-24-2017-140250",
+
+    paletteName: "palette-tue-dec-12-2017-132118",
+
+    paletteName: "palette-tue-dec-12-2017-221300",
+
+    // for nightsOfMarch27
+    paletteName: "palette-fri-jan-12-2018-024639",
+    paletteName: "palette-sat-dec-16-2017-014035",
+
+    // nightsOfMarch30
+    paletteName: "palette-mon-mar-19-2018-225739",
+    paletteName: "palette-tue-dec-12-2017-132913",
+    paletteName: "palette-sat-mar-17-2018-034450",
+    paletteName: "palette-fri-dec-15-2017-185711",
+    paletteName: "palette-fri-jan-12-2018-024639",
+    paletteName: "palette-sat-dec-16-2017-144333",
+    // paletteName: "palette-mon-dec-18-2017-140253",
+
+    paletteName: "palette-tue-mar-20-2018-015216",
+
+    paletteName: "palette-mon-dec-11-2017-211545",
+    paletteName: "palette-mon-dec-11-2017-211645",
+
+
+    paletteName: "palette-mon-mar-19-2018-224024",
+    paletteName: "palette-mon-mar-19-2018-225739",
+    paletteName: "palette-sat-dec-16-2017-143417",
+    paletteName: "palette-tue-mar-20-2018-015216",
+
+    paletteName: "palette-sat-mar-17-2018-034609",
+    // paletteName: "palette-sat-dec-16-2017-010605",
+
+    paletteName: "palette-thu-mar-22-2018-010754",
+    // paletteName: "palette-sun-dec-24-2017-142611",
+    // palette-sun-dec-24-2017-053932
+    // palette-mon-dec-18-2017-005144
+
+
+    // palette-fri-jan-12-2018-024639
+    // palette-sat-dec-16-2017-142619
+    // palette-tue-mar-20-2018-040327
+    // palette-sat-dec-16-2017-010605
+
+
+    // palette-tue-dec-19-2017-172500
+    // palette-tue-mar-20-2018-031234
+
+    //----------------------------------------
+
+    // Other nice options for nightsOfMarch19:
+    // palette-mon-dec-11-2017-211545
+    // palette-thu-jan-11-2018-172555
+    // palette-sat-mar-17-2018-152553
+    // palette-mon-mar-19-2018-224024
+    // palette-mon-mar-19-2018-224330
+
+    // Wonderful for nightsOfMarch19:
+    // palette-mon-mar-19-2018-224636
+
+    //palette-mon-mar-19-2018-225739
+    //palette-mon-mar-19-2018-231044
+    //palette-tue-mar-20-2018-013327
+    //palette-tue-mar-20-2018-015216
+
+    //----------------------------------------
+
+    // paletteName: "palette-sun-mar-04-2018-154033",
+    // palette-tue-dec-12-2017-141143
+
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+nightsOfMarch38.applyShapes = function() {
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    // this.setGridValue(this.gridXAmount / 2, 0, 1);
+    // this.setGridValue(0, this.gridYAmount / 2, 1);
+    // this.setGridValue(this.gridXAmount * 0.22, this.gridYAmount * 0.12, 1);
+    // this.setGridValue(this.gridXAmount * 0.8, this.gridYAmount * 0.5, 1);
+    // for (let y = 40; y < this.gridYAmount - 40; y++) {
+    //     this.setGridValue(0, y, 1);
+    // }
+    // this.setGridValue(0, this.gridYAmount / 2, 1);
+    // this.setGridValue(this.gridXAmount / 2, 0, 1);
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount - 1, 1);
+};
+
+nightsOfMarch38.updateGrid = function() {
+    // for (var i = 0; i < 6; i++) {
+    //     if (Math.random() <= 0.25) {
+    //         let y = map(this.currentState, 0, 75, this.gridYAmount, 0);
+    //         let x = Math.random() * this.gridXAmount;
+    //         let w = Math.random() * 40;
+    //         let yModifier = 0;
+    //         let modifier = (Math.random() >= 0.5) ? true : false;
+    //         for (let i = 0; i < w; i++) {
+    //             let plusMinus = (Math.random() >= 0.5) ? -1 : 1;
+    //             // if (modifier) {
+    //             yModifier += plusMinus;
+    //             // }
+    //             let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    //             let oneDValue = (Math.floor(x) + i) + ((Math.floor(y) + yModifier + i) * xAmount);
+    //             if (this.changes[oneDValue] == 0) {
+    //                 this.setGridValue(x + i, y + yModifier + i, 1);
+    //                 this.changes[oneDValue] = this.currentState * 0.5;
+    //             }
+    //         }
+    //     }
+    // }
+    if (this.currentState % 10 == 0 || this.currentState == 1) {
+        let yBase = map(this.currentState, 0, 75, this.gridYAmount, 0);
+        let ran = Math.random() * 50;
+        let increment = Math.random() * 20;
+        for (var x = 0; x < this.gridXAmount; x += increment) {
+            let y = yBase + (Math.sin(x + ran) * 50);
+            let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+            let oneDValue = Math.floor(x) + (Math.floor(y) * xAmount);
+            if (this.changes[oneDValue] == 0) {
+                this.setGridValue(x, y, 1);
+                this.changes[oneDValue] = this.currentState * 0.5;
+            }
+            let rando = (Math.round(Math.random())) ? -1 : 1;
+            let oneDValue2 = (Math.floor(x) + 1) + ((Math.floor(y) + rando) * xAmount);
+            if (this.changes[oneDValue2] == 0) {
+                this.setGridValue(x + 1, y + rando, 1);
+                this.changes[oneDValue2] = this.currentState * 0.5;
+            }
+        }
+    }
+
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            var neighborTopLeft = this.calculateNeighbors(x - 1, y - 1);
+            var neighborTop = this.calculateNeighbors(x, y - 1);
+            var neighborTopRight = this.calculateNeighbors(x + 1, y - 1);
+            var neighborRight = this.calculateNeighbors(x + 1, y);
+            var neighborBottomRight = this.calculateNeighbors(x + 1, y + 1);
+            var neighborBottom = this.calculateNeighbors(x, y + 1);
+            var neighborBottomLeft = this.calculateNeighbors(x - 1, y + 1);
+            var neighborLeft = this.calculateNeighbors(x - 1, y);
+            let changed = false;
+            if (value == 1) {
+                // if (this.currentState % 2 == 0) {
+                if (neighbors == 0 || neighbors == 1 || neighbors == 2 ||  neighbors == 3) {
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    this.changes[oneDValue] = this.currentState * 0.5;
+                    changed = true;
+                }
+                // } else {
+                //     if (neighbors == 0 || neighbors == 1) {
+                //         this.next[oneDValue] = { state: 0, changed: true };
+                //         this.changes[oneDValue] = this.currentState * 0.5;
+                //         changed = true;
+                //     }
+                // }
+            } else {
+                if (this.currentState % 2 == 0) {
+                    if (neighborBottom <= 2 && neighborBottomRight <= 3 && neighborTop) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * 0.5;
+                        changed = true;
+                    }
+                } else {
+                    if (neighborBottom <= 2 && neighborLeft) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * 0.5;
+                        changed = true;
+                    }
+                }
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+nightsOfMarch38.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+nightsOfMarch38.update = function() {
+    // console.log("UPDATED!!!!");
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    // if (this.currentState % 2 == 0) {
+    //     this.updateGrid = biggestFractal.updateGrid;
+    // } else {
+    //     this.updateGrid = beforeTheRiverFractal10.updateGrid;
+    // }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+nightsOfMarch38.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    c += 5;
+    let blueLerp = map(c, 0, 40, 0, 1);
+    blueLerp = constrain(blueLerp, 0, 1);
+    let blackLerp = map(c, 40, 60, 0, 1);
+    blackLerp = constrain(blackLerp, 0, 1);
+    let thirdLerp = map(c, 60, 80, 0, 1);
+    thirdLerp = constrain(thirdLerp, 0, 1);
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    // let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
+    let a = { r: red, g: green, b: blue };
+    a.r = lerp(a.r, 0, blueLerp);
+    a.g = lerp(a.g, 25, blueLerp);
+    a.b = lerp(a.b, 50, blueLerp);
+    a.r = lerp(a.r, 0, blackLerp);
+    a.g = lerp(a.g, 0, blackLerp);
+    a.b = lerp(a.b, 50, blackLerp);
+    a.r = lerp(a.r, 0, thirdLerp);
+    a.g = lerp(a.g, 0, thirdLerp);
+    a.b = lerp(a.b, 0, thirdLerp);
+    return color(a.r, a.g, a.b);
+};
+
+
+//-------------
+let nightsOfMarch39 = new Scene({
+    fileName: "./frames/inner-january-14/inner-january-14",
+    gridScalar: 16,
+    // offset: { x: 500, y: 500 },
+    // fixedGridSize: { width: 1000, height: 1000 },
+    // paletteName: "palette-fri-dec-15-2017-185009",
+    // paletteName: "palette-tue-dec-19-2017-173106",
+
+
+    // paletteName: "palette-sun-mar-04-2018-034653",
+    paletteName: "palette-sun-mar-04-2018-045707",
+    paletteName: "palette-sun-dec-24-2017-140250",
+
+    // for nightsOfMarch39
+    // palette-sat-dec-16-2017-150616
+
+
+    // paletteName: "palette-sun-mar-04-2018-154033",
+
+
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+nightsOfMarch39.applyShapes = function() {
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    this.setGridValue(0, 0, 1);
+
+};
+
+nightsOfMarch39.updateGrid = function() {
+    // console.log("Updating the grid!");
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            var neighborTopLeft = this.calculateNeighbors(x - 1, y - 1);
+            var neighborTop = this.calculateNeighbors(x, y - 1);
+            var neighborTopRight = this.calculateNeighbors(x + 1, y - 1);
+            var neighborRight = this.calculateNeighbors(x + 1, y);
+            var neighborBottomRight = this.calculateNeighbors(x + 1, y + 1);
+            var neighborBottom = this.calculateNeighbors(x, y + 1);
+            var neighborBottomLeft = this.calculateNeighbors(x - 1, y + 1);
+            var neighborLeft = this.calculateNeighbors(x - 1, y);
+            let changed = false;
+            if (value == 1) {
+                // if (this.currentState % 2 == 0) {
+                //     // if (neighbors == 6) {
+                //     this.next[oneDValue] = { state: 0, changed: true };
+                //     this.changes[oneDValue] += 5;
+                //     changed = true;
+                //     // }
+                // console.log("YEAh");r
+                // } else {
+                if (neighbors == 2 || neighbors == 3 || neighbors == 0 ||  neighbors == 1) {
+                    // console.log("YEAh");
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    this.changes[oneDValue] += 1;
+                    changed = true;
+                }
+                // //
+                // }
+            } else {
+                let changeIncrement = 0.25;
+                let increment = 0.00001;
+                let neighborValue = 2;
+                if (Math.floor(januaryCounter) == 0) {
+                    if (neighborTopLeft <= neighborValue && neighborTopLeft) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 1) {
+                    if (neighborTop <= neighborValue && neighborTop) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 2) {
+                    if (neighborTopRight <= neighborValue && neighborTopRight) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 3) {
+                    if (neighborRight <= neighborValue && neighborRight) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 4) {
+                    if (neighborBottomRight <= neighborValue && neighborBottomRight) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 5) {
+                    if (neighborBottom <= neighborValue && neighborBottom) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 6) {
+                    if (neighborBottomLeft <= neighborValue && neighborBottomLeft) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                    }
+                } else if (Math.floor(januaryCounter) == 7) {
+                    if (neighborLeft <= neighborValue && neighborLeft) {
+                        this.next[oneDValue] = { state: 1, changed: true };
+                        this.changes[oneDValue] = this.currentState * changeIncrement;
+                        changed = true;
+                        januaryCounter += increment;
+                        if (januaryCounter >= 8) {
+                            januaryCounter = 0;
+                        }
+                    }
+                }
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+nightsOfMarch39.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+nightsOfMarch39.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    // if (this.currentState % 2 == 0) {
+    //     this.updateGrid = biggestFractal.updateGrid;
+    // } else {
+    //     this.updateGrid = beforeTheRiverFractal10.updateGrid;
+    // }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+nightsOfMarch39.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    // let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
+    let a = { r: red, g: green, b: blue };
+
+    let blueLerp = map(c, 0, 65, 0, 1);
+    blueLerp = constrain(blueLerp, 0, 1);
+    let blackLerp = map(c, 65, 70, 0, 1);
+    blackLerp = constrain(blackLerp, 0, 1);
+    a.r = lerp(a.r, 20, blueLerp);
+    a.g = lerp(a.g, 20, blueLerp);
+    a.b = lerp(a.b, 105, blueLerp);
+
+    a.r = lerp(a.r, 0, blackLerp);
+    a.g = lerp(a.g, 0, blackLerp);
+    a.b = lerp(a.b, 0, blackLerp);
+
+    return color(a.r, a.g, a.b);
+};
+
+
+//-----------------------------------------------------------------
+
+let nightsOfMarch40 = new Scene({
+    fileName: "./frames/inner-january-14/inner-january-14",
+    gridScalar: 16,
+    // offset: { x: 500, y: 500 },
+    fixedGridSize: { width: 500, height: 145 },
+    // paletteName: "palette-fri-dec-15-2017-185009",
+    // paletteName: "palette-tue-dec-19-2017-173106",
+
+
+    // paletteName: "palette-sun-mar-04-2018-034653",
+    paletteName: "palette-sun-mar-04-2018-045707",
+    paletteName: "palette-sun-dec-24-2017-140250",
+    // Also great for nightsOfMarch40:
+    // palette-sat-dec-16-2017-150616
+    // palette-fri-mar-23-2018-041245
+
+
+    // for nightsOfMarch39
+    // palette-sat-dec-16-2017-150616
+
+
+    // paletteName: "palette-sun-mar-04-2018-154033",
+
+
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+nightsOfMarch40.applyShapes = function() {
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount - 1, 1);
+
+};
+
+nightsOfMarch40.updateGrid = function() {
+    for (var i = 0; i < 2; i++) {
+        if (Math.random() <= 0.15) {
+            let y = map(this.currentState, 0, 100, this.gridYAmount - 20, 0);
+            let x = Math.random() * this.gridXAmount;
+            let w = Math.random() * 40;
+            let yModifier = 0;
+            let modifier = (Math.random() >= 0.5) ? true : false;
+            for (let i = 0; i < w; i++) {
+                let plusMinus = (Math.random() >= 0.5) ? -1 : 1;
+                // if (modifier) {
+                yModifier += plusMinus;
+                // }
+                let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+                let oneDValue = (Math.floor(x) + i) + ((Math.floor(y) + yModifier) * xAmount);
+                if (this.changes[oneDValue] == 0) {
+                    this.setGridValue(x + i, y + yModifier, 1);
+                    this.changes[oneDValue] = this.currentState * 0.5;
+                }
+            }
+        }
+    }
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            var neighborTopLeft = this.calculateNeighbors(x - 1, y - 1);
+            var neighborTop = this.calculateNeighbors(x, y - 1);
+            var neighborTopRight = this.calculateNeighbors(x + 1, y - 1);
+            var neighborRight = this.calculateNeighbors(x + 1, y);
+            var neighborBottomRight = this.calculateNeighbors(x + 1, y + 1);
+            var neighborBottom = this.calculateNeighbors(x, y + 1);
+            var neighborBottomLeft = this.calculateNeighbors(x - 1, y + 1);
+            var neighborLeft = this.calculateNeighbors(x - 1, y);
+            let changed = false;
+            if (value == 1) {
+                // if (this.currentState % 2 == 0) {
+                //     // if (neighbors == 6) {
+                //     this.next[oneDValue] = { state: 0, changed: true };
+                //     this.changes[oneDValue] += 5;
+                //     changed = true;
+                //     // }
+                // console.log("YEAh");r
+                // } else {
+                if (neighbors == 0 ||  neighbors == 1 ||  neighbors == 2 ||  neighbors == 3) {
+                    // console.log("YEAh");
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    this.changes[oneDValue] += 1;
+                    changed = true;
+                }
+                // //
+                // }
+            } else {
+                let changeIncrement = 0.25;
+                let increment = 0.125;
+                let neighborValue = 2;
+                if ((neighborBottom <= 1 && neighborTop) ||
+                    (neighborLeft <= 1 && neighborRight)) {
+                    this.next[oneDValue] = { state: 1, changed: true };
+                    this.changes[oneDValue] = this.currentState * changeIncrement;
+                    changed = true;
+                    januaryCounter += increment;
+                }
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+nightsOfMarch40.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+nightsOfMarch40.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    // if (this.currentState % 2 == 0) {
+    //     this.updateGrid = biggestFractal.updateGrid;
+    // } else {
+    //     this.updateGrid = beforeTheRiverFractal10.updateGrid;
+    // }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+nightsOfMarch40.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    // let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
+    let a = { r: red, g: green, b: blue };
+
+    let blueLerp = map(c, 0, 40, 0, 1);
+    blueLerp = constrain(blueLerp, 0, 1);
+    let blackLerp = map(c, 30, 40, 0, 1);
+    blackLerp = constrain(blackLerp, 0, 1);
+    a.r = lerp(a.r, 20, blueLerp);
+    a.g = lerp(a.g, 20, blueLerp);
+    a.b = lerp(a.b, 105, blueLerp);
+
+    a.r = lerp(a.r, 0, blackLerp);
+    a.g = lerp(a.g, 0, blackLerp);
+    a.b = lerp(a.b, 0, blackLerp);
+
+    return color(a.r, a.g, a.b);
+};
+
+//-----------------------------------------------------------------
+
+let nightsOfMarch41 = new Scene({
+    fileName: "./frames/inner-january-14/inner-january-14",
+    gridScalar: 16,
+    // offset: { x: 500, y: 500 },
+    // fixedGridSize: { width: 500, height: 145 },
+    // paletteName: "palette-fri-dec-15-2017-185009",
+    // paletteName: "palette-tue-dec-19-2017-173106",
+
+
+    // paletteName: "palette-sun-mar-04-2018-034653",
+    paletteName: "palette-sun-mar-04-2018-045707",
+    paletteName: "palette-sun-dec-24-2017-140250",
+    // Also great for nightsOfMarch40:
+    // palette-sat-dec-16-2017-150616
+    // palette-sat-mar-17-2018-190341
+
+
+    // for nightsOfMarch39
+    // palette-sat-dec-16-2017-150616
+
+
+    // paletteName: "palette-sun-mar-04-2018-154033",
+
+
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+nightsOfMarch41.applyShapes = function() {
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount - 1, 1);
+
+};
+
+nightsOfMarch41.updateGrid = function() {
+    for (var i = 0; i < 6; i++) {
+        if (Math.random() <= 0.5) {
+            let y = map(this.currentState, 0, 100, this.gridYAmount - 1, 0);
+            let x = Math.random() * this.gridXAmount;
+            let w = Math.random() * 40;
+            let yModifier = 0;
+            let modifier = (Math.random() >= 0.5) ? true : false;
+            for (let i = 0; i < w; i++) {
+                let plusMinus = (Math.random() >= 0.5) ? -1 : 1;
+                // if (modifier) {
+                yModifier += plusMinus;
+                // }
+                let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+                let oneDValue = (Math.floor(x) + i) + ((Math.floor(y) + yModifier) * xAmount);
+                if (this.changes[oneDValue] == 0) {
+                    this.setGridValue(x + i, y + yModifier, 1);
+                    this.changes[oneDValue] = this.currentState * 0.5;
+                }
+            }
+        }
+    }
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            var neighborTopLeft = this.calculateNeighbors(x - 1, y - 1);
+            var neighborTop = this.calculateNeighbors(x, y - 1);
+            var neighborTopRight = this.calculateNeighbors(x + 1, y - 1);
+            var neighborRight = this.calculateNeighbors(x + 1, y);
+            var neighborBottomRight = this.calculateNeighbors(x + 1, y + 1);
+            var neighborBottom = this.calculateNeighbors(x, y + 1);
+            var neighborBottomLeft = this.calculateNeighbors(x - 1, y + 1);
+            var neighborLeft = this.calculateNeighbors(x - 1, y);
+            let changed = false;
+            if (value == 1) {
+                // if (this.currentState % 2 == 0) {
+                //     // if (neighbors == 6) {
+                //     this.next[oneDValue] = { state: 0, changed: true };
+                //     this.changes[oneDValue] += 5;
+                //     changed = true;
+                //     // }
+                // console.log("YEAh");r
+                // } else {
+                if (neighbors == 0 ||  neighbors == 1 ||  neighbors == 2 ||  neighbors == 3) {
+                    // console.log("YEAh");
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    this.changes[oneDValue] += 1;
+                    changed = true;
+                }
+                // //
+                // }
+            } else {
+                let changeIncrement = 0.25;
+                let increment = 0.125;
+                let neighborValue = 2;
+                if ((neighborBottom <= 1 && neighborTopRight) ||
+                    (neighborLeft <= 1 && neighborBottomRight)) {
+                    this.next[oneDValue] = { state: 1, changed: true };
+                    this.changes[oneDValue] = this.currentState * changeIncrement;
+                    changed = true;
+                    januaryCounter += increment;
+                }
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+nightsOfMarch41.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+nightsOfMarch41.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    // if (this.currentState % 2 == 0) {
+    //     this.updateGrid = biggestFractal.updateGrid;
+    // } else {
+    //     this.updateGrid = beforeTheRiverFractal10.updateGrid;
+    // }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+nightsOfMarch41.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    // let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
+    let a = { r: red, g: green, b: blue };
+
+    let blueLerp = map(c, 0, 40, 0, 1);
+    blueLerp = constrain(blueLerp, 0, 1);
+    let blackLerp = map(c, 30, 40, 0, 1);
+    blackLerp = constrain(blackLerp, 0, 1);
+    a.r = lerp(a.r, 20, blueLerp);
+    a.g = lerp(a.g, 20, blueLerp);
+    a.b = lerp(a.b, 105, blueLerp);
+
+    a.r = lerp(a.r, 0, blackLerp);
+    a.g = lerp(a.g, 0, blackLerp);
+    a.b = lerp(a.b, 0, blackLerp);
+
+    return color(a.r, a.g, a.b);
+};
+
+
+//-------------
+let nightsOfMarch42 = new Scene({
+    fileName: "./frames/inner-january-14/inner-january-14",
+    gridScalar: 16,
+    // offset: { x: 500, y: 500 },
+    // fixedGridSize: { width: 1000, height: 1000 },
+    // paletteName: "palette-fri-dec-15-2017-185009",
+    // paletteName: "palette-tue-dec-19-2017-173106",
+
+    // beau
+    // paletteName: "palette-sat-dec-16-2017-150022",
+    // très beau
+    // paletteName: "palette-tue-dec-12-2017-141143",
+    // aussi très beau
+    // paletteName: "palette-sat-mar-17-2018-153848",
+
+
+    // paletteName: "palette-sat-mar-17-2018-040207",
+    paletteName: "palette-sun-mar-18-2018-042739",
+    paletteName: "palette-tue-mar-20-2018-015216",
+    paletteName: "palette-sat-mar-17-2018-190341",
+    paletteName: "palette-wed-dec-20-2017-051744",
+    paletteName: "palette-sat-mar-17-2018-040207",
+    //
+    paletteName: "palette-thu-mar-01-2018-184734",
+
+
+
+    // paletteName: "palette-sun-mar-04-2018-154033",
+    // palette-tue-dec-12-2017-141143
+
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+nightsOfMarch42.applyShapes = function() {
+    this.gradientSpeed = 0.125;
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    // this.setGridValue(this.gridXAmount / 2, 0, 1);
+    // this.setGridValue(0, 0, 1);
+
+
+    let padding = 0;
+    let y = this.gridYAmount / 2;
+    for (let x = padding; x < this.gridXAmount - padding; x++) {
+        // for (let yD = -3; yD < 6; yD++) {
+        // this.setGridValue(x, 0, 1);
+        // this.setGridValue(x, 0, 1);
+        // }
+    }
+
+    padding = 0;
+    // let y = this.gridYAmount / 2;
+    for (let y = padding; y < this.gridYAmount - padding; y++) {
+        // for (let yD = -3; yD < 6; yD++) {
+        // this.setGridValue(this.gridXAmount / 2, y, 1);
+        // this.setGridValue(this.gridXAmount - 1, y, 1);
+        // }
+    }
+};
+
+nightsOfMarch42.updateGrid = function() {
+
+
+    // if (Math.random() <= 0.9) {
+    // for (let i = 0; i < 10; i++) {
+    //     let y = map(this.currentState, 0, 200, this.gridYAmount, 0);
+    //     // y = Math.random() * this.gridYAmount;
+    //     let x = Math.random() * this.gridXAmount;
+    //     let w = Math.random() * 80;
+    //     let yModifier = 0;
+    //     let modifier = (Math.random() >= 0.5) ? true : false;
+    //     for (let i = 0; i < w; i++) {
+    //         let plusMinus = (Math.random() >= 0.5) ? -1 : 1;
+    //         // if (modifier) {
+    //         let shift = (Math.random() >= 0.999) ? Math.random() * -40 : 0;
+    //         shift = 0;
+    //         yModifier += plusMinus;
+    //         // }
+    //         // this.setGridValue(x + i, y + yModifier + shift, 1);
+    //         let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    //         let oneDValue = (Math.floor(x + i)) + ((Math.floor(y + yModifier + shift)) * xAmount);
+    //         if (this.changes[oneDValue] == 0) {
+    //             this.setGridValue(x + i, y + yModifier + shift, 1);
+    //             this.changes[oneDValue] = this.currentState * this.gradientSpeed;
+    //         }
+    //     }
+    // }
+    // }
+
+
+
+    // console.log("Updating the grid!");
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            var neighborTopLeft = this.calculateNeighbors(x, y - 2);
+            var neighborTop = this.calculateNeighbors(x, y - 2);
+            var neighborTopRight = this.calculateNeighbors(x + 2, y - 2);
+            var neighborRight = this.calculateNeighbors(x + 2, y);
+            var neighborBottomRight = this.calculateNeighbors(x + 2, y + 2);
+            var neighborBottom = this.calculateNeighbors(x, y + 2);
+            var neighborBottomLeft = this.calculateNeighbors(x - 2, y + 2);
+            var neighborLeft = this.calculateNeighbors(x - 2, y);
+            let changed = false;
+            if (value == 1) {
+                // if (this.currentState % 2 == 0) {
+                //     // if (neighbors == 6) {
+                //     this.next[oneDValue] = { state: 0, changed: true };
+                //     this.changes[oneDValue] += 5;
+                //     changed = true;
+                //     // }
+                // console.log("YEAh");r
+                // } else {
+                if (neighbors == 1 || neighbors == 2 || neighbors == 3  ||  neighbors == 0) {
+                    // console.log("YEAh");
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    this.changes[oneDValue] += 1;
+                    changed = true;
+                }
+                // //
+                // }
+            } else {
+                let januaryCounter = 0;
+                let changeIncrement = 0.5;
+                let increment = 0.0000001;
+                let neighborValue = 1;
+                let stateScalar = 0.0625;
+                if (neighborBottomLeft <= 3 && neighborBottomRight <= 3 && neighborTopRight <= 3 && neighborRight) {
+                    this.next[oneDValue] = { state: 1, changed: true };
+                    this.changes[oneDValue] = this.currentState * this.gradientSpeed;
+                    changed = true;
+                    januaryCounter += increment;
+                }
+
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+nightsOfMarch42.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+nightsOfMarch42.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    // if (this.currentState % 2 == 0) {
+    //     this.updateGrid = biggestFractal.updateGrid;
+    // } else {
+    //     this.updateGrid = beforeTheRiverFractal10.updateGrid;
+    // }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+nightsOfMarch42.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    let g = this.gradientSpeed;
+    let blueLerp = map(c * 2, 0, 1500 * g, 0, 1);
+    blueLerp = constrain(blueLerp, 0, 1);
+    let blackLerp = map(c * 2, 1300 * g, 1500 * g, 0, 1);
+    blackLerp = constrain(blackLerp, 0, 1);
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
+    // a.r = lerp(a.r, 20, blueLerp);
+    // a.g = lerp(a.g, 20, blueLerp);
+    // a.b = lerp(a.b, 120, blueLerp);
+    // a.r = lerp(a.r, 0, blackLerp);
+    // a.g = lerp(a.g, 0, blackLerp);
+    // a.b = lerp(a.b, 0, blackLerp);
+    return color(a.r, a.g, a.b);
+};
+
+//-------------
+let nightsOfMarch12b = new Scene({
+    fileName: "./frames/inner-january-14/inner-january-14",
+    gridScalar: 16,
+    offset: { x: 0, y: 45 },
+    fixedGridSize: { width: 257, height: 190 },
+    // paletteName: "palette-fri-dec-15-2017-185009",
+    // paletteName: "palette-tue-dec-19-2017-173106",
+
+    // beau
+    // paletteName: "palette-sat-dec-16-2017-150022",
+    // très beau
+    // paletteName: "palette-tue-dec-12-2017-141143",
+    // aussi très beau
+    // paletteName: "palette-sat-mar-17-2018-153848",
+
+
+    // paletteName: "palette-sat-mar-17-2018-040207",
+    paletteName: "palette-sun-mar-18-2018-042739",
+
+
+    paletteName: "palette-sun-mar-18-2018-050402",
+    // palette-sun-mar-04-2018-154033
+
+    // paletteName: "palette-sun-mar-04-2018-154033",
+    // palette-tue-dec-12-2017-141143
+
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+nightsOfMarch12b.applyShapes = function() {
+    // this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    // this.setGridValue(this.gridXAmount / 2, 0, 1);
+    // this.setGridValue(0, 0, 1);
+
+
+    let padding = 0;
+    let y = this.gridYAmount / 2;
+    for (let x = padding; x < this.gridXAmount - padding; x++) {
+        // for (let yD = -3; yD < 6; yD++) {
+        // this.setGridValue(x, 0, 1);
+        // this.setGridValue(x, 0, 1);
+        // }
+    }
+
+    padding = 0;
+    // let y = this.gridYAmount / 2;
+    for (let y = padding; y < this.gridYAmount - padding; y++) {
+        // for (let yD = -3; yD < 6; yD++) {
+        // this.setGridValue(this.gridXAmount / 2, y, 1);
+        // this.setGridValue(this.gridXAmount - 1, y, 1);
+        // }
+    }
+};
+
+nightsOfMarch12b.updateGrid = function() {
+
+    for (let i = 0; i < 2; i++) {
+        if (Math.random() <= 0.9) {
+            let y = map(this.currentState, 0, 800, this.gridYAmount - 20 + 45, 0);
+            let x = Math.random() * this.gridXAmount;
+            let w = Math.random() * 40;
+            let yModifier = 0;
+            let modifier = (Math.random() >= 0.5) ? true : false;
+            for (let i = 0; i < w; i++) {
+                let plusMinus = (Math.random() >= 0.5) ? -1 : 1;
+                // if (modifier) {
+                yModifier += plusMinus;
+                // }
+                let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+                let oneDValue = (Math.floor(x + i)) + ((Math.floor(y + yModifier)) * xAmount);
+                if (this.changes[oneDValue] == 0) {
+                    this.setGridValue(x + i, y + yModifier, 1);
+                    this.changes[oneDValue] = this.currentState * this.gradientSpeed;
+                }
+            }
+        }
+    }
+
+    let chance = Math.max(map(this.currentState, 0, 300, 0.9, 0.1), 0.1);
+    for (let i = 0; i < 2; i++) {
+        if (Math.random() <= chance) {
+            let y1 = (Math.random() * this.gridYAmount * 0.2) + 55;
+            let y2 = 0;
+            let y = map(this.currentState, 0, 800, y1, y2);
+            let x = this.gridXAmount * 0.2 + (Math.random() * this.gridXAmount * 0.25);
+            let w = Math.random() * 40;
+            let yModifier = 0;
+            let modifier = (Math.random() >= 0.5) ? true : false;
+            for (let i = 0; i < w; i++) {
+                let plusMinus = (Math.random() >= 0.5) ? -1 : 1;
+                // if (modifier) {
+                yModifier += plusMinus;
+                // }
+                let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+                let oneDValue = (Math.floor(x + i)) + ((Math.floor(y + yModifier)) * xAmount);
+                if (this.changes[oneDValue] == 0) {
+                    this.setGridValue(x + i, y + yModifier, 1);
+                    this.changes[oneDValue] = this.currentState * this.gradientSpeed;
+                }
+                // this.setGridValue(x + i, y + yModifier, 1);
+            }
+        }
+    }
+    // console.log("Updating the grid!");
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            var neighborTopLeft = this.calculateNeighbors(x, y - 8);
+            var neighborTop = this.calculateNeighbors(x, y + 4);
+            var neighborTopRight = this.calculateNeighbors(x + 1, y - 1);
+            var neighborRight = this.calculateNeighbors(x + 1, y);
+            var neighborBottomRight = this.calculateNeighbors(x + 1, y + 1);
+            var neighborBottom = this.calculateNeighbors(x, y + 1);
+            var neighborBottomLeft = this.calculateNeighbors(x - 1, y + 1);
+            var neighborLeft = this.calculateNeighbors(x - 1, y);
+            let changed = false;
+            if (value == 1) {
+                // if (this.currentState % 2 == 0) {
+                //     // if (neighbors == 6) {
+                //     this.next[oneDValue] = { state: 0, changed: true };
+                //     this.changes[oneDValue] += 5;
+                //     changed = true;
+                //     // }
+                // console.log("YEAh");r
+                // } else {
+                if (neighbors == 1 || neighbors == 2 || neighbors == 3  ||  neighbors == 0) {
+                    // console.log("YEAh");
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    this.changes[oneDValue] += 1;
+                    changed = true;
+                }
+                // //
+                // }
+            } else {
+                let januaryCounter = 0;
+                let changeIncrement = 0.5;
+                let increment = 0.0000001;
+                let neighborValue = 1;
+                let stateScalar = 0.05;
+                // if (this.currentState % 2 == 0) {
+                if (neighborTopLeft <= neighborValue && neighborTopLeft) {
+                    this.next[oneDValue] = { state: 1, changed: true };
+                    this.changes[oneDValue] = this.currentState * stateScalar;
+                    changed = true;
+                    januaryCounter += increment;
+                }
+                // } else {
+                // if (neighborTop <= neighborValue && neighborTop) {
+                //     this.next[oneDValue] = { state: 1, changed: true };
+                //     this.changes[oneDValue] = this.currentState * stateScalar;
+                //     changed = true;
+                //     januaryCounter += increment;
+                // }
+                // }
+
+
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+nightsOfMarch12b.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+nightsOfMarch12b.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    // if (this.currentState % 2 == 0) {
+    //     this.updateGrid = biggestFractal.updateGrid;
+    // } else {
+    //     this.updateGrid = beforeTheRiverFractal10.updateGrid;
+    // }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+nightsOfMarch12b.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    let blueLerp = map(c, 500 * 0.05, 750 * 0.05, 0, 1);
+    blueLerp = constrain(blueLerp, 0, 1);
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
+    a.r = lerp(a.r, 0, blueLerp);
+    a.g = lerp(a.g, 0, blueLerp);
+    a.b = lerp(a.b, 50, blueLerp);
+    // a = adjustLevels(-20, 0, 80, a);
+    return color(a.r, a.g, a.b);
+};
+
+
+//-------------
+let nightsOfMarch43 = new Scene({
+    fileName: "./frames/inner-january-14/inner-january-14",
+    gridScalar: 16,
+    // offset: { x: 0r, y: 100 },
+    // fixedGridSize: { width: 257, height: 1000 },
+    // paletteName: "palette-fri-dec-15-2017-185009",
+    // paletteName: "palette-tue-dec-19-2017-173106",
+
+    // beau
+    // paletteName: "palette-sat-dec-16-2017-150022",
+    // très beau
+    // paletteName: "palette-tue-dec-12-2017-141143",
+    // aussi très beau
+    // paletteName: "palette-sat-mar-17-2018-153848",
+
+
+    // paletteName: "palette-sat-mar-17-2018-040207",
+    paletteName: "palette-sun-mar-18-2018-042739",
+    paletteName: "palette-tue-mar-20-2018-015216",
+    paletteName: "palette-sat-mar-17-2018-190341",
+    paletteName: "palette-wed-dec-20-2017-051744",
+    paletteName: "palette-sat-mar-17-2018-040207",
+    //
+    paletteName: "palette-thu-mar-01-2018-184734",
+
+
+
+    // paletteName: "palette-sun-mar-04-2018-154033",
+    // palette-tue-dec-12-2017-141143
+
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+nightsOfMarch43.applyShapes = function() {
+    this.gradientSpeed = 0.125;
+    // this.setGridValue(this.gridXAmount / 2, 0, 1);
+    // this.setGridValue(this.gridXAmount / 2, 0, 1);
+    // this.setGridValue(0, 0, 1);
+
+
+    let padding = 0;
+    let y = this.gridYAmount / 2;
+    for (let x = padding; x < this.gridXAmount - padding; x++) {
+        // for (let yD = -3; yD < 6; yD++) {
+        // this.setGridValue(x, 0, 1);
+        // this.setGridValue(x, 0, 1);
+        // }
+    }
+
+    padding = 0;
+    // let y = this.gridYAmount / 2;
+    for (let y = padding; y < this.gridYAmount - padding; y++) {
+        // for (let yD = -3; yD < 6; yD++) {
+        // this.setGridValue(this.gridXAmount / 2, y, 1);
+        // this.setGridValue(this.gridXAmount - 1, y, 1);
+        // }
+    }
+};
+
+nightsOfMarch43.updateGrid = function() {
+
+
+    // if (Math.random() <= 0.9) {
+    // for (let i = 0; i < 10; i++) {
+    //     let y = map(this.currentState, 0, 200, this.gridYAmount, 0);
+    //     // y = Math.random() * this.gridYAmount;
+    //     let x = Math.random() * this.gridXAmount;
+    //     let w = Math.random() * 80;
+    //     let yModifier = 0;
+    //     let modifier = (Math.random() >= 0.5) ? true : false;
+    //     for (let i = 0; i < w; i++) {
+    //         let plusMinus = (Math.random() >= 0.5) ? -1 : 1;
+    //         // if (modifier) {
+    //         let shift = (Math.random() >= 0.999) ? Math.random() * -40 : 0;
+    //         shift = 0;
+    //         yModifier += plusMinus;
+    //         // }
+    //         // this.setGridValue(x + i, y + yModifier + shift, 1);
+    //         let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    //         let oneDValue = (Math.floor(x + i)) + ((Math.floor(y + yModifier + shift)) * xAmount);
+    //         if (this.changes[oneDValue] == 0) {
+    //             this.setGridValue(x + i, y + yModifier + shift, 1);
+    //             this.changes[oneDValue] = this.currentState * this.gradientSpeed;
+    //         }
+    //     }
+    // }
+    // }
+
+
+
+    // console.log("Updating the grid!");
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            var neighborTopLeft = this.calculateNeighbors(x, y - 2);
+            var neighborTop = this.calculateNeighbors(x, y - 2);
+            var neighborTopRight = this.calculateNeighbors(x + 2, y - 2);
+            var neighborRight = this.calculateNeighbors(x + 2, y);
+            var neighborBottomRight = this.calculateNeighbors(x + 2, y + 2);
+            var neighborBottom = this.calculateNeighbors(x, y + 2);
+            var neighborBottomLeft = this.calculateNeighbors(x - 2, y + 2);
+            var neighborLeft = this.calculateNeighbors(x - 2, y);
+            let changed = false;
+            if (value == 1) {
+                // if (this.currentState % 2 == 0) {
+                //     // if (neighbors == 6) {
+                //     this.next[oneDValue] = { state: 0, changed: true };
+                //     this.changes[oneDValue] += 5;
+                //     changed = true;
+                //     // }
+                // console.log("YEAh");r
+                // } else {
+                if (neighbors == 1 || neighbors == 2 || neighbors == 3  ||  neighbors == 0) {
+                    // console.log("YEAh");
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    this.changes[oneDValue] += 1;
+                    changed = true;
+                }
+                // //
+                // }
+            } else {
+                let januaryCounter = 0;
+                let changeIncrement = 0.5;
+                let increment = 0.0000001;
+                let neighborValue = 1;
+                let stateScalar = 0.0625;
+                if (neighborLeft <= 2 && neighborBottomRight <= 2 && neighborBottom <= 2 && neighborTop) {
+                    this.next[oneDValue] = { state: 1, changed: true };
+                    this.changes[oneDValue] = this.currentState * this.gradientSpeed;
+                    changed = true;
+                    januaryCounter += increment;
+                }
+
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+nightsOfMarch43.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+nightsOfMarch43.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    // if (this.currentState % 2 == 0) {
+    //     this.updateGrid = biggestFractal.updateGrid;
+    // } else {
+    //     this.updateGrid = beforeTheRiverFractal10.updateGrid;
+    // }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+nightsOfMarch43.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    let g = this.gradientSpeed;
+    let blueLerp = map(c * 2, 0, 1500 * g, 0, 1);
+    blueLerp = constrain(blueLerp, 0, 1);
+    let blackLerp = map(c * 2, 1300 * g, 1500 * g, 0, 1);
+    blackLerp = constrain(blackLerp, 0, 1);
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
+    // a.r = lerp(a.r, 20, blueLerp);
+    // a.g = lerp(a.g, 20, blueLerp);
+    // a.b = lerp(a.b, 120, blueLerp);
+    // a.r = lerp(a.r, 0, blackLerp);
+    // a.g = lerp(a.g, 0, blackLerp);
+    // a.b = lerp(a.b, 0, blackLerp);
+    return color(a.r, a.g, a.b);
+};
+
+let scene = nightsOfMarch43;
