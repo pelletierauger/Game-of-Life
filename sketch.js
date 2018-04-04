@@ -1,3 +1,5 @@
+p5.disableFriendlyErrors = true;
+
 let looping = false;
 let printing = false;
 let socket, cnvs, ctx, canvasDOM;
