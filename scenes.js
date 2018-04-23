@@ -9238,7 +9238,7 @@ nightsOfMarch21.getColor = function(oneDValue, optionalArray) {
 //-------------------------------------------------------------
 
 let nightsOfMarch22 = new Scene({
-    fileName: "./frames/inner-january-14/inner-january-14",
+    fileName: "./frames/nights-of-march-22-levels/nights-of-march-22",
     gridScalar: 16,
     // offset: { x: 500, y: 500 },
     // fixedGridSize: { width: 1000, height: 1000 },
@@ -9423,6 +9423,7 @@ nightsOfMarch22.getColor = function(oneDValue, optionalArray) {
     a.r = lerp(a.r, 0, blackLerp);
     a.g = lerp(a.g, 0, blackLerp);
     a.b = lerp(a.b, 0, blackLerp);
+    a = adjustLevels(0, 60, 150, { r: a.r, g: a.g, b: a.b });
     return color(a.r, a.g, a.b);
 };
 
@@ -14164,4 +14165,434 @@ nightsOfMarch43.getColor = function(oneDValue, optionalArray) {
     return color(a.r, a.g, a.b);
 };
 
-let scene = nightsOfMarch43;
+//-------------
+let nightsOfApril = new Scene({
+    fileName: "./frames/inner-january-14/inner-january-14",
+    gridScalar: 16,
+    // offset: { x: 0r, y: 100 },
+    // fixedGridSize: { width: 257, height: 1000 },
+    // paletteName: "palette-fri-dec-15-2017-185009",
+    // paletteName: "palette-tue-dec-19-2017-173106",
+
+    // beau
+    // paletteName: "palette-sat-dec-16-2017-150022",
+    // très beau
+    // paletteName: "palette-tue-dec-12-2017-141143",
+    // aussi très beau
+    // paletteName: "palette-sat-mar-17-2018-153848",
+
+
+    // paletteName: "palette-sat-mar-17-2018-040207",
+    paletteName: "palette-sun-mar-18-2018-042739",
+    paletteName: "palette-tue-mar-20-2018-015216",
+    paletteName: "palette-sat-mar-17-2018-190341",
+    paletteName: "palette-wed-dec-20-2017-051744",
+    paletteName: "palette-sat-mar-17-2018-040207",
+    //
+    paletteName: "palette-thu-mar-01-2018-184734",
+    paletteName: "palette-mon-dec-11-2017-211645",
+
+
+    // paletteName: "palette-sun-mar-04-2018-154033",
+    // palette-tue-dec-12-2017-141143
+
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+nightsOfApril.applyShapes = function() {
+    this.gradientSpeed = 0.25;
+    // this.setGridValue(this.gridXAmount / 2, 0, 1);
+    // this.setGridValue(this.gridXAmount / 2, 0, 1);
+    // this.setGridValue(0, 0, 1);
+
+
+    let padding = 0;
+    let y = this.gridYAmount / 2;
+    for (let x = padding; x < this.gridXAmount - padding; x++) {
+        // for (let yD = -3; yD < 6; yD++) {
+        // this.setGridValue(x, 0, 1);
+        // this.setGridValue(x, 0, 1);
+        // }
+    }
+
+    padding = 0;
+    // let y = this.gridYAmount / 2;
+    for (let y = padding; y < this.gridYAmount - padding; y++) {
+        // for (let yD = -3; yD < 6; yD++) {
+        // this.setGridValue(this.gridXAmount / 2, y, 1);
+        // this.setGridValue(this.gridXAmount - 1, y, 1);
+        // }
+    }
+};
+
+nightsOfApril.updateGrid = function() {
+
+    for (let i = 0; i < 1; i++) {
+        let rr = map(Math.abs(Math.sin(this.currentState * 0.01)), 0, 1, 0.01, 0.4);
+        if (Math.random() <= rr) {
+            for (let i = 0; i < 10; i++) {
+                let y = map(this.currentState, 0, 500, this.gridYAmount, 0);
+                y = Math.random() * this.gridYAmount;
+                // y = map(Math.sin(this.currentState * 0.1), -1, 1, 0, this.gridYAmount - 1);
+                let x = Math.random() * this.gridXAmount;
+                let w = Math.random() * 80;
+                let yModifier = 0;
+                let modifier = (Math.random() >= 0.5) ? true : false;
+                for (let i = 0; i < w; i++) {
+                    let plusMinus = (Math.random() >= 0.5) ? -2 : 2;
+                    // if (modifier) {
+                    let shift = (Math.random() >= 0.999) ? Math.random() * -40 : 0;
+                    shift = 0;
+                    yModifier += plusMinus;
+                    // }
+                    // this.setGridValue(x + i, y + yModifier + shift, 1);
+                    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+                    let oneDValue = (Math.floor(x + i)) + ((Math.floor(y + yModifier + shift)) * xAmount);
+                    // if (this.changes[oneDValue] == 0) {
+                    this.setGridValue(x + i, y + yModifier + shift, 1);
+                    this.changes[oneDValue] = this.currentState * this.gradientSpeed;
+                    // }
+                }
+            }
+        }
+    }
+
+
+    // console.log("Updating the grid!");
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            var neighborTopLeft = this.calculateNeighbors(x, y - 2);
+            var neighborTop = this.calculateNeighbors(x, y - 2);
+            var neighborTopRight = this.calculateNeighbors(x + 2, y - 2);
+            var neighborRight = this.calculateNeighbors(x + 2, y);
+            var neighborBottomRight = this.calculateNeighbors(x + 2, y + 2);
+            var neighborBottom = this.calculateNeighbors(x, y + 2);
+            var neighborBottomLeft = this.calculateNeighbors(x - 2, y + 2);
+            var neighborLeft = this.calculateNeighbors(x - 2, y);
+            let changed = false;
+            if (value == 1) {
+                // if (this.currentState % 2 == 0) {
+                //     // if (neighbors == 6) {
+                //     this.next[oneDValue] = { state: 0, changed: true };
+                //     this.changes[oneDValue] += 5;
+                //     changed = true;
+                //     // }
+                // console.log("YEAh");r
+                // } else {
+                if (neighbors <= 4) {
+                    // console.log("YEAh");
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    this.changes[oneDValue] += 1;
+                    changed = true;
+                }
+                // //
+                // }
+            } else {
+                let januaryCounter = 0;
+                let changeIncrement = 0.5;
+                let increment = 0.0000001;
+                let neighborValue = 1;
+                let stateScalar = 0.0625;
+                if (neighborBottom <= 2 && neighborLeft >= 2 && neighborTop) {
+                    this.next[oneDValue] = { state: 1, changed: true };
+                    this.changes[oneDValue] = this.currentState * this.gradientSpeed;
+                    changed = true;
+                    januaryCounter += increment;
+                }
+
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+nightsOfApril.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+nightsOfApril.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    // if (this.currentState % 2 == 0) {
+    //     this.updateGrid = biggestFractal.updateGrid;
+    // } else {
+    //     this.updateGrid = beforeTheRiverFractal10.updateGrid;
+    // }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+nightsOfApril.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    let g = this.gradientSpeed;
+    let blueLerp = map(c * 2, 0, 1500 * g, 0, 1);
+    blueLerp = constrain(blueLerp, 0, 1);
+    let blackLerp = map(c * 2, 1300 * g, 1500 * g, 0, 1);
+    blackLerp = constrain(blackLerp, 0, 1);
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
+    // a.r = lerp(a.r, 20, blueLerp);
+    // a.g = lerp(a.g, 20, blueLerp);
+    // a.b = lerp(a.b, 120, blueLerp);
+    // a.r = lerp(a.r, 0, blackLerp);
+    // a.g = lerp(a.g, 0, blackLerp);
+    // a.b = lerp(a.b, 0, blackLerp);
+    return color(a.r, a.g, a.b);
+};
+
+//-------------
+let nightsOfApril2 = new Scene({
+    fileName: "./frames/inner-january-14/inner-january-14",
+    gridScalar: 16,
+    // offset: { x: 0r, y: 100 },
+    // fixedGridSize: { width: 257, height: 1000 },
+    // paletteName: "palette-fri-dec-15-2017-185009",
+    // paletteName: "palette-tue-dec-19-2017-173106",
+
+    // beau
+    // paletteName: "palette-sat-dec-16-2017-150022",
+    // très beau
+    // paletteName: "palette-tue-dec-12-2017-141143",
+    // aussi très beau
+    // paletteName: "palette-sat-mar-17-2018-153848",
+
+
+    // paletteName: "palette-sat-mar-17-2018-040207",
+    paletteName: "palette-sun-mar-18-2018-042739",
+    paletteName: "palette-tue-mar-20-2018-015216",
+    paletteName: "palette-sat-mar-17-2018-190341",
+    paletteName: "palette-wed-dec-20-2017-051744",
+    paletteName: "palette-sat-mar-17-2018-040207",
+    //
+    paletteName: "palette-thu-mar-01-2018-184734",
+    paletteName: "palette-mon-dec-11-2017-211645",
+
+
+    // paletteName: "palette-sun-mar-04-2018-154033",
+    // palette-tue-dec-12-2017-141143
+
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+nightsOfApril2.applyShapes = function() {
+    this.gradientSpeed = 0.25;
+    // this.setGridValue(this.gridXAmount / 2, 0, 1);
+    // this.setGridValue(this.gridXAmount / 2, 0, 1);
+    // this.setGridValue(0, 0, 1);
+
+
+    let padding = 0;
+    let y = this.gridYAmount / 2;
+    for (let x = padding; x < this.gridXAmount - padding; x++) {
+        // for (let yD = -3; yD < 6; yD++) {
+        // this.setGridValue(x, 0, 1);
+        // this.setGridValue(x, 0, 1);
+        // }
+    }
+
+    padding = 0;
+    // let y = this.gridYAmount / 2;
+    for (let y = padding; y < this.gridYAmount - padding; y++) {
+        // for (let yD = -3; yD < 6; yD++) {
+        // this.setGridValue(this.gridXAmount / 2, y, 1);
+        // this.setGridValue(this.gridXAmount - 1, y, 1);
+        // }
+    }
+};
+
+nightsOfApril2.updateGrid = function() {
+
+    for (let i = 0; i < 1; i++) {
+        let rr = map(Math.abs(Math.sin(this.currentState * 0.01)), 0, 1, 0.01, 0.4);
+        if (Math.random() <= rr) {
+            for (let i = 0; i < 10; i++) {
+                let y = map(this.currentState, 0, 500, this.gridYAmount, 0);
+                y = Math.random() * this.gridYAmount;
+                // y = map(Math.sin(this.currentState * 0.1), -1, 1, 0, this.gridYAmount - 1);
+                let x = Math.random() * this.gridXAmount;
+                let w = Math.random() * 80;
+                let yModifier = 0;
+                let modifier = (Math.random() >= 0.5) ? true : false;
+                for (let i = 0; i < w; i++) {
+                    let plusMinus = (Math.random() >= 0.5) ? -2 : 2;
+                    // if (modifier) {
+                    let shift = (Math.random() >= 0.999) ? Math.random() * -40 : 0;
+                    shift = 0;
+                    yModifier += plusMinus;
+                    // }
+                    // this.setGridValue(x + i, y + yModifier + shift, 1);
+                    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+                    let oneDValue = (Math.floor(x + i)) + ((Math.floor(y + yModifier + shift)) * xAmount);
+                    if (this.grid[oneDValue] && this.grid[oneDValue].state == 0) {
+                        this.setGridValue(x + i, y + yModifier + shift, 1);
+                        this.changes[oneDValue] = this.currentState * this.gradientSpeed;
+                    }
+                }
+            }
+        }
+    }
+
+
+    // console.log("Updating the grid!");
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            var neighbors = this.calculateNeighbors(x, y);
+            var neighborTopLeft = this.calculateNeighbors(x, y - 2);
+            var neighborTop = this.calculateNeighbors(x, y - 2);
+            var neighborTopRight = this.calculateNeighbors(x + 2, y - 2);
+            var neighborRight = this.calculateNeighbors(x + 2, y);
+            var neighborBottomRight = this.calculateNeighbors(x + 2, y + 2);
+            var neighborBottom = this.calculateNeighbors(x, y + 2);
+            var neighborBottomLeft = this.calculateNeighbors(x - 2, y + 2);
+            var neighborLeft = this.calculateNeighbors(x - 2, y);
+            let changed = false;
+            if (value == 1) {
+                // if (this.currentState % 2 == 0) {
+                //     // if (neighbors == 6) {
+                //     this.next[oneDValue] = { state: 0, changed: true };
+                //     this.changes[oneDValue] += 5;
+                //     changed = true;
+                //     // }
+                // console.log("YEAh");r
+                // } else {
+                if (neighbors <= 3) {
+                    // console.log("YEAh");
+                    this.next[oneDValue] = { state: 0, changed: true };
+                    this.changes[oneDValue] += 1;
+                    changed = true;
+                }
+                // //
+                // }
+            } else {
+                let januaryCounter = 0;
+                let changeIncrement = 0.5;
+                let increment = 0.0000001;
+                let neighborValue = 1;
+                let stateScalar = 0.0625;
+                if (neighborTopRight <= 2 && neighborBottomLeft >= 2 && neighborTop) {
+                    this.next[oneDValue] = { state: 1, changed: true };
+                    this.changes[oneDValue] = this.currentState * this.gradientSpeed;
+                    changed = true;
+                    januaryCounter += increment;
+                }
+
+            }
+            if (!changed) {
+                this.next[oneDValue] = { state: value, changed: false };
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+nightsOfApril2.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+nightsOfApril2.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    // if (this.currentState % 2 == 0) {
+    //     this.updateGrid = biggestFractal.updateGrid;
+    // } else {
+    //     this.updateGrid = beforeTheRiverFractal10.updateGrid;
+    // }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+nightsOfApril2.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    let g = this.gradientSpeed;
+    let blueLerp = map(c * 2, 0, 1500 * g, 0, 1);
+    blueLerp = constrain(blueLerp, 0, 1);
+    let blackLerp = map(c * 2, 1300 * g, 1500 * g, 0, 1);
+    blackLerp = constrain(blackLerp, 0, 1);
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
+    a.r = lerp(a.r, 20, blueLerp);
+    a.g = lerp(a.g, 20, blueLerp);
+    a.b = lerp(a.b, 120, blueLerp);
+    a.r = lerp(a.r, 0, blackLerp);
+    a.g = lerp(a.g, 0, blackLerp);
+    a.b = lerp(a.b, 0, blackLerp);
+    return color(a.r, a.g, a.b);
+};
+
+let scene = nightsOfMarch22;
