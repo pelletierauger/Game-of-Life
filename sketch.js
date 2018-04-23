@@ -51,8 +51,9 @@ function draw() {
             }
             scene.update();
             let xAmount = (scene.fixedGridSize) ? scene.fixedGridSize.width : scene.gridXAmount;
-            for (let x = 0; x < scene.gridXAmount; x++) {
-                for (let y = 0; y < scene.gridYAmount; y++) {
+            let yAmount = (scene.fixedGridSize) ? scene.fixedGridSize.height : scene.gridYAmount;
+            for (let x = 0; x < xAmount; x++) {
+                for (let y = 0; y < yAmount; y++) {
                     let oneDValue = (x + scene.offset.x) + ((y + scene.offset.y) * xAmount);
                     // console.log(oneDValue);
                     var value = scene.grid[oneDValue].state;
