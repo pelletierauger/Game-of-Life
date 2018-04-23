@@ -102,3 +102,54 @@ ffmpeg -f image2 -framerate 24 -i ./frames/inner-january-14/inner-january-14-%05
 
 
 ffmpeg -f image2 -framerate 24 -i ./frames/nights-of-march-6/nights-of-march-6-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest ./video-renders/nights-of-march-6-24fps.mp4
+
+ffmpeg -f image2 -framerate 24 -i ./frames/nights-of-march-22/nights-of-march-22-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest ./video-renders/nights-of-march-22-24fps.mp4
+
+ffmpeg -f image2 -framerate 24 -i ./frames/april-at-the-docks/april-at-the-dock-02-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest ./video-renders/april-at-the-docks-02-24fps.mp4
+
+ffmpeg -f image2 -framerate 24 -i ./frames/april-at-the-docks/april-at-the-dock-02-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest ./video-renders/april-at-the-docks-02-24fps.mp4
+
+
+
+ffmpeg -f concat -safe 0 -r 8 -i ./ffmpeg-commands/frames-square-little.txt -filter:v "colorlevels=rimax=0.6:gimax=0.6:bimax=0.6, scale=720:-1" -sws_flags lanczos -i ./ffmpeg-commands/palette.png -lavfi paletteuse fractal-square-2pass.gif
+
+
+//This is modified from something that works.
+ffmpeg -f image2 -framerate 24 -i ./frames/april-at-the-docks/april-at-the-dock-02-%05d.png -filter colorlevels=rimax=0.6:gimax=0.6:bimax=0.6 -s 1280x720 -vf "fps=24,scale=320:-1:flags=lanczos, palettegen" -y ./ffmpeg-commands/palette-docks-01.png
+
+ffmpeg -f concat -safe 0 -r 8 -i ./ffmpeg-commands/april-at-the-dock-02.txt -filter:v "colorlevels=rimax=0.6:gimax=0.6:bimax=0.6, scale=720:-1" -sws_flags lanczos -i ./ffmpeg-commands/palette-docks-01.png -lavfi paletteuse april-at-the-docks-02.gif
+
+
+ffmpeg -i input.mkv -i palette.png -lavfi paletteuse output.gif
+
+ffmpeg -f image2 -framerate 24 -i ./frames/april-at-the-docks/april-at-the-dock-02-%05d.png -i ffmpeg-commands/palette-docks-01b.png -lavfi paletteuse april-at-the-docks-02.gif
+
+------------------------------------------------------------------------------------
+
+A palettegen & paletteuse example that seems to work (from April 8th, 2018):
+
+ffmpeg -f image2 -framerate 24 -i ./frames/april-at-the-docks/april-at-the-dock-02-%05d.png -vf palettegen palette-docks-01b.png
+
+ffmpeg -f image2 -framerate 24 -i ./frames/april-at-the-docks/april-at-the-dock-02-%05d.png -i ffmpeg-commands/palette-docks-01b.png -lavfi paletteuse april-at-the-docks-02.gif
+
+------------------------------------------------------------------------------------
+
+ffmpeg -f image2 -framerate 24 -i ./frames/april-at-the-docks/april-at-the-dock-02-%05d.png -i ffmpeg-commands/palette-docks-01b.png -lavfi paletteuse -s 1280x720 april-at-the-docks-02-small.gif
+
+-----------------------------------------------------
+
+ffmpeg -f image2 -framerate 24 -i ./frames/april-at-the-docks-02b/april-at-the-docks-02b-%05d.png -vf palettegen palette-docks-02b.png
+
+ffmpeg -f image2 -framerate 24 -i ./frames/april-at-the-docks-02b/april-at-the-docks-02b-%05d.png -i ffmpeg-commands/palette-docks-02b.png -lavfi paletteuse -s 1280x720 april-at-the-docks-02b-small.gif
+
+------------------------------------------------------------------------------------------
+
+ffmpeg -f image2 -framerate 24 -i ./frames/nights-of-march-22-levels/nights-of-march-22-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest ./video-renders/nights-of-march-22-levels-24fps.mp4
+
+------------------------------------------------------------------------------------------
+
+ffmpeg -f image2 -framerate 24 -i ./frames/nights-of-march-22-levels/nights-of-march-22-%05d.png -vf palettegen ./ffmpeg-commands/palette-nights-of-march-22.png
+
+ffmpeg -f image2 -framerate 24 -i ./frames/nights-of-march-22-levels/nights-of-march-22-%05d.png -i ./ffmpeg-commands/palette-nights-of-march-22.png -lavfi paletteuse -s 1280x720 ./video-renders/nights-of-march-22-levels-1280x720.gif
+
+ffmpeg -f image2 -framerate 24 -i ./frames/nights-of-march-22-levels/nights-of-march-22-%05d.png -i ./ffmpeg-commands/palette-nights-of-march-22.png -lavfi paletteuse -s 640x360 ./video-renders/nights-of-march-22-levels-640x360.gif
