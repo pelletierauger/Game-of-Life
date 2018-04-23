@@ -169,6 +169,11 @@ class Scene {
         var oneDValue = Math.floor(x) + (Math.floor(y) * xAmount);
         return this.grid[oneDValue] ? this.grid[oneDValue].state : 0;
     }
+    getGridCell(x, y) {
+        let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+        var oneDValue = Math.floor(x) + (Math.floor(y) * xAmount);
+        return this.grid[oneDValue] ? this.grid[oneDValue] : null;
+    }
     setGridValue(x, y, newState) {
         let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
         var oneDValue = Math.floor(x) + (Math.floor(y) * xAmount);
