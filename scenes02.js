@@ -1120,6 +1120,7 @@ let warmthOfApril4 = new Scene({
     // Aussi beau avec warmthOfApril4
     // palette-tue-apr-24-2018-031103
     // palette-tue-apr-24-2018-032249
+    paletteName: "palette-tue-apr-24-2018-032249",
 
     // nightsOfMarch22 aussi très beau avec :
     // palette-sat-dec-16-2017-142619
@@ -2326,7 +2327,7 @@ warmthOfApril9.getColor = function(oneDValue, optionalArray) {
 //-------------------------------------------------------------
 
 let warmthOfApril10 = new Scene({
-    fileName: "./frames/nights-of-march-22-levels/nights-of-march-22",
+    fileName: "./frames/warmth-of-april-10/warmth-of-april-10",
     gridScalar: 16,
     // offset: { x: 500, y: 500 },
     // fixedGridSize: { width: 1000, height: 1000 },
@@ -2767,4 +2768,4 @@ warmthOfApril11.getColor = function(oneDValue, optionalArray) {
     return color(a.r, a.g, a.b);
 };
 
-scene = warmthOfApril10;
+scene = aprilAtTheDocks;
