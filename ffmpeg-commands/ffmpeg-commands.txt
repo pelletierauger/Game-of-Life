@@ -153,3 +153,5 @@ ffmpeg -f image2 -framerate 24 -i ./frames/nights-of-march-22-levels/nights-of-m
 ffmpeg -f image2 -framerate 24 -i ./frames/nights-of-march-22-levels/nights-of-march-22-%05d.png -i ./ffmpeg-commands/palette-nights-of-march-22.png -lavfi paletteuse -s 1280x720 ./video-renders/nights-of-march-22-levels-1280x720.gif
 
 ffmpeg -f image2 -framerate 24 -i ./frames/nights-of-march-22-levels/nights-of-march-22-%05d.png -i ./ffmpeg-commands/palette-nights-of-march-22.png -lavfi paletteuse -s 640x360 ./video-renders/nights-of-march-22-levels-640x360.gif
+
+ffmpeg -f image2 -framerate 24 -i ./frames/warmth-of-april-10/warmth-of-april-10-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest ./video-renders/warmth-of-april-10-24fps.mp4
