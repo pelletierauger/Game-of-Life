@@ -235,6 +235,21 @@ function keyPressed() {
     if (key == 'r' || key == 'R') {
         window.location.reload();
     }
+    if (key == 'b' || key == 'B') {
+        scene.mutateRules();
+    }
+    if (key == 'v' || key == 'V') {
+        scene.geneticRules = lastRules;
+        scene.applyShapes();
+    }
+    if (key == 'c' || key == 'C') {
+        scene.createRandomRules();
+        scene.applyShapes();
+    }
+    if (key == 'n' || key == 'N') {
+        // scene.createRandomRules();
+        scene.applyShapes();
+    }
 }
 
 function mousePressed() {
@@ -245,6 +260,7 @@ function mousePressed() {
         let oY = scene.offset.y;
         scene.setGridValue(x + oX, y + oY, 1);
         scene.setGridSeedValue(x + oX, y + oY, 1);
+        scene.setParameter(x + oX, y + oY, "geneticState", 1);
         fill(255);
         let tW = scene.tileWidth;
         rect(x * tW, y * tW, tW, tW);
@@ -259,6 +275,7 @@ function mouseDragged() {
         let oY = scene.offset.y;
         scene.setGridValue(x + oX, y + oY, 1);
         scene.setGridSeedValue(x + oX, y + oY, 1);
+        scene.setParameter(x + oX, y + oY, "geneticState", 1);
         fill(255);
         let tW = scene.tileWidth;
         rect(x * tW, y * tW, tW, tW);
