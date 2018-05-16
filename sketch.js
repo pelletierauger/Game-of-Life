@@ -239,7 +239,7 @@ function keyPressed() {
         scene.mutateRules();
     }
     if (key == 'v' || key == 'V') {
-        scene.geneticRules = lastRules;
+        scene.geneticRules = scene.lastRules;
         scene.applyShapes();
     }
     if (key == 'c' || key == 'C') {

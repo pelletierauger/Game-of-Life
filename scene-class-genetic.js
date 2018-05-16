@@ -28,8 +28,8 @@ Scene.prototype.createRandomRules = function() {
 };
 
 Scene.prototype.applyRules = function(r) {
-    // this receives a number in base this.geneticBase, 
-    // as a string, and returns a decimal number, as in integer.
+    // This receives a number in base this.geneticBase, 
+    // as a string, and returns a decimal number, as an integer.
     let s = r;
     let b = this.geneticBase;
     let ns = "";
@@ -51,7 +51,7 @@ Scene.prototype.reInitialize = function() {
 
 
 Scene.prototype.mutateRules = function() {
-    lastRules = this.geneticRules;
+    this.lastRules = this.geneticRules;
     let r = Math.floor(Math.random() * this.geneticRules.length);
     for (let i = 0; i < this.geneticRules.length; i++) {
         if (Math.random() < 0.1) {
