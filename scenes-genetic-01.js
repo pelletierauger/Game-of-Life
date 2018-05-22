@@ -346,8 +346,8 @@ geneticScene03.updateGrid = function() {
                     changed: true
                 };
                 changed = true;
-                // this.incrementChanges(x, y);
-                this.changes[oneDValue] = value;
+                this.incrementChanges(x, y);
+                // this.changes[oneDValue] = value;
                 // this.changes[oneDValue] = this.currentState * 1;
             }
             if (!changed) {
@@ -628,15 +628,21 @@ geneticScene04.geneticRules = "01011001100110111101001100010101";
 //-------------------------------------------------------------------------------------------------//
 
 let geneticScene05 = new Scene({
-    fileName: "./frames/inner-january-14/inner-january-14",
+    fileName: "./frames/genetic-scene-05-montage/genetic-scene-05-montage",
     gridScalar: 16,
+    horizontalScalar: 16,
+    verticalScalar: 9,
     // offset: { x: 0r, y: 100 },
-    // fixedGridSize: { width: 145, height: 145 },
+    // fixedGridSize: { width: 145,r height: 145 },
     paletteName: "palette-mon-dec-11-2017-211645",
     paletteName: "palette-wed-dec-20-2017-043203",
     // paletteName: "palette-mon-dec-18-2017-003351",
     // paletteName: "palette-tue-dec-19-2017-173106",
-    paletteName: "palette-sat-dec-16-2017-011302",
+    // paletteName: "palette-sat-dec-16-2017-011302",
+    // paletteName: "palette-sat-dec-16-2017-014035",
+    // paletteName: "palette-sun-mar-04-2018-154033",
+    paletteName: "palette-sat-dec-16-2017-160319",
+    paletteName: "palette-thu-mar-01-2018-184734",
     speedModulo: 1,
     zoom: 1,
     dotPerTile: 3500 / 16,
@@ -646,6 +652,8 @@ let geneticScene05 = new Scene({
 geneticScene05.geneticBase = 2;
 
 geneticScene05.applyShapes = function() {
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
     for (let i = 0; i < this.grid.length; i++) {
         // this.grid[i].geneticState = Math.floor(Math.random() * 4);
         this.grid[i].state = 0;
@@ -654,11 +662,22 @@ geneticScene05.applyShapes = function() {
         this.changes[i] = 0;
     }
     // this.setParameter(this.gridXAmount / 2, this.gridYAmount / 2, "geneticState", 1);
-    this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    this.setGridValue(xAmount / 2, yAmount / 2, 1);
     scene.applyPalette();
 };
 
 geneticScene05.updateGrid = function() {
+
+    // if (this.currentState >= 200) {
+    //     // this.mutateRules();
+    //     if (this.rulesIndex < this.newListOfRules.length) {
+    //         this.geneticRules = this.newListOfRules[this.rulesIndex];
+    //         this.rulesIndex++;
+    //         this.applyShapes();
+    //         this.currentState = 0;
+    //     }
+    // }
+
     let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
     let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
     for (var x = 0; x < xAmount; x++) {
@@ -676,8 +695,9 @@ geneticScene05.updateGrid = function() {
                 };
                 changed = true;
                 // this.incrementChanges(x, y);
+                // this.changes[oneDValue] = this.currentState * 0.5;
+                this.changes[oneDValue] = 1;
                 // this.changes[oneDValue] = newValue;
-                this.changes[oneDValue] = this.currentState * 0.25;
             }
             if (!changed) {
                 this.next[oneDValue] = {
@@ -685,6 +705,8 @@ geneticScene05.updateGrid = function() {
                     // geneticState: this.grid[oneDValue].geneticState,
                     changed: false
                 };
+                // this.changes[oneDValue] = this.currentState * 0.25;
+                this.changes[oneDValue] = 4;
                 // this.changes[oneDValue] = value;
             }
         }
@@ -783,10 +805,451 @@ geneticScene05.createRandomRules();
 // "0011110101001100100100101010000110010110110010001100100111001111101001011000001001110100100111011100011011000111010001000110010000101000111011111000110101100011000110011010011011011011101111001111100101100010110001101011011110010000100010001111100100101010"
 // "0001111101000010100001100100010011110001000101100111111101000111100101110111011110110100010101101101000100000100000100111000011011000010110111000001000010100101100111000111100011010111101100001010001101001011110100011011100100010100101010010110001010111000"
 // geneticScene05.geneticRules = "00100000010100011010100001011101";
-geneticScene05.geneticRules = "0110011001101111";
+// geneticScene05.geneticRules = "0110011001101111";
+
+// Complex and strange:
+// "0110101110001110"
+// Almost perfect arrowhead:
+// "0110101110000010"
+// Landscape:
+// "0010100010011110"
+// Paper planes:
+// "0010100010011011"
+// Trees of Finland:
+// "0010100010010001"
+// Medium Shimmer:
+// "0110100010010000"
+// Shimmer 2:
+// "0111100010011000"
+// Symmetrical Shimmer:
+// "0111100110011000"
+// Arrows:
+// "0111100110011110"
+// Stellar Cauliflower:
+// "0110100010000101"
+// Bauhaus Descending:
+// "0110100011000101"
+// Hills
+// "0110000010001001"
+// Emperess
+// "0110100000000001"
+// Sun Queen
+// "0110100010000001"
+// The Shining Brain of Sofia Kovalevskaya
+// "0111100010000001"
+// Shining Brain Medley
+// "0110100010000001"
+// Serpinsk
+// "0111100001100000"
+// Iridescent Cube
+// "0011111101111110"
+// Ska
+// "0110100010000000"
+// Lakes and Hills
+// "0100100010001001"
+// Rocks in a pond
+// "0101111001100001"
+// The Machinery of Sunset
+// Inner Fractal
+// "0000111011100001"
+// Self-Similar Ruler
+// "0001111111111001"
+// Box
+// "0110111111110000"
+// "0100011111110000"
+// "0101111111110000"
+// "0101111111110100"
+// Perfect Box
+// "0110111111110110"
+// The Pool Tables of Rural Canada
+// "0101111111110000"
+// Mazes upon Mazes
+// "0101111111111100"
+// Rainy Saturday
+// "0101111001100001"
+// Rainy Two
+// "0110011001101001"
+// Dancing Hills
+// "0101100000001011"
+// Staircase
+// "0100010011101110"
+// Inner Staircase
+// "0100010111101110"
+// Sideway table
+// "0101001100111101"
+// Sideway disappearing table
+// "0100001100111101"
+// Treelike table
+// "0100101010101001"
+// Big H
+// "0010011001101101"
+// Flickering Snakes
+// "0011010101111000"
+// The Other Pool Table
+// "0110100010110011"
+// The Eye
+// "0111000100011010"
+// Frantic Eye
+// "0111000100011000"
+// Half-Stable Eye
+// "0111000100011010"
+// Other Half-Stable Eye
+// "0111000100011100"
+// "0111000100011100"
+// Water Up
+//"0111100100001010"
+// Up in the Trees
+// "0100011010001110"
+// Upper Left Ruler
+// "0001011001111011"
+// Better Upper Left Ruler
+// "0011011011001001"
+// Solid Upper Left Growth
+// "0011011011011011"
+
+geneticScene05.geneticRules = "0110100010000001";
+geneticScene05.geneticRules = "0100100010001001";
+geneticScene05.geneticRules = "0111100010000001";
+geneticScene05.geneticRules = "0001111111111001";
+geneticScene05.geneticRules = "0010100010011110";
+geneticScene05.geneticRules = "0000111011100001";
+// "0000111101100001"
+geneticScene05.geneticRules = "0110011001101001";
+geneticScene05.geneticRules = "0111100010000001";
+
+
+
+geneticScene05.newListOfRules = [
+    // Sofia
+    // "0111100010000001",
+    // Ska Shimmer
+    // "0111100010000000",
+    // Downward lanscape
+    "0110000010000101",
+    // Sideway Medusa
+    "0011100010000001",
+    // Right boat
+    "0110100010000101",
+    // Mid Boat
+    // "0110100010000111",
+    // Big boat
+    "0111100110000001",
+    // Sideway boat
+    "0101100010000011",
+    // 45 Serpinski
+    "0111110010000000",
+    // Mangled 45 Serpinski
+    "0111110010010000",
+    // Mangled More
+    "0111110010010010",
+    // Mast
+    "0010010010010011",
+    // Sideway Pine Tree
+    "0010010011000001",
+    // Towards serpinski
+    // "0010010010000000",
+    // Rotten Mast
+    "0010010010000001",
+    // Horizontal Serpinski
+    "0010010011000000",
+    // Surprise Serpinski
+    "0010011011000000",
+    // Facing Serpinski
+    "0011011010000000",
+    // Forest Serpinski
+    "0010011010000011",
+    // Mossy Serpinski
+    "0001011010010001",
+    // Calculated Mossy
+    "0001011010011111",
+    // "0001011000011111",
+    // Bauhaus Descending:
+    "0110100011000101",
+    // The New Rulers
+    "0111100001010101",
+    // Downward Serpinski
+    // "0111100001011100",
+    // The Boring One
+    "0001001001111111",
+    "0001001001111110",
+    "0101001100111010",
+    "0101001100110010",
+    // Shining and Glorious Serpinski
+    "0101001100110000",
+    // The Pool Tables of Rural Canada
+    "0101111111110000",
+    // Cranky Serpinski
+    // "0100001100110000",
+    // Cranky but Growing
+    "0101101110100001",
+    // Frantic Pinewood Forest
+    "0101001010100001",
+    // Serene Landscape
+    "0101001110000001",
+    // Broken Landscape
+    "0101101110000001",
+    // Good Growth
+    "0100011010100101",
+    // Rainy Two
+    "0110011001101001",
+    // Inner Fractal
+    "0000111011100001",
+    // Self-Similar Ruler
+    "0001111111111001",
+    // Between Rain and Maze
+    "0110011011111100",
+    // Mazes upon Mazes
+    "0101111111111100",
+    // Between Mazes and Perfect Box
+    "0101111111110110",
+    // Perfect Box
+    "0110111111110110"
+];
+
+geneticScene05.listOfRules = [
+    "0111100010000001",
+    "0111101010000001",
+    "0111001010000001",
+    "0111001010000011",
+    "0111011000000001",
+    "0100111000001000",
+    "0000110000000000",
+    // "0000110100100010",
+    // "0000110110100010",
+    "0000111110100010",
+    "0010111110110010",
+    "0011111100110010",
+    "0011011100110010",
+    "0011011100110000",
+    "0011111100110000",
+    "0011111000110000",
+    "0001011000010000",
+    // Mossy Serpinski
+    "0001011010010001",
+    // "0001011011011101",
+    // "0101011010011101",
+    // Calculated Mossy
+    "0001011010011111",
+    "0001011000011111",
+    // "0001001000111111",
+    "0001001001111111",
+    "0001001001111110",
+    "0101001001111110",
+    "0101001000111010",
+    "0101001100111010",
+    "0101001100110010",
+    // Shining and Glorious Serpinski
+    "0101001100110000",
+    "0101101100110000",
+    "0101101100100000",
+    // Cranky but Growing
+    "0101101110100001",
+    // Frantic Pinewood Forest
+    "0101001010100001",
+    // Serene Landscape
+    "0101001110000001",
+    // Broken Landscape
+    "0101101110000001",
+    // "0101101110100001",
+    "0101001110100101",
+    "0100001010100101",
+    // Good Growth
+    "0100011010100101",
+    "0001011010100101"
+];
+geneticScene05.rulesIndex = 0;
+
 geneticScene05.lastRules = geneticScene05.geneticRules;
 
 geneticScene05.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    if (this.grid[oneDValue].state == 0) {
+        return color(0, 0, 0);
+    }
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    let a = adjustLevels(0, 0, 350, { r: red, g: green, b: blue });
+    return color(a.r, a.g, a.b);
+}
+
+
+//-------------------------------------------------------------------------------------------------//
+
+let geneticScene06 = new Scene({
+    fileName: "./frames/genetic-scene-05b/genetic-scene-05",
+    gridScalar: 16,
+    // offset: { x: 0r, y: 100 },
+    // fixedGridSize: { width: 145, height: 145 },
+    paletteName: "palette-mon-dec-11-2017-211645",
+    paletteName: "palette-wed-dec-20-2017-043203",
+    // paletteName: "palette-mon-dec-18-2017-003351",
+    // paletteName: "palette-tue-dec-19-2017-173106",
+    // paletteName: "palette-sat-dec-16-2017-011302",
+    // paletteName: "palette-sat-dec-16-2017-014035",
+    // paletteName: "palette-sun-mar-04-2018-154033",
+    paletteName: "palette-sat-dec-16-2017-160319",
+    paletteName: "palette-thu-mar-01-2018-184734",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+geneticScene06.geneticBase = 2;
+
+geneticScene06.applyShapes = function() {
+    for (let i = 0; i < this.grid.length; i++) {
+        // this.grid[i].geneticState = Math.floor(Math.random() * 4);
+        this.grid[i].state = 0;
+        // this.grid[i].geneticState = 0;
+        this.grid[i].changed = true;
+        this.changes[i] = 0;
+    }
+    // this.setParameter(this.gridXAmount / 2, this.gridYAmount / 2, "geneticState", 1);
+    this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    scene.applyPalette();
+};
+
+geneticScene06.updateGrid = function() {
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            let neighborhood = this.getNeighborhood(x, y);
+            let newValue = this.applyRules(neighborhood);
+            let changed = false;
+            if (value !== newValue) {
+                this.next[oneDValue] = {
+                    state: newValue,
+                    // geneticState: newValue,
+                    changed: true
+                };
+                changed = true;
+                // this.incrementChanges(x, y);
+                this.changes[oneDValue] = this.currentState * 0.25;
+                // this.changes[oneDValue] = 1;
+                // this.changes[oneDValue] = newValue;
+            }
+            if (!changed) {
+                this.next[oneDValue] = {
+                    state: this.grid[oneDValue].state,
+                    // geneticState: this.grid[oneDValue].geneticState,
+                    changed: false
+                };
+                // this.changes[oneDValue] = this.currentState * 0.5;
+                // this.changes[oneDValue] = 4;
+                // this.changes[oneDValue] = value;
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+geneticScene06.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    // sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    // sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    // sum += this.getGridValue(x - 1, y + 1);
+    // sum += this.getGridValue(x, y + 1);
+    // sum += this.getGridValue(x, y);
+    // sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+
+geneticScene06.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    // if (this.currentState % 2 == 0) {
+    //     this.updateGrid = biggestFractal.updateGrid;
+    // } else {
+    //     this.updateGrid = beforeTheRiverFractal10.updateGrid;
+    // }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+
+geneticScene06.getNeighborhood = function(x, y) {
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    let up = (y > 0) ? y - 1 : yAmount - 1;
+    let down = (y < yAmount - 1) ? y + 1 : 0;
+    let left = (x > 0) ? x - 1 : xAmount - 1;
+    let right = (x < xAmount - 1) ? x + 1 : 0;
+    let neighborhood = "";
+
+    let upNeighborhood = 0;
+    upNeighborhood += this.getGridValue(left, up);
+    upNeighborhood += this.getGridValue(x, up);
+    upNeighborhood += this.getGridValue(right, up);
+    neighborhood += Math.min(1, upNeighborhood);
+    let downNeighborhood = 0;
+    downNeighborhood += this.getGridValue(left, down);
+    downNeighborhood += this.getGridValue(x, down);
+    downNeighborhood += this.getGridValue(right, down);
+    neighborhood += Math.min(1, downNeighborhood);
+    let leftNeighborhood = 0;
+    leftNeighborhood += this.getGridValue(left, up);
+    leftNeighborhood += this.getGridValue(left, y);
+    leftNeighborhood += this.getGridValue(left, down);
+    neighborhood += Math.min(1, leftNeighborhood);
+    let rightNeighborhood = 0;
+    rightNeighborhood += this.getGridValue(right, up);
+    rightNeighborhood += this.getGridValue(right, y);
+    rightNeighborhood += this.getGridValue(right, down);
+    neighborhood += Math.min(1, rightNeighborhood);
+    neighborhood += this.getGridValue(x, y);
+    return neighborhood;
+};
+
+geneticScene06.createRandomRules = function() {
+    let b = this.geneticBase;
+    this.geneticRules = "";
+    let rulesLength = Math.pow(b, 5);
+    for (let i = 0; i < rulesLength; i++) {
+        this.geneticRules += Math.round(Math.random());
+    }
+};
+geneticScene06.createRandomRules();
+geneticScene06.geneticRules = "00110111100111000000110111011101";
+geneticScene06.geneticRules = "00110111000111010000110111011101";
+// "00111110000100001100001010111101"
+// "00111011000100001100000111111101"
+// "01011001101101000011000100010101"
+// "01001101100000111100000110000101"
+// "01001100000100111100000110000101"
+// "00011110001100111100000110000101"
+// Tapestry
+// "00110111000111010000110111010101"
+// "00110111010011010000110111011101"
+geneticScene06.lastRules = geneticScene06.geneticRules;
+
+geneticScene06.getColors = function(oneDValue, optionalArray) {
     let c;
     if (optionalArray) {
         c = optionalArray[oneDValue];
@@ -800,7 +1263,25 @@ geneticScene05.getColor = function(oneDValue, optionalArray) {
     let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
     let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
     let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
-    let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
+    let a = adjustLevels(0, 0, 350, { r: red, g: green, b: blue });
     return color(a.r, a.g, a.b);
-}
-scene = geneticScene03;
+};
+
+geneticScene06.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    if (this.grid[oneDValue].state == 0) {
+        return color(0, 0, 0);
+    }
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    return color(red, green, blue);
+};
+
+scene = geneticScene05;
