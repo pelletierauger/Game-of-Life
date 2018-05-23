@@ -1283,5 +1283,295 @@ geneticScene06.getColor = function(oneDValue, optionalArray) {
     let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
     return color(red, green, blue);
 };
+//-------------------------------------------------------------------------------------------------//
 
-scene = geneticScene05;
+let geneticScene07 = new Scene({
+    fileName: "./frames/genetic-scene-05b/genetic-scene-05",
+    gridScalar: 16,
+    // offset: { x: 0r, y: 100 },
+    // fixedGridSize: { width: 145, height: 145 },
+    paletteName: "palette-thu-mar-01-2018-184734",
+    speedModulo: 1,
+    zoom: 1,
+    dotPerTile: 3500 / 16,
+    maxSteps: 129
+});
+
+geneticScene07.geneticBase = 4;
+
+geneticScene07.applyShapes = function() {
+    for (let i = 0; i < this.grid.length; i++) {
+        this.grid[i].state = 0;
+        this.grid[i].changed = true;
+        this.changes[i] = 0;
+    }
+    this.setGridValue(this.gridXAmount / 2, this.gridYAmount / 2, 1);
+    scene.applyPalette();
+};
+
+geneticScene07.updateGrid = function() {
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    for (var x = 0; x < xAmount; x++) {
+        for (var y = 0; y < yAmount; y++) {
+            var oneDValue = x + (y * xAmount);
+            var value = this.grid[oneDValue].state;
+            let neighborhood = this.getNeighborhood(x, y);
+            let oldNeighborhood = this.calculateNeighbors(x, y);
+            let newValue = this.applyRules(neighborhood);
+            let changed = false;
+            if (!value) {
+                if (oldNeighborhood <= 1 && oldNeighborhood) {
+                    this.next[oneDValue] = {
+                        state: newValue,
+                        // geneticState: newValue,
+                        changed: true
+                    };
+                    changed = true;
+                    // this.incrementChanges(x, y);
+                    this.changes[oneDValue] = this.currentState * 0.25;
+                }
+            } else if (value !== newValue) {
+                this.next[oneDValue] = {
+                    state: newValue,
+                    // geneticState: newValue,
+                    changed: true
+                };
+                changed = true;
+                // this.incrementChanges(x, y);
+                this.changes[oneDValue] = this.currentState * 0.25;
+                // this.changes[oneDValue] = 1;
+                // this.changes[oneDValue] = newValue;
+            }
+            if (!changed) {
+                this.next[oneDValue] = {
+                    state: this.grid[oneDValue].state,
+                    // geneticState: this.grid[oneDValue].geneticState,
+                    changed: false
+                };
+                // this.changes[oneDValue] = this.currentState * 0.5;
+                // this.changes[oneDValue] = 4;
+                // this.changes[oneDValue] = value;
+            }
+        }
+    }
+    for (var i = 0; i < this.grid.length; i++) {
+        this.grid[i] = this.next[i];
+    }
+    this.currentState++;
+};
+
+geneticScene07.calculateNeighbors = function(x, y) {
+    var sum = 0;
+    sum += this.getGridValue(x - 1, y - 1);
+    sum += this.getGridValue(x, y - 1);
+    sum += this.getGridValue(x + 1, y - 1);
+    sum += this.getGridValue(x - 1, y);
+    sum += this.getGridValue(x + 1, y);
+    sum += this.getGridValue(x - 1, y + 1);
+    sum += this.getGridValue(x, y + 1);
+    // sum += this.getGridValue(x, y);
+    sum += this.getGridValue(x + 1, y + 1);
+    return sum;
+};
+
+geneticScene07.update = function() {
+    // this.palette.data.redOsc *= 0.9;
+    // this.palette.data.greenOsc *= 0.9;
+    // this.palette.data.blueOsc *= 0.9;
+    // if (this.currentState % 2 == 0) {
+    //     this.updateGrid = biggestFractal.updateGrid;
+    // } else {
+    //     this.updateGrid = beforeTheRiverFractal10.updateGrid;
+    // }
+    if (!exporting && this.currentState == 0) {
+        this.currentState++;
+    } else {
+        if (!printing) {
+            this.updateGrid();
+        } else if (printing) {
+            if (this.counter % this.speedModulo == 0) {
+                this.updateGrid();
+            }
+            this.counter++;
+        }
+    }
+};
+
+geneticScene07.getNeighborhood = function(x, y) {
+    let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+    let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+    let up = (y > 0) ? y - 1 : yAmount - 1;
+    let down = (y < yAmount - 1) ? y + 1 : 0;
+    let left = (x > 0) ? x - 1 : xAmount - 1;
+    let right = (x < xAmount - 1) ? x + 1 : 0;
+    let neighborhood = "";
+
+    let upNeighborhood = 0;
+    upNeighborhood += this.getGridValue(left, up);
+    upNeighborhood += this.getGridValue(x, up);
+    upNeighborhood += this.getGridValue(right, up);
+    neighborhood += upNeighborhood;
+    let downNeighborhood = 0;
+    downNeighborhood += this.getGridValue(left, down);
+    downNeighborhood += this.getGridValue(x, down);
+    downNeighborhood += this.getGridValue(right, down);
+    neighborhood += downNeighborhood;
+    let leftNeighborhood = 0;
+    leftNeighborhood += this.getGridValue(left, up);
+    leftNeighborhood += this.getGridValue(left, y);
+    leftNeighborhood += this.getGridValue(left, down);
+    neighborhood += leftNeighborhood;
+    let rightNeighborhood = 0;
+    rightNeighborhood += this.getGridValue(right, up);
+    rightNeighborhood += this.getGridValue(right, y);
+    rightNeighborhood += this.getGridValue(right, down);
+    neighborhood += rightNeighborhood;
+    return neighborhood;
+};
+
+geneticScene07.createRandomRules = function() {
+    let b = this.geneticBase;
+    let n = 8;
+    this.geneticRules = "";
+    let rulesLength = Math.pow(b, n);
+    rulesLength = 4;
+    for (let i = 0; i < rulesLength; i++) {
+        this.geneticRules += Math.floor(Math.random() * this.geneticBase);
+    }
+};
+
+geneticScene07.createRandomSecondRules = function() {
+    let b = 2;
+    let n = 2;
+    this.geneticSecondRules = "";
+    let rulesLength = Math.pow(b, n);
+    // rulesLength = 16;
+    for (let i = 0; i < rulesLength; i++) {
+        this.geneticSecondRules += Math.round(Math.random());
+    }
+};
+
+geneticScene07.applySecondRules = function(s) {
+    // This receives a number in base this.geneticBase, 
+    // as a string, and returns a decimal number, as an integer.
+    let b = 4;
+    let ns = "";
+    for (let i = s.length - 1; i >= 0; i--) {
+        ns += s[i];
+    }
+    // console.log('ns : ' + ns);
+    let decimal = 0;
+    for (let i = 0; i <= ns.length - 1; i++) {
+        decimal += parseInt(ns[i]) * Math.pow(b, i);
+        // console.log(ns[i], parseInt(ns[i]) * Math.pow(b, i));
+    }
+    return this.geneticSecondRules[decimal];
+};
+
+geneticScene07.createRandomRules();
+geneticScene07.createRandomSecondRules();
+geneticScene07.lastRules = geneticScene07.geneticRules;
+
+geneticScene07.getColor = function(oneDValue, optionalArray) {
+    let c;
+    if (optionalArray) {
+        c = optionalArray[oneDValue];
+    } else {
+        c = this.changes[oneDValue];
+    }
+    if (this.grid[oneDValue].state == 0) {
+        return color(0, 0, 0);
+    }
+    let p = this.palette.data;
+    let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
+    let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
+    let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
+    return color(red, green, blue);
+};
+
+geneticScene07.applyRules = function(n) {
+    // This receives a neighbor n, that goes from 0 to this.geneticBase - 1 as a string.
+    let g = this.geneticRules;
+    let nn = "";
+    let truth = 0;
+    let test0 = (n[0] >= g[0]) ? true : false;
+    if (test0) {
+        truth++;
+    }
+    let test1 = (n[1] >= g[1]) ? true : false;
+    if (test1) {
+        truth++;
+    }
+    let test2 = (n[2] >= g[2]) ? true : false;
+    if (test2) {
+        truth++;
+    }
+    let test3 = (n[3] >= g[3]) ? true : false;
+    if (test3) {
+        truth++;
+    }
+    return (truth == 0 || truth == 2) ? 1 : 0;
+};
+
+geneticScene07.mutateSecondRules = function() {
+    this.lastSecondRules = this.geneticSecondRules;
+    let r = Math.floor(Math.random() * this.geneticSecondRules.length);
+    for (let i = 0; i < this.geneticSecondRules.length; i++) {
+        if (Math.random() < 0.25) {
+            let newS = "";
+            for (let t = 0; t < this.geneticSecondRules.length; t++) {
+                if (t !== i) {
+                    newS += this.geneticSecondRules[t];
+                } else {
+                    newS += Math.round(Math.random());
+                }
+            }
+            this.geneticSecondRules = newS;
+        }
+    }
+    this.applyShapes();
+};
+geneticScene07.applyPalette = function() {
+    for (var x = 0; x < this.gridXAmount; x++) {
+        for (var y = 0; y < this.gridYAmount; y++) {
+            let oneDValue;
+            if (this.fixedGridSize) {
+                oneDValue = (x + this.offset.x) + ((y + this.offset.y) * this.fixedGridSize.width);
+            } else {
+                oneDValue = x + (y * this.gridXAmount);
+            }
+            var value = this.grid[oneDValue].state;
+            var change = this.changes[oneDValue];
+            // if (change !== 0) {
+            // if (value) {
+            var light = this.getColor(oneDValue);
+            fill(light);
+            var tW = this.tileWidth;
+            rect(x * tW, y * tW, tW, tW);
+            // }
+            // }
+        }
+    }
+};
+// "02213312"
+// "03322312"
+// "21023311"
+// "23023311"
+//------------------
+// "13110013"
+// "02022313"
+// "1111"
+// "1213"
+// "1212"
+// "1212"
+// "2232"
+// "2312"
+// "1003"
+// Fractal and space filling
+// "3003"
+// "3122"
+// "3123"
+// Fractal and space filling, perfect
+// "3300"
+scene = geneticScene07;
