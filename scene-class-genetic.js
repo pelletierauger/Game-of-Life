@@ -61,7 +61,7 @@ Scene.prototype.mutateRules = function() {
                 if (t !== i) {
                     newS += this.geneticRules[t];
                 } else {
-                    newS += Math.round(Math.random());
+                    newS += Math.floor(Math.random() * this.geneticBase);
                 }
             }
             this.geneticRules = newS;
