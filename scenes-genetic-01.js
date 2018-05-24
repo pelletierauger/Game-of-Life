@@ -906,6 +906,118 @@ geneticScene05.createRandomRules();
 // "0011011011001001"
 // Solid Upper Left Growth
 // "0011011011011011"
+// Perfect Table
+// "0111111111111100"
+// Shaky Table
+// "0010111110110010"
+// V
+// "0100011010000111"
+// North-East Arrow
+// "0100001010011101"
+// East Ruler
+// "0100001110111101"
+// Better East Ruler
+// "0100101110110101"
+// Big C
+// "0101111111111101"
+// Self-Digesting Pool Table
+// "0101111111111100"
+// Other Shaky Table
+// "0101111111011100"
+// Wood Panels of Southern Finland
+// "0101111001011110"
+// Vague Ruler
+// "0001011000011011"
+// North Ruler
+// "0001011010111011"
+// South Cartesian Growth
+// "0100100001100111"
+// South East Ruler
+// "0100100000110011"
+// Wooden Box
+// "0101111011100110"
+// Perfect Wooden Box
+// "0111111011100110"
+// Western Pool Table of Rural Canada
+// "0011111111110000"
+// Reflecting Brain
+// "0110100110010000"
+// Downward Serpinski
+// "0110100111000000"
+// Traveling Boat
+// "0100100110010001"
+// Other Traveling Boat
+// "0101100110010001"
+// Messy Traveling Boat
+// "0100100010010001"
+// East Traveling Boat
+// "0011100110010001"
+// East Messy Traveling Boat
+// "0011100110000001"
+// Le vaisseau d'or
+// "0011100110011001"
+// Slightly Fuller East Traveling Boat
+// "0011100110011001"
+// Big Ruler
+// "0001011001111011"
+// Fuzzy Triangle
+// "0100011110000100"
+// Tower
+// "0110011010001110"
+// Shims
+// "0111100110001000"
+// Crawl
+// "0010100000001101"
+// Pretty Good Ruler
+// "0011100000011101"
+// Reflecting Frog
+// "0100101010100001"
+// Little Wow
+// "0110101010100001"
+// West Ruler
+// "0100101110111001"
+// Little Maze
+// "0100010011110000"
+// Normal Serpinski
+// "0010010110001100"
+// "0010010110001101"
+// South West Growth
+// "0011111001101001"
+// River Run
+// "0101010111101000"
+// Reverted Shaky Pool Table
+// "0011111111110010"
+// Reverted Pool Table of Rural Canada
+// "0011111111110000"
+// Bland Pool Table
+// "0111111111110100"
+// Arrows of a New Day
+// "0111001010101000"
+// Symmetrical Arrows of a New Day
+// "0111101010101000"
+// Fire Arrow
+// "0110101010101001"
+// Shimmering Wood
+// "0010011001101110"
+// Vertical Pool Table of Rural Canada
+// "0010111001101110"
+// Symmetrical Vertical Pool Table of Rural Canada
+// "0110111001101110"
+// Carpet
+// "0010011110100010"
+// Sideway Tower
+// "0001111101110000"
+// Perfect Sideway Tower
+// "0001111111110000"
+// Big Tree
+// "0111111001111000"
+// North West Ruler
+// "0110010110001101"
+// North East Ornate
+// "0110101010000001"
+// Balloon
+// "0001011010011001"
+
 
 geneticScene05.geneticRules = "0110100010000001";
 geneticScene05.geneticRules = "0100100010001001";
@@ -1574,4 +1686,4 @@ geneticScene07.applyPalette = function() {
 // "3123"
 // Fractal and space filling, perfect
 // "3300"
-scene = geneticScene07;
+scene = geneticScene05;
