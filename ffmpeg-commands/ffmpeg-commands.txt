@@ -155,3 +155,12 @@ ffmpeg -f image2 -framerate 24 -i ./frames/nights-of-march-22-levels/nights-of-m
 ffmpeg -f image2 -framerate 24 -i ./frames/nights-of-march-22-levels/nights-of-march-22-%05d.png -i ./ffmpeg-commands/palette-nights-of-march-22.png -lavfi paletteuse -s 640x360 ./video-renders/nights-of-march-22-levels-640x360.gif
 
 ffmpeg -f image2 -framerate 24 -i ./frames/warmth-of-april-10/warmth-of-april-10-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest ./video-renders/warmth-of-april-10-24fps.mp4
+
+------------------------------------------------------------------------------------------
+Ça me semble la bonne formule pour warmthOfApril11 :
+
+Ajustement de couleur : 
+a = adjustLevels(0, 150, 250, { r: a.r, g: a.g, b: a.b });
+Rendu avec filtre de niveaux :
+ffmpeg -i ./video-renders/marguerite.png -filter:v "colorlevels=rimax=0.941:gimax=0.941:bimax=0.941" ./video-renders/marguerite-levels0.941.png
+------------------------------------------------------------------------------------------

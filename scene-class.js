@@ -11,6 +11,8 @@ class Scene {
         if (input.animatedColors) {
             this.animatedColors = input.animatedColors;
         }
+        // this.canvasWidth = input.canvasWidth || 
+        // this.canvasHeight = input.canvasHeight || 
         this.horizontalScalar = input.horizontalScalar || 16;
         this.verticalScalar = input.verticalScalar || 9;
         this.paletteName = input.paletteName || null;

@@ -2532,7 +2532,7 @@ warmthOfApril10.getColor = function(oneDValue, optionalArray) {
 //-------------------------------------------------------------
 
 let warmthOfApril11 = new Scene({
-    fileName: "./frames/nights-of-march-22-levels/nights-of-march-22",
+    fileName: "./frames/warmth-of-april-11/warmth-of-april-11",
     gridScalar: 16,
     // offset: { x: 500, y: 500 },
     // fixedGridSize: { width: 1000, height: 1000 },
@@ -2764,7 +2764,7 @@ warmthOfApril11.getColor = function(oneDValue, optionalArray) {
     a.r = lerp(a.r, 0, blackLerp);
     a.g = lerp(a.g, 0, blackLerp);
     a.b = lerp(a.b, 0, blackLerp);
-    a = adjustLevels(0, 60, 250, { r: a.r, g: a.g, b: a.b });
+    a = adjustLevels(0, 150, 250, { r: a.r, g: a.g, b: a.b });
     return color(a.r, a.g, a.b);
 };
 
@@ -5492,4 +5492,4 @@ warmthOfMay10.getColorz = function(oneDValue, optionalArray) {
     return color(a.r, a.g, a.b);
 };
 
-// scene = warmthOfMay3;
+scene = warmthOfApril11;
