@@ -770,4 +770,4 @@ nightsOfMarch38b.getColor = function(oneDValue, optionalArray) {
 };
 
 
-scene = nightsOfMarch38b;
+// scene = nightsOfMarch38b;

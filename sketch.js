@@ -11,13 +11,13 @@ let boxToPrint = 0;
 
 function setup() {
     socket = io.connect('http://localhost:8080');
-    // cnvs = createCanvas(windowWidth, windowWidth / 16 * 9);
+    cnvs = createCanvas(windowWidth, windowWidth / 16 * 9);
 
     // canvas size for fullscreen print with bleed
-    cnvs = createCanvas(3285 * 0.5, 2246 * 0.5);
+    // cnvs = createCanvas(3285 * 0.5, 2246 * 0.5);
 
     // canvas size for fullscreen print with margin
-    // cnvs = createCanvas(3060 * 0.5, 2058 * 0.5);
+    cnvs = createCanvas(3060 * 0.5, 2058 * 0.5);
 
     ctx = cnvs.drawingContext;
     canvasDOM = document.getElementById('defaultCanvas0');
