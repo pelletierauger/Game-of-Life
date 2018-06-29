@@ -668,10 +668,10 @@ geneticScene05.applyShapes = function() {
 
 geneticScene05.updateGrid = function() {
 
-    // if (this.currentState >= 200) {
+    // if (this.currentState >= this.newListOfRules[this.rulesIndex].d) {
     //     // this.mutateRules();
     //     if (this.rulesIndex < this.newListOfRules.length) {
-    //         this.geneticRules = this.newListOfRules[this.rulesIndex];
+    //         this.geneticRules = this.newListOfRules[this.rulesIndex].r;
     //         this.rulesIndex++;
     //         this.applyShapes();
     //         this.currentState = 0;
@@ -1029,6 +1029,23 @@ geneticScene05.createRandomRules();
 // "0011010110010000"
 // Smoke in the Sky
 // "0111010110010100"
+// Video Games of Yore
+// "0000111111100000"
+// North West Mountains
+// "0110010010000101"
+// Feely
+// "0011000010001101"
+// Feely Two
+// "0011000010000101"
+// Sunflowers
+// "0011000010001001"
+// The North-West of Tasmania
+// "0111000010001001"
+// Painting
+// "0111000010000001"
+// "0110000010000001"
+// "0110000010001111"
+// "0100000010001011"
 
 
 geneticScene05.geneticRules = "0110100010000001";
@@ -1049,85 +1066,85 @@ geneticScene05.newListOfRules = [
     // Ska Shimmer
     // "0111100010000000",
     // Downward lanscape
-    "0110000010000101",
+    { r: "0110000010000101", d: 200 },
     // Sideway Medusa
-    "0011100010000001",
+    { r: "0011100010000001", d: 200 },
     // Right boat
-    "0110100010000101",
+    { r: "0110100010000101", d: 200 },
     // Mid Boat
     // "0110100010000111",
     // Big boat
-    "0111100110000001",
+    { r: "0111100110000001", d: 200 },
     // Sideway boat
-    "0101100010000011",
+    { r: "0101100010000011", d: 200 },
     // 45 Serpinski
-    "0111110010000000",
+    { r: "0111110010000000", d: 200 },
     // Mangled 45 Serpinski
-    "0111110010010000",
+    { r: "0111110010010000", d: 200 },
     // Mangled More
-    "0111110010010010",
+    { r: "0111110010010010", d: 200 },
     // Mast
-    "0010010010010011",
+    { r: "0010010010010011", d: 200 },
     // Sideway Pine Tree
-    "0010010011000001",
+    { r: "0010010011000001", d: 200 },
     // Towards serpinski
     // "0010010010000000",
     // Rotten Mast
-    "0010010010000001",
+    { r: "0010010010000001", d: 200 },
     // Horizontal Serpinski
-    "0010010011000000",
+    { r: "0010010011000000", d: 200 },
     // Surprise Serpinski
-    "0010011011000000",
+    { r: "0010011011000000", d: 200 },
     // Facing Serpinski
-    "0011011010000000",
+    { r: "0011011010000000", d: 200 },
     // Forest Serpinski
-    "0010011010000011",
+    { r: "0010011010000011", d: 200 },
     // Mossy Serpinski
-    "0001011010010001",
+    { r: "0001011010010001", d: 200 },
     // Calculated Mossy
-    "0001011010011111",
+    { r: "0001011010011111", d: 200 },
     // "0001011000011111",
     // Bauhaus Descending:
-    "0110100011000101",
+    { r: "0110100011000101", d: 200 },
     // The New Rulers
-    "0111100001010101",
+    { r: "0111100001010101", d: 200 },
     // Downward Serpinski
     // "0111100001011100",
     // The Boring One
-    "0001001001111111",
-    "0001001001111110",
-    "0101001100111010",
-    "0101001100110010",
+    { r: "0001001001111111", d: 200 },
+    { r: "0001001001111110", d: 200 },
+    { r: "0101001100111010", d: 200 },
+    { r: "0101001100110010", d: 200 },
     // Shining and Glorious Serpinski
-    "0101001100110000",
+    { r: "0101001100110000", d: 200 },
     // The Pool Tables of Rural Canada
-    "0101111111110000",
+    { r: "0101111111110000", d: 200 },
     // Cranky Serpinski
     // "0100001100110000",
     // Cranky but Growing
-    "0101101110100001",
+    { r: "0101101110100001", d: 200 },
     // Frantic Pinewood Forest
-    "0101001010100001",
+    { r: "0101001010100001", d: 200 },
     // Serene Landscape
-    "0101001110000001",
+    { r: "0101001110000001", d: 200 },
     // Broken Landscape
-    "0101101110000001",
+    { r: "0101101110000001", d: 200 },
     // Good Growth
-    "0100011010100101",
+    { r: "0100011010100101", d: 200 },
     // Rainy Two
-    "0110011001101001",
+    { r: "0110011001101001", d: 200 },
     // Inner Fractal
-    "0000111011100001",
+    { r: "0000111011100001", d: 200 },
     // Self-Similar Ruler
-    "0001111111111001",
+    { r: "0001111111111001", d: 200 },
     // Between Rain and Maze
-    "0110011011111100",
+    { r: "0110011011111100", d: 200 },
     // Mazes upon Mazes
-    "0101111111111100",
+    { r: "0101111111111100", d: 200 },
     // Between Mazes and Perfect Box
-    "0101111111110110",
+    { r: "0101111111110110", d: 200 },
     // Perfect Box
-    "0110111111110110"
+    { r: "0110111111110110", d: 200 }
 ];
 
 geneticScene05.listOfRules = [
