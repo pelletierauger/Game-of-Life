@@ -11685,6 +11685,7 @@ nightsOfMarch33.getColor = function(oneDValue, optionalArray) {
     let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
     let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
     // let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
+
     let a = { r: red, g: green, b: blue };
     a.r = lerp(a.r, 0, blueLerp);
     a.g = lerp(a.g, 25, blueLerp);
@@ -11695,6 +11696,7 @@ nightsOfMarch33.getColor = function(oneDValue, optionalArray) {
     a.r = lerp(a.r, 0, thirdLerp);
     a.g = lerp(a.g, 0, thirdLerp);
     a.b = lerp(a.b, 0, thirdLerp);
+    a = adjustLevels(0, 60, 250, { r: a.r, g: a.g, b: a.b });
     return color(a.r, a.g, a.b);
 };
 
@@ -14595,4 +14597,4 @@ nightsOfApril2.getColor = function(oneDValue, optionalArray) {
     return color(a.r, a.g, a.b);
 };
 
-let scene = nightsOfMarch22;
+let scene = nightsOfMarch33;

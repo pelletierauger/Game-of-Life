@@ -135,17 +135,33 @@ function draw() {
                         if (scene.grid[boxToPrint].state == 1) {
                             let color = scene.getColor(boxToPrint);
                             fill(red(color), green(color), blue(color), 55);
+                            fill(255);
+                            let dotDensity = (red(color) + green(color) + blue(color)) / 3;
+                            dotDensity = map(dotDensity, 50, 125, 10, 1);
+                            dotDensity = constrain(dotDensity, 1, 10);
                             let tW = scene.tileWidth;
-                            for (let i = 0; i < scene.dotPerTile; i++) {
-                                var randomX = random(x * tW, (x + 1) * tW);
-                                var randomY = random(y * tW, (y + 1) * tW);
-                                if (scene.zoom) {
-                                    ellipse(randomX, randomY, 1.25 * zoomReciprocal);
-                                } else {
-                                    ellipse(randomX, randomY, 1.25);
+                            for (let xx = 0; xx < tW; xx += dotDensity) {
+                                for (let yy = 0; yy < tW; yy += dotDensity) {
+                                    // ellipse(x + xx, y + yy, 0.25 * zoomReciprocal);
+                                    if (scene.zoom) {
+                                        ellipse((x * tW) + xx, (y * tW) + yy, 2 * zoomReciprocal);
+                                    } else {
+                                        ellipse((x * tW) + xx, (y * tW) + yy, 2);
+                                    }
                                 }
-
                             }
+
+
+                            // for (let i = 0; i < scene.dotPerTile; i++) {
+                            //     var randomX = random(x * tW, (x + 1) * tW);
+                            //     var randomY = random(y * tW, (y + 1) * tW);
+                            //     if (scene.zoom) {
+                            //         ellipse(randomX, randomY, 1.25 * zoomReciprocal);
+                            //     } else {
+                            //         ellipse(randomX, randomY, 1.25);
+                            //     }
+
+                            // }
                         }
                     }
                     if (scene.grid[boxToPrint]) {

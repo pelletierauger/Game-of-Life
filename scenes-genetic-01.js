@@ -1875,4 +1875,4 @@ geneticScene07.applyPalette = function() {
 // "3123"
 // Fractal and space filling, perfect
 // "3300"
-scene = geneticScene06;
+// scene = geneticScene06;
