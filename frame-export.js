@@ -20,6 +20,7 @@ function frameExport(n) {
     var dataUrl = canvasDOM.toDataURL();
     var data = {
         dataUrl: dataUrl,
+        folder: scene.folderPath + scene.fileName + "/",
         name: frameName
     }
     socket.emit('image', data);

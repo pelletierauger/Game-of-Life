@@ -87,7 +87,12 @@ io.sockets.on('connection', function(socket) {
         var imageBuffer = decodeBase64Image(data.dataUrl);
         // console.log(imageBuffer);
 
-        fs.writeFile(data.name + ".png", imageBuffer.data, function(err) {
+        let dir = data.folder;
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir);
+            console.log("The folder " + dir + " was created successfully.");
+        }
+        fs.writeFile(data.folder + data.name + ".png", imageBuffer.data, function(err) {
             if (err) {
                 return console.error(err);
             } else {

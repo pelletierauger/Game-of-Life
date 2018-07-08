@@ -412,7 +412,7 @@ geneticScene03.getColors = function(oneDValue, optionalArray) {
     if (this.grid[oneDValue].state == 0) {
         let fade = map(c, 0, 100, 255, 0);
         a = { r: fade, g: fade, b: fade };
-        // a = { r: fade, g: fade, b: fade };
+        // a = { name: "", r: fade, g: fade, b: fade };
         a = { r: 0, g: 0, b: 0 };
     } else {
         let fade = map(c, 0, 100, 0, 255);
@@ -628,7 +628,10 @@ geneticScene04.geneticRules = "01011001100110111101001100010101";
 //-------------------------------------------------------------------------------------------------//
 
 let geneticScene05 = new Scene({
-    fileName: "./frames/genetic-scene-05-montage/genetic-scene-05-montage",
+    // fileName: "./frames/genetic-scene-05-montage/genetic-scene-05-montage",
+    fileName: "genetic-scene-05",
+    folderPath: "/Volumes/WD001/genetic-render/",
+    // /Volumes/WD001/genetic-render
     gridScalar: 16,
     horizontalScalar: 16,
     verticalScalar: 9,
@@ -668,15 +671,17 @@ geneticScene05.applyShapes = function() {
 
 geneticScene05.updateGrid = function() {
 
-    // if (this.currentState >= this.newListOfRules[this.rulesIndex].d) {
-    //     // this.mutateRules();
-    //     if (this.rulesIndex < this.newListOfRules.length) {
-    //         this.geneticRules = this.newListOfRules[this.rulesIndex].r;
-    //         this.rulesIndex++;
-    //         this.applyShapes();
-    //         this.currentState = 0;
-    //     }
-    // }
+    if (this.currentState >= this.newListOfRules[this.rulesIndex].d) {
+        // this.mutateRules();
+        if (this.rulesIndex < this.newListOfRules.length) {
+            this.rulesIndex++;
+            this.fileName = this.newListOfRules[this.rulesIndex].name;
+            this.geneticRules = this.newListOfRules[this.rulesIndex].r;
+            this.applyShapes();
+            this.currentState = 0;
+            frameToExport = 1;
+        }
+    }
 
     let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
     let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
@@ -1060,91 +1065,94 @@ geneticScene05.geneticRules = "0111100010000001";
 
 
 
+geneticScene05.geneticRules = "0100011110000100";
+
 geneticScene05.newListOfRules = [
     // Sofia
     // "0111100010000001",
+    { name: "sofia-kovalevskaya", r: "0111100010000001", d: 25 },
     // Ska Shimmer
     // "0111100010000000",
-    // Downward lanscape
-    { r: "0110000010000101", d: 200 },
+    // Downward landscape
+    { name: "downward-landscape", r: "0110000010000101", d: 200 },
     // Sideway Medusa
-    { r: "0011100010000001", d: 200 },
+    { name: "sideway-medusa", r: "0011100010000001", d: 200 },
     // Right boat
-    { r: "0110100010000101", d: 200 },
+    { name: "right-boat", r: "0110100010000101", d: 200 },
     // Mid Boat
     // "0110100010000111",
     // Big boat
-    { r: "0111100110000001", d: 200 },
+    { name: "big-boat", r: "0111100110000001", d: 200 },
     // Sideway boat
-    { r: "0101100010000011", d: 200 },
+    { name: "sideway-boat", r: "0101100010000011", d: 200 },
     // 45 Serpinski
-    { r: "0111110010000000", d: 200 },
+    { name: "45-serpinski", r: "0111110010000000", d: 200 },
     // Mangled 45 Serpinski
-    { r: "0111110010010000", d: 200 },
+    { name: "mangled-45-serpinski", r: "0111110010010000", d: 200 },
     // Mangled More
-    { r: "0111110010010010", d: 200 },
+    { name: "mangled-more", r: "0111110010010010", d: 200 },
     // Mast
-    { r: "0010010010010011", d: 200 },
+    { name: "mast", r: "0010010010010011", d: 200 },
     // Sideway Pine Tree
-    { r: "0010010011000001", d: 200 },
+    { name: "sideway-pine-tree", r: "0010010011000001", d: 200 },
     // Towards serpinski
     // "0010010010000000",
     // Rotten Mast
-    { r: "0010010010000001", d: 200 },
+    { name: "rotten-mast", r: "0010010010000001", d: 200 },
     // Horizontal Serpinski
-    { r: "0010010011000000", d: 200 },
+    { name: "horizontal-serpinski", r: "0010010011000000", d: 200 },
     // Surprise Serpinski
-    { r: "0010011011000000", d: 200 },
+    { name: "surprise-serpinski", r: "0010011011000000", d: 200 },
     // Facing Serpinski
-    { r: "0011011010000000", d: 200 },
+    { name: "facing-serpinski", r: "0011011010000000", d: 200 },
     // Forest Serpinski
-    { r: "0010011010000011", d: 200 },
+    { name: "forest-serpinski", r: "0010011010000011", d: 200 },
     // Mossy Serpinski
-    { r: "0001011010010001", d: 200 },
+    { name: "mossy-serpinski", r: "0001011010010001", d: 200 },
     // Calculated Mossy
-    { r: "0001011010011111", d: 200 },
+    { name: "calculated-mossy", r: "0001011010011111", d: 200 },
     // "0001011000011111",
     // Bauhaus Descending:
-    { r: "0110100011000101", d: 200 },
+    { name: "bauhaus-descending", r: "0110100011000101", d: 200 },
     // The New Rulers
-    { r: "0111100001010101", d: 200 },
+    { name: "the-new-rulers", r: "0111100001010101", d: 200 },
     // Downward Serpinski
     // "0111100001011100",
     // The Boring One
-    { r: "0001001001111111", d: 200 },
-    { r: "0001001001111110", d: 200 },
-    { r: "0101001100111010", d: 200 },
-    { r: "0101001100110010", d: 200 },
+    { name: "the-boring-one", r: "0001001001111111", d: 200 },
+    { name: "the-boring-two", r: "0001001001111110", d: 200 },
+    { name: "the-boring-three", r: "0101001100111010", d: 200 },
+    { name: "the-boring-four", r: "0101001100110010", d: 200 },
     // Shining and Glorious Serpinski
-    { r: "0101001100110000", d: 200 },
+    { name: "shining-and-glorious-serpinski", r: "0101001100110000", d: 200 },
     // The Pool Tables of Rural Canada
-    { r: "0101111111110000", d: 200 },
+    { name: "the-pool-tables-of-rural-canada", r: "0101111111110000", d: 200 },
     // Cranky Serpinski
     // "0100001100110000",
     // Cranky but Growing
-    { r: "0101101110100001", d: 200 },
+    { name: "cranky-but-growing", r: "0101101110100001", d: 200 },
     // Frantic Pinewood Forest
-    { r: "0101001010100001", d: 200 },
+    { name: "frantic-pinewood-forest", r: "0101001010100001", d: 200 },
     // Serene Landscape
-    { r: "0101001110000001", d: 200 },
+    { name: "serene-landscape", r: "0101001110000001", d: 200 },
     // Broken Landscape
-    { r: "0101101110000001", d: 200 },
+    { name: "broken-landscape", r: "0101101110000001", d: 200 },
     // Good Growth
-    { r: "0100011010100101", d: 200 },
+    { name: "good-growth", r: "0100011010100101", d: 200 },
     // Rainy Two
-    { r: "0110011001101001", d: 200 },
+    { name: "rainy-two", r: "0110011001101001", d: 200 },
     // Inner Fractal
-    { r: "0000111011100001", d: 200 },
+    { name: "inner-fractal", r: "0000111011100001", d: 200 },
     // Self-Similar Ruler
-    { r: "0001111111111001", d: 200 },
+    { name: "self-similar-ruler", r: "0001111111111001", d: 200 },
     // Between Rain and Maze
-    { r: "0110011011111100", d: 200 },
+    { name: "between rain and maze", r: "0110011011111100", d: 200 },
     // Mazes upon Mazes
-    { r: "0101111111111100", d: 200 },
+    { name: "mazes-upon-mazes", r: "0101111111111100", d: 200 },
     // Between Mazes and Perfect Box
-    { r: "0101111111110110", d: 200 },
+    { name: "between-mazes-and-perfect-box", r: "0101111111110110", d: 200 },
     // Perfect Box
-    { r: "0110111111110110", d: 200 }
+    { name: "perfect-box", r: "0110111111110110", d: 200 }
 ];
 
 geneticScene05.listOfRules = [
@@ -1198,7 +1206,6 @@ geneticScene05.listOfRules = [
     "0100011010100101",
     "0001011010100101"
 ];
-geneticScene05.rulesIndex = 0;
 
 geneticScene05.lastRules = geneticScene05.geneticRules;
 
@@ -1219,6 +1226,11 @@ geneticScene05.getColor = function(oneDValue, optionalArray) {
     let a = adjustLevels(0, 0, 350, { r: red, g: green, b: blue });
     return color(a.r, a.g, a.b);
 }
+
+
+geneticScene05.rulesIndex = 0;
+geneticScene05.fileName = geneticScene05.newListOfRules[geneticScene05.rulesIndex].name;
+geneticScene05.geneticRules = geneticScene05.newListOfRules[geneticScene05.rulesIndex].r;
 
 
 //-------------------------------------------------------------------------------------------------//
@@ -1875,4 +1887,4 @@ geneticScene07.applyPalette = function() {
 // "3123"
 // Fractal and space filling, perfect
 // "3300"
-scene = geneticScene06;
+scene = geneticScene05;

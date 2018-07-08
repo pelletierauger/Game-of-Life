@@ -1,6 +1,7 @@
 class Scene {
     constructor(input) {
         this.fileName = input.fileName;
+        this.folderPath = input.folderPath || "";
         // gridScalar = 1 means that the grid is 16 * 9.
         if (input.gridScalar) {
             this.gridScalar = input.gridScalar;
