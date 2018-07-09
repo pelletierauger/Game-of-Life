@@ -670,19 +670,17 @@ geneticScene05.applyShapes = function() {
 };
 
 geneticScene05.updateGrid = function() {
-
-    // if (this.currentState >= this.newListOfRules[this.rulesIndex].d) {
-    //     // this.mutateRules();
-    //     if (this.rulesIndex < this.newListOfRules.length) {
-    //         this.rulesIndex++;
-    //         this.fileName = this.newListOfRules[this.rulesIndex].name;
-    //         this.geneticRules = this.newListOfRules[this.rulesIndex].r;
-    //         this.applyShapes();
-    //         this.currentState = 0;
-    //         frameToExport = 1;
-    //     }
-    // }
-
+    if (this.currentState >= this.newListOfRules[this.rulesIndex].d) {
+        // this.mutateRules();
+        if (this.rulesIndex < this.newListOfRules.length) {
+            this.rulesIndex++;
+            this.fileName = this.newListOfRules[this.rulesIndex].name;
+            this.geneticRules = this.newListOfRules[this.rulesIndex].r;
+            this.applyShapes();
+            this.currentState = 0;
+            frameToExport = 1;
+        }
+    }
     let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
     let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
     for (var x = 0; x < xAmount; x++) {
@@ -1074,13 +1072,8 @@ geneticScene05.newListOfRules = [
 
     // Sofia
     // "0111100010000001",
-    { name: "sofia-kovalevskaya", r: "0111100010000001", d: 350 },
-    { name: "golden-ship", r: "0011100110011001", d: 800 },
-    { name: "big-c", r: "0101111111111101", d: 200 },
-    { name: "sunflowers", r: "0011000010001001", d: 1200 },
-    { name: "feely", r: "0011000010001101", d: 540 },
-    { name: "emperess", r: "0110100000000001", d: 425 },
-    { name: "rocks-in-a-pond", r: "0101111001100001", d: 400 },
+    // { name: "sofia-kovalevskaya", r: "0111100010000001", d: 350 },
+
     // Ska Shimmer
     // "0111100010000000",
     // Downward landscape
@@ -1159,6 +1152,12 @@ geneticScene05.newListOfRules = [
     // Don't use this one { name: "between rain and maze", r: "0110011011111100", d: 200 },
     // Mazes upon Mazes
     { name: "mazes-upon-mazes", r: "0101111111111100", d: 600 },
+    { name: "big-c", r: "0101111111111101", d: 200 },
+    { name: "feely", r: "0011000010001101", d: 540 },
+    { name: "emperess", r: "0110100000000001", d: 425 },
+    { name: "rocks-in-a-pond", r: "0101111001100001", d: 400 },
+    { name: "sunflowers", r: "0011000010001001", d: 1200 },
+    { name: "golden-ship", r: "0011100110011001", d: 800 },
     // Between Mazes and Perfect Box
     // Don't use this one { name: "between-mazes-and-perfect-box", r: "0101111111110110", d: 200 },
     // Perfect Box
