@@ -155,3 +155,9 @@ ffmpeg -f image2 -framerate 24 -i ./frames/nights-of-march-22-levels/nights-of-m
 ffmpeg -f image2 -framerate 24 -i ./frames/nights-of-march-22-levels/nights-of-march-22-%05d.png -i ./ffmpeg-commands/palette-nights-of-march-22.png -lavfi paletteuse -s 640x360 ./video-renders/nights-of-march-22-levels-640x360.gif
 
 ffmpeg -f image2 -framerate 24 -i ./frames/warmth-of-april-10/warmth-of-april-10-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest ./video-renders/warmth-of-april-10-24fps.mp4
+
+ffmpeg -f concat -safe 0 -r 8 -i ./ffmpeg-commands/warmth-of-april-4b.txt -c:v libx264 -s 2560x1440 -pix_fmt yuv420p ./video-renders/warmth-of-april-4b.mp4
+
+// On an external hard drive
+ffmpeg -f concat -safe 0 -r 8 -i ./ffmpeg-commands/warmth-of-april-4b.txt -c:v libx264 -s 2560x1440 -pix_fmt yuv420p /Volumes/WD001/animation-video-renders/game-of-life/warmth-of-april-4b.mp4
+
