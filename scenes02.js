@@ -2771,7 +2771,7 @@ warmthOfApril11.getColor = function(oneDValue, optionalArray) {
 //-------------------------------------------------------------
 
 let warmthOfApril4b = new Scene({
-    fileName: "./frames/nights-of-march-22-levels/nights-of-march-22",
+    fileName: "/Volumes/WD001/animation-frames/game-of-life/warmth-of-april-4b/warmth-of-april-4b",
     gridScalar: 16,
     // offset: { x: 500, y: 500 },
     // fixedGridSize: { width: 1000, height: 1000 },
@@ -2850,7 +2850,7 @@ let warmthOfApril4b = new Scene({
 
     speedModulo: 1,
     zoom: 1,
-    dotPerTile: 3500 / 16,
+    dotPerTile: 3500 / 16 * 1.5,
     maxSteps: 129
 });
 
@@ -2959,8 +2959,10 @@ warmthOfApril4b.update = function() {
     // } else {
     //     this.updateGrid = beforeTheRiverFractal10.updateGrid;
     // }
-    if (!exporting && this.currentState == 0) {
+
+    if (this.currentState == 0) {
         this.currentState++;
+        this.updateGrid();
     } else {
         if (!printing) {
             this.updateGrid();
@@ -5492,4 +5494,4 @@ warmthOfMay10.getColorz = function(oneDValue, optionalArray) {
     return color(a.r, a.g, a.b);
 };
 
-// scene = warmthOfMay3;
+scene = warmthOfApril4b;
