@@ -2,9 +2,9 @@ var fs = require('fs');
 let computedInput = "";
 
 let sequences = [{
-    path: "../frames/april-at-the-docks/april-at-the-dock-02-",
-    start: 1,
-    end: 105,
+    path: "/Volumes/WD001/animation-frames/game-of-life/warmth-of-april-4b/warmth-of-april-4b-",
+    start: 2,
+    end: 263,
     copies: 1
 }];
 
@@ -21,10 +21,10 @@ for (s of sequences) {
     }
 }
 
-fs.writeFile('april-at-the-dock-02.txt', computedInput, function(err) {
+fs.writeFile('./ffmpeg-commands/warmth-of-april-4b.txt', computedInput, function(err) {
     if (err) {
         return console.error(err);
     } else {
-        console.log('frames-square-withmiddle.txt written successfully.');
+        console.log('warmth-of-april-4b.txt written successfully.');
     }
 });
