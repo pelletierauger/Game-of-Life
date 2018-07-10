@@ -1,7 +1,7 @@
 p5.disableFriendlyErrors = true;
 
-let looping = false;
-let printing = false;
+let looping = exporting || false;
+let printing = exporting || false;
 let socket, cnvs, ctx, canvasDOM;
 let JSONs;
 let frameToExport = 1;
