@@ -1245,7 +1245,7 @@ geneticScene05.geneticRules = geneticScene05.newListOfRules[geneticScene05.rules
 //-------------------------------------------------------------------------------------------------//
 
 let geneticScene06 = new Scene({
-    fileName: "./frames/genetic-scene-05b/genetic-scene-05",
+    fileName: "/Volumes/WD001/animation-frames/game-of-life/assorted-drips-one/assorted-drips-one",
     gridScalar: 16,
     // offset: { x: 0r, y: 100 },
     // fixedGridSize: { width: 145, height: 145 },
@@ -1258,9 +1258,15 @@ let geneticScene06 = new Scene({
     // paletteName: "palette-sun-mar-04-2018-154033",
     paletteName: "palette-sat-dec-16-2017-160319",
     paletteName: "palette-thu-mar-01-2018-184734",
+
+    // Summer
+    paletteName: "palette-sat-mar-17-2018-152553",
+    // "palette-sun-dec-24-2017-140250"
+
+
     speedModulo: 1,
     zoom: 1,
-    dotPerTile: 3500 / 16,
+    dotPerTile: 3500 / 16 * 1.4,
     maxSteps: 129
 });
 
@@ -1399,7 +1405,21 @@ geneticScene06.createRandomRules = function() {
 };
 geneticScene06.createRandomRules();
 geneticScene06.geneticRules = "00110111100111000000110111011101";
-geneticScene06.geneticRules = "00110111000111010000110111011101";
+geneticScene06.geneticRules = "00110111000111010000110111010101";
+geneticScene06.geneticRules = "01111111000000001100010101000011";
+
+// Assorted Drips 1
+// 00110111110101001001000111010011
+
+// Excellent Drips
+// "01011111010100001100010111000011"
+
+// 
+
+// Filling Drip
+// 01101010000001011100010100010011
+
+
 // "00111110000100001100001010111101"
 // "00111011000100001100000111111101"
 // "01011001101101000011000100010101"
@@ -1567,6 +1587,16 @@ geneticScene06.geneticRules = "00110111000111010000110111011101";
 // "01000101010001010110101100011001"
 // "01010101010101010110101100011001"
 
+// A Confusing Summer
+// "00110111100011001100110111010100"
+// palette-sat-mar-17-2018-152553
+
+// Cute Serpinski
+// "00001111010101000110101101000001"
+
+// Quilt
+// "01101011110001001001000001000010"
+
 geneticScene06.lastRules = geneticScene06.geneticRules;
 
 geneticScene06.getColors = function(oneDValue, optionalArray) {
@@ -1603,7 +1633,9 @@ geneticScene06.getColor = function(oneDValue, optionalArray) {
     let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
     let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
     let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
-    return color(red, green, blue);
+    let a = adjustLevels(0, 0, 350, { r: red, g: green, b: blue });
+    a = { r: 255, g: 255, b: 255 };
+    return color(a.r, a.g, a.b);
 };
 //-------------------------------------------------------------------------------------------------//
 
@@ -1896,4 +1928,4 @@ geneticScene07.applyPalette = function() {
 // "3123"
 // Fractal and space filling, perfect
 // "3300"
-scene = geneticScene05;
+scene = geneticScene06;
