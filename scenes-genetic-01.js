@@ -670,9 +670,11 @@ geneticScene05.applyShapes = function() {
 };
 
 geneticScene05.updateGrid = function() {
-    if (this.currentState >= this.newListOfRules[this.rulesIndex].d) {
+    // if (this.currentState >= this.newListOfRules[this.rulesIndex].d) {
+    if (this.currentState >= 72 * 2) {
         // this.mutateRules();
         if (this.rulesIndex < this.newListOfRules.length) {
+            // if (this.rulesIndex < this.newListOfRules.length) {
             this.rulesIndex++;
             this.fileName = this.newListOfRules[this.rulesIndex].name;
             this.geneticRules = this.newListOfRules[this.rulesIndex].r;
@@ -1072,7 +1074,7 @@ geneticScene05.newListOfRules = [
 
     // Sofia
     // "0111100010000001",
-    // { name: "sofia-kovalevskaya", r: "0111100010000001", d: 350 },
+    { name: "sofia-kovalevskaya", r: "0111100010000001", d: 350 },
 
     // Ska Shimmer
     // "0111100010000000",
@@ -1928,4 +1930,4 @@ geneticScene07.applyPalette = function() {
 // "3123"
 // Fractal and space filling, perfect
 // "3300"
-scene = geneticScene06;
+scene = geneticScene05;

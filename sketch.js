@@ -8,6 +8,8 @@ let frameToExport = 1;
 let printedBackground = false;
 let drawnGrid = false;
 let boxToPrint = 0;
+let grainyYellowTiles = [];
+let grainyRedTiles = [];
 
 function setup() {
     socket = io.connect('http://localhost:8080');
@@ -16,7 +18,9 @@ function setup() {
     canvasDOM = document.getElementById('defaultCanvas0');
     frameRate(30);
     background(0);
+    imageMode(CENTER);
     noStroke();
+    textSize(16);
     socket.on('pushJSONs', function(data) {
         JSONs = data;
     });
@@ -70,6 +74,8 @@ function draw() {
                     }
                 }
             }
+            // fill(255);
+            // text(scene.fileName, 50, height - 50);
         } else {
             if (scene.fixedGridSize) {
                 for (let i = 0; i < 15 * (scene.gridScalar / 16); i++) {
@@ -124,7 +130,7 @@ function draw() {
                     }
                 }
             } else {
-                for (let i = 0; i < 15 * (scene.gridScalar / 16); i++) {
+                for (let i = 0; i < 500 * (scene.gridScalar / 16); i++) {
                     if (!printedBackground) {
                         background(0);
                         printedBackground = true;
@@ -133,19 +139,55 @@ function draw() {
                     let x = boxToPrint - (y * scene.gridXAmount);
                     if (scene.grid[boxToPrint]) {
                         if (scene.grid[boxToPrint].state == 1) {
-                            let color = scene.getColor(boxToPrint);
-                            fill(red(color), green(color), blue(color), 55);
-                            let tW = scene.tileWidth;
-                            for (let i = 0; i < scene.dotPerTile; i++) {
-                                var randomX = random(x * tW, (x + 1) * tW);
-                                var randomY = random(y * tW, (y + 1) * tW);
-                                if (scene.zoom) {
-                                    ellipse(randomX, randomY, 1.25 * zoomReciprocal);
-                                } else {
-                                    ellipse(randomX, randomY, 1.25);
-                                }
 
+                            let changes = scene.changes[boxToPrint];
+                            let tW = scene.tileWidth;
+                            let randomTile = Math.floor(random(0, grainyYellowTiles.length));
+                            let rotateDice = Math.floor(random(0, 4));
+                            let rotateAngle;
+                            switch (rotateDice) {
+                                case 0:
+                                    rotateAngle = 0;
+                                    break;
+                                case 1:
+                                    rotateAngle = PI / 2;
+                                    break;
+                                case 2:
+                                    rotateAngle = PI;
+                                    break;
+                                case 3:
+                                    rotateAngle = PI * 1.5;
+                                    break;
                             }
+                            if (changes == 1) {
+                                // push();
+                                // translate(x * tW + (tW * 0.5), y * tW + (tW * 0.5));
+                                // rotate(rotateAngle);
+                                // image(grainyYellowTiles[randomTile], 0, 0);
+                                // pop();
+                                image(grainyYellowTiles[randomTile], x * tW + (tW * 0.5), y * tW + (tW * 0.5));
+                            } else if (changes == 4) {
+                                // push();
+                                // translate(x * tW + (tW * 0.5), y * tW + (tW * 0.5));
+                                // rotate(rotateAngle);
+                                // image(grainyRedTiles[randomTile], 0, 0);
+                                // pop();
+                                image(grainyRedTiles[randomTile], x * tW + (tW * 0.5), y * tW + (tW * 0.5));
+                            }
+                            // let color = scene.getColor(boxToPrint);
+                            // fill(red(color), green(color), blue(color), 55);
+                            // let tW = scene.tileWidth;
+                            // for (let i = 0; i < scene.dotPerTile; i++) {
+                            //     var randomX = random(x * tW, (x + 1) * tW);
+                            //     var randomY = random(y * tW, (y + 1) * tW);
+                            //     if (scene.zoom) {
+                            //         ellipse(randomX, randomY, 1.25 * zoomReciprocal);
+                            //     } else {
+                            //         ellipse(randomX, randomY, 1.25);
+                            //     }
+
+                            // }
+
                         }
                     }
                     if (scene.grid[boxToPrint]) {
