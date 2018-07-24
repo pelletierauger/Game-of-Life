@@ -165,3 +165,6 @@ ffmpeg -f image2 -framerate 12 -i /Volumes/WD001/genetic-render/sofia-kovalevska
 ffmpeg -f image2 -framerate 12 -i /Volumes/WD001/genetic-render/downward-landscape/downward-landscape-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest ./video-renders/downward-landscape-12fps.mp4
 
 ffmpeg -f image2 -framerate 24 -i /Volumes/WD001/animation-frames/game-of-life/assorted-drips-one/assorted-drips-one-%05d.png -i /Users/guillaumepelletier/Desktop/Dropbox/Création\ musicale/Morceaux\ exportés/Guillaume\ -\ Les\ accalmies.mp3 -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest /Volumes/WD001/animation-video-renders/game-of-life/assorted-drips-one-24fps.mp4
+
+
+      
