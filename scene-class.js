@@ -87,10 +87,10 @@ class Scene {
         this.counter = 1;
 
 
-        let graphicsScalar = 3;
-        let margin = 0.87;
+        let graphicsScalar = 5;
+        let tW = this.tileWidth;
+        let margin = ((graphicsScalar - 1) * 0.5);
         for (let i = 0; i < 128; i++) {
-            let tW = this.tileWidth;
             let graphics = createGraphics(tW * graphicsScalar, tW * graphicsScalar);
             // graphics.background(255, 255, 0);
             graphics.clear();
