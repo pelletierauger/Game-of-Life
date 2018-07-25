@@ -1247,7 +1247,8 @@ geneticScene05.geneticRules = geneticScene05.newListOfRules[geneticScene05.rules
 //-------------------------------------------------------------------------------------------------//
 
 let geneticScene06 = new Scene({
-    fileName: "/Volumes/WD001/animation-frames/game-of-life/assorted-drips-one/assorted-drips-one",
+    fileName: "excellent-drips-one-fadeout-2",
+    folderPath: "/Volumes/WD001/genetic-render/",
     gridScalar: 16,
     // offset: { x: 0r, y: 100 },
     // fixedGridSize: { width: 145, height: 145 },
@@ -1288,6 +1289,11 @@ geneticScene06.applyShapes = function() {
 };
 
 geneticScene06.updateGrid = function() {
+
+
+    if (this.currentState == 1090) {
+        this.geneticRules = "00000001000000010000000100000001";
+    }
     let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
     let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
     for (var x = 0; x < xAmount; x++) {
@@ -1930,4 +1936,4 @@ geneticScene07.applyPalette = function() {
 // "3123"
 // Fractal and space filling, perfect
 // "3300"
-scene = geneticScene05;
+scene = geneticScene06;

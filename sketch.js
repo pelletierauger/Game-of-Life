@@ -1,7 +1,9 @@
 p5.disableFriendlyErrors = true;
 
 let looping = exporting || false;
+// looping = false;
 let printing = exporting || false;
+// printing = false;
 let socket, cnvs, ctx, canvasDOM;
 let JSONs;
 let frameToExport = 1;
@@ -31,6 +33,10 @@ function draw() {
     if (JSONs && !scene.initialized) {
         scene.initialize();
     }
+    // if (scene.initialized && scene.currentState == 1100) {
+    //     exporting = true;
+    //     printing = true;
+    // }
     if (scene.initialized) {
         let zoomReciprocal;
         if (scene.zoom) {
@@ -123,7 +129,7 @@ function draw() {
                     if (boxToPrint >= printingArray.length - 1 && exporting == true) {
                         console.log(`Frame ${frameToExport} is done printing.`);
                         boxToPrint = 0;
-                        frameExport(frameToExport);
+                        frameExport(scene.currentState);
                         frameToExport++;
                         scene.update();
                         printedBackground = false;
@@ -159,21 +165,21 @@ function draw() {
                                     rotateAngle = PI * 1.5;
                                     break;
                             }
-                            if (changes == 1) {
-                                // push();
-                                // translate(x * tW + (tW * 0.5), y * tW + (tW * 0.5));
-                                // rotate(rotateAngle);
-                                // image(grainyYellowTiles[randomTile], 0, 0);
-                                // pop();
-                                image(grainyYellowTiles[randomTile], x * tW + (tW * 0.5), y * tW + (tW * 0.5));
-                            } else if (changes == 4) {
-                                // push();
-                                // translate(x * tW + (tW * 0.5), y * tW + (tW * 0.5));
-                                // rotate(rotateAngle);
-                                // image(grainyRedTiles[randomTile], 0, 0);
-                                // pop();
-                                image(grainyRedTiles[randomTile], x * tW + (tW * 0.5), y * tW + (tW * 0.5));
-                            }
+                            // if (changes == 1) {
+                            // push();
+                            // translate(x * tW + (tW * 0.5), y * tW + (tW * 0.5));
+                            // rotate(rotateAngle);
+                            // image(grainyYellowTiles[randomTile], 0, 0);
+                            // pop();
+                            image(grainyYellowTiles[randomTile], x * tW + (tW * 0.5), y * tW + (tW * 0.5));
+                            // } else if (changes == 4) {
+                            // push();
+                            // translate(x * tW + (tW * 0.5), y * tW + (tW * 0.5));
+                            // rotate(rotateAngle);
+                            // image(grainyRedTiles[randomTile], 0, 0);
+                            // pop();
+                            // image(grainyRedTiles[randomTile], x * tW + (tW * 0.5), y * tW + (tW * 0.5));
+                            // }
                             // let color = scene.getColor(boxToPrint);
                             // fill(red(color), green(color), blue(color), 55);
                             // let tW = scene.tileWidth;
@@ -202,7 +208,7 @@ function draw() {
                     if (boxToPrint >= scene.grid.length - 1 && exporting == true) {
                         console.log(`Frame ${frameToExport} is done printing.`);
                         boxToPrint = 0;
-                        frameExport(frameToExport);
+                        frameExport(scene.currentState);
                         frameToExport++;
                         scene.update();
                         printedBackground = false;

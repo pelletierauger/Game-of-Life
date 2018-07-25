@@ -102,7 +102,7 @@ class Scene {
             let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
             let a = adjustLevels(0, 0, 350, { r: red, g: green, b: blue });
             // console.log(a);
-            graphics.fill(a.r, a.g, a.b, 55);
+            graphics.fill(255, 255, 255, 55);
             for (let i = 0; i < this.dotPerTile; i++) {
                 var randomX = random(tW * margin, tW + (tW * margin));
                 var randomY = random(tW * margin, tW + (tW * margin));

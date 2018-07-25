@@ -9,6 +9,7 @@ for (let i = 0; i < query.length; i++) {
 }
 
 let exporting = (GET["exporting"] && GET["exporting"] == "true") ? true : false;
+// exporting = false;
 
 function frameExport(n) {
     var frameName = scene.fileName;
