@@ -166,5 +166,11 @@ ffmpeg -f image2 -framerate 12 -i /Volumes/WD001/genetic-render/downward-landsca
 
 ffmpeg -f image2 -framerate 24 -i /Volumes/WD001/animation-frames/game-of-life/assorted-drips-one/assorted-drips-one-%05d.png -i /Users/guillaumepelletier/Desktop/Dropbox/Création\ musicale/Morceaux\ exportés/Guillaume\ -\ Les\ accalmies.mp3 -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest /Volumes/WD001/animation-video-renders/game-of-life/assorted-drips-one-24fps.mp4
 
-
+ffmpeg -f image2 -framerate 12 -i /Volumes/WD001/genetic-render/sofia-kovalevskaya/sofia-kovalevskaya-%05d.png -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest /Volumes/WD001/animation-video-renders/game-of-life/sofia-kovalevskaya-long-12fps.mp4
       
+—————————————————————————————————————————————————————————————————————————————————————
+
+ffmpeg -f concat -safe 0 -r 12 -i ./ffmpeg-commands/study-2.txt -i /Users/guillaumepelletier/Desktop/Dropbox/Création\ musicale/Morceaux\ exportés/Synthé\ lent\,\ automates\,\ clockwork\ noir\,\ glockenspiel\,\ doux\,\ cb\,\ chill\,\ propre.aif -c:v libx264 -s 2560x1440 -pix_fmt yuv420p /Volumes/WD001/animation-video-renders/game-of-life/study-1.mp4
+
+ffmpeg -f concat -safe 0 -r 12 -i ./ffmpeg-commands/study-2.txt -i /Users/guillaumepelletier/Desktop/Dropbox/Création\ musicale/Morceaux\ exportés/Synthé\ lent\,\ automates\,\ clockwork\ noir\,\ glockenspiel\,\ doux\,\ cb\,\ chill\,\ propre.aif -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest /Volumes/WD001/animation-video-renders/game-of-life/study-no-1.mp4
+

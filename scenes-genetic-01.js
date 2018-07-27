@@ -671,18 +671,25 @@ geneticScene05.applyShapes = function() {
 
 geneticScene05.updateGrid = function() {
     // if (this.currentState >= this.newListOfRules[this.rulesIndex].d) {
-    if (this.currentState >= 72 * 2) {
-        // this.mutateRules();
-        if (this.rulesIndex < this.newListOfRules.length) {
-            // if (this.rulesIndex < this.newListOfRules.length) {
-            this.rulesIndex++;
-            this.fileName = this.newListOfRules[this.rulesIndex].name;
-            this.geneticRules = this.newListOfRules[this.rulesIndex].r;
-            this.applyShapes();
-            this.currentState = 0;
-            frameToExport = 1;
-        }
-    }
+    // if (this.currentState >= 192) {
+    //     // this.mutateRules();
+    //     if (this.rulesIndex < this.newListOfRules.length) {
+    //         // if (this.rulesIndex < this.newListOfRules.length) {
+    //         this.rulesIndex++;
+    //         this.fileName = this.newListOfRules[this.rulesIndex].name;
+    //         this.geneticRules = this.newListOfRules[this.rulesIndex].r;
+    //         this.applyShapes();
+    //         this.currentState = 0;
+    //         frameToExport = 1;
+    //     }
+    // }
+    // if (this.currentState == 195) {
+    //     this.geneticRules = "0001000010000001";
+    // }
+    // if (this.currentState == 220) {
+
+    // }
+
     let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
     let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
     for (var x = 0; x < xAmount; x++) {
