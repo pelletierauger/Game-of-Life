@@ -174,3 +174,12 @@ ffmpeg -f concat -safe 0 -r 12 -i ./ffmpeg-commands/study-2.txt -i /Users/guilla
 
 ffmpeg -f concat -safe 0 -r 12 -i ./ffmpeg-commands/study-2.txt -i /Users/guillaumepelletier/Desktop/Dropbox/Création\ musicale/Morceaux\ exportés/Synthé\ lent\,\ automates\,\ clockwork\ noir\,\ glockenspiel\,\ doux\,\ cb\,\ chill\,\ propre.aif -c:v libx264 -s 2560x1440 -pix_fmt yuv420p -shortest /Volumes/WD001/animation-video-renders/game-of-life/study-no-1.mp4
 
+
+
+
+ffmpeg -f concat -safe 0 -r 12 -i ./ffmpeg-commands/study-2.txt -i /Users/guillaumepelletier/Desktop/Dropbox/Création\ musicale/Morceaux\ exportés/Synthé\ lent\,\ automates\,\ clockwork\ noir\,\ glockenspiel\,\ doux\,\ cb\,\ chill\,\ long.aif -c:v libx264 -s 2560x1440 -pix_fmt yuv420p /Volumes/WD001/animation-video-renders/game-of-life/study-no-1-long.mp4
+
+ffmpeg -f concat -safe 0 -r 12 -i ./ffmpeg-commands/study-2.txt -i /Users/guillaumepelletier/Desktop/Dropbox/Création\ musicale/Morceaux\ exportés/Synthé\ lent\,\ automates\,\ clockwork\ noir\,\ glockenspiel\,\ doux\,\ cb\,\ chill\,\ longer.aif -c:v libx264 -s 2560x1440 -pix_fmt yuv420p /Volumes/WD001/animation-video-renders/game-of-life/study-no-1-longer.mp4
+
+ffmpeg -f concat -safe 0 -r 12 -i ./ffmpeg-commands/study-2.txt -i /Users/guillaumepelletier/Desktop/Dropbox/Création\ musicale/Morceaux\ exportés/Synthé\ lent\,\ automates\,\ clockwork\ noir\,\ glockenspiel\,\ doux\,\ cb\,\ chill\,\ longer.aif -c:v libx264 -s 2560x1440 -pix_fmt yuv420p /Volumes/WD001/animation-video-renders/game-of-life/study-no-1-credits.mp4
+
