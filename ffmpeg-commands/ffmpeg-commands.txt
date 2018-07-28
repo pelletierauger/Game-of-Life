@@ -180,3 +180,5 @@ ffmpeg -f concat -safe 0 -r 24 -i ./ffmpeg-commands/study-no-2.txt -i /Users/gui
 /Users/guillaumepelletier/Desktop/Dropbox/Création\ musicale/Morceaux\ exportés/En\ sept-quatre\,\ c.aif
 
 ffmpeg -f concat -safe 0 -r 24 -i ./ffmpeg-commands/study-no-2.txt -i /Users/guillaumepelletier/Desktop/Dropbox/Création\ musicale/Morceaux\ exportés/En\ sept-quatre\,\ c.aif -c:v libx264 -s 2560x1440 -pix_fmt yuv420p /Volumes/WD001/animation-video-renders/game-of-life/study-no-2.mp4
+
+ffmpeg -f concat -safe 0 -r 24 -i ./ffmpeg-commands/study-no-2-credits.txt -i /Users/guillaumepelletier/Desktop/Dropbox/Création\ musicale/Morceaux\ exportés/En\ sept-quatre\,\ c.aif -c:v libx264 -s 2560x1440 -pix_fmt yuv420p /Volumes/WD001/animation-video-renders/game-of-life/study-no-2-credits.mp4
