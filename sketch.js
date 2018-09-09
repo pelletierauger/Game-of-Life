@@ -255,6 +255,15 @@ function keyPressed() {
             path: "./objects/gridseed-"
         });
     }
+    if (key == 'y' || key == 'Y') {
+        socket.emit('saveJSON', {
+            data: {
+                gridScalar: scene.gridScalar,
+                gridSeed: scene.grid
+            },
+            path: "./objects/grid-"
+        });
+    }
     if (key == 'o' || key == 'O') {
         socket.emit('saveJSON', { data: scene.palette.data, path: "./objects/palette-" });
     }
