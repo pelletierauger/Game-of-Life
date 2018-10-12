@@ -1414,7 +1414,8 @@ geneticScene06.createRandomRules = function() {
 geneticScene06.createRandomRules();
 geneticScene06.geneticRules = "00110111100111000000110111011101";
 geneticScene06.geneticRules = "00110111000111010000110111010101";
-geneticScene06.geneticRules = "01111111000000001100010101000011";
+// geneticScene06.geneticRules = "01111111000000001100010101000011";
+geneticScene06.geneticRules = "00110111110101001001000111010011";
 
 // Assorted Drips 1
 // 00110111110101001001000111010011
