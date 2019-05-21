@@ -8683,7 +8683,7 @@ nightsOfMarch18.getColor = function(oneDValue, optionalArray) {
 
 //-------------
 let nightsOfMarch19 = new Scene({
-    fileName: "./frames/inner-january-14/inner-january-14",
+    fileName: "./frames/nights-of-march-19/nights-of-march-19",
     gridScalar: 16,
     // offset: { x: 500, y: 500 },
     // fixedGridSize: { width: 1000, height: 1000 },
@@ -8729,7 +8729,7 @@ let nightsOfMarch19 = new Scene({
     speedModulo: 1,
     zoom: 1,
     dotPerTile: 3500 / 16,
-    maxSteps: 129
+    maxSteps: 800
 });
 
 nightsOfMarch19.applyShapes = function() {
