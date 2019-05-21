@@ -161,3 +161,81 @@ ffmpeg -f concat -safe 0 -r 8 -i ./ffmpeg-commands/warmth-of-april-4b.txt -c:v l
 // On an external hard drive
 ffmpeg -f concat -safe 0 -r 8 -i ./ffmpeg-commands/warmth-of-april-4b.txt -c:v libx264 -s 2560x1440 -pix_fmt yuv420p /Volumes/WD001/animation-video-renders/game-of-life/warmth-of-april-4b.mp4
 
+<<<<<<< Updated upstream
+=======
+
+
+
+
+
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-22-levels-2019/nights-of-march-22-%05d.png -vf palettegen march-22-2-19-pal.png
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-22-levels-2019/nights-of-march-22-%05d.png -i march-22-2-19-pal.png -lavfi paletteuse march-22-2-19.gif
+
+
+gifsicle -O3 --lossy=100 -o march-22-2-19-lossy100.gif march-22-2-19.gif
+
+gifsicle -O3 --lossy=50 -o march-22-2-19-lossy50.gif march-22-2-19.gif
+
+
+ffmpeg -f image2 -i ./frames/nights-of-march-22-levels-2019/nights-of-march-22-%05d.png -filter:v "crop=1440:1440:1120:0" ./frames/nights-of-march-22-levels-2019-croppy/nights-of-march-22-%05d.png
+
+ffmpeg -f image2 -i ./frames/nights-of-march-22-levels-2019/nights-of-march-22-%05d.png -filter:v "crop=1440:1440:0:0" ./frames/nights-of-march-22-levels-2019-croppy-b/nights-of-march-22-%05d.png
+
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-22-levels-2019-croppy/nights-of-march-22-%05d.png -i march-22-2-19-pal-crop.png -lavfi paletteuse march-22-2-19-crop.gif
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-22-levels-2019-croppy/nights-of-march-22-%05d.png -vf palettegen march-22-2-19-pal-crop.png
+
+
+gifsicle -O3 --lossy=100 -o march-22-2-19-crop-lossy100.gif march-22-2-19-crop.gif
+
+
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-22-levels-2019-croppy/nights-of-march-22-%05d.png -i march-22-2-19-pal-crop.png -lavfi paletteuse march-22-2-19-crop.gif
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-22-levels-2019-croppy/nights-of-march-22-%05d.png -vf palettegen march-22-2-19-pal-crop.png
+
+
+ffmpeg -f concat -safe 0 -r 12 -i march22-crop.txt -vf palettegen march-22-2-19-montage.png
+
+ffmpeg -f concat -safe 0 -r 12 -i march22-crop.txt -i march-22-2-19-montage.png -lavfi paletteuse march-22-2-19-montage.gif
+
+gifsicle -O3 --lossy=100 -o march-22-2-19-montage-long-lossy100.gif march-22-2-19-montage.gif
+
+gifsicle -O3 --lossy=200 -o march-22-2-19-montage-long-lossy200.gif march-22-2-19-montage.gif
+
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-22-levels-2019/nights-of-march-22-%05d.png -vf palettegen march-22-2-19-pal.png
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-22-levels-2019/nights-of-march-22-%05d.png -i march-22-2-19-pal.png -lavfi paletteuse march-22-2-19.gif
+
+
+ffmpeg -f image2 -i ./frames/nights-of-march-22-levels-2019/nights-of-march-22-%05d.png -filter:v "crop=1440:1440:1120:0, scale=720:720" ./frames/nights-of-march-22-levels-2019-croppy-720/nights-of-march-22-%05d.png
+
+ffmpeg -f image2 -i ./frames/nights-of-march-22-levels-2019/nights-of-march-22-%05d.png -filter:v "crop=1440:1440:0:0, scale=720:720" ./frames/nights-of-march-22-levels-2019-croppy-b-720/nights-of-march-22-%05d.png
+
+ffmpeg -f concat -safe 0 -r 12 -i march22-crop.txt -vf palettegen march-22-2-19-montage-720.png
+
+ffmpeg -f concat -safe 0 -r 12 -i march22-crop.txt -i march-22-2-19-montage-720.png -lavfi paletteuse march-22-2-19-montage-720.gif
+
+gifsicle -O3 --lossy=100 -o march-22-2-19-montage-long-720-lossy100.gif march-22-2-19-montage-720.gif
+gifsicle -O3 --lossy=50 -o march-22-2-19-montage-long-720-lossy50.gif march-22-2-19-montage-720.gif
+
+gifsicle -O3 --lossy=10 -o march-22-2-19-montage-long-720-lossy10.gif march-22-2-19-montage-720.gif
+
+ffmpeg -f concat -safe 0 -r 12 -i march22-crop-longer.txt -i march-22-2-19-montage-720.png -lavfi paletteuse march-22-2-19-montage-720-longer-75.gif
+
+gifsicle -O3 --lossy=100 -o march-22-2-19-montage-longer-720-lossy100.gif march-22-2-19-montage-720-longer.gif
+
+gifsicle -O3 --lossy=50 -o march-22-2-19-montage-longer-720-75-lossy50.gif march-22-2-19-montage-720-longer-75.gif
+gifsicle -O3 --lossy=10 -o march-22-2-19-montage-longer-720-75-lossy10.gif march-22-2-19-montage-720-longer-75.gif
+gifsicle -O3 --lossy=2 -o march-22-2-19-montage-longer-720-75-lossy2.gif march-22-2-19-montage-720-longer-75.gif
+
+
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-19/nights-of-march-19-%05d.png -vf palettegen march-19-pal.png
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-19/nights-of-march-19-%05d.png -i march-19-pal.png -lavfi paletteuse march-19.gif
+>>>>>>> Stashed changes
