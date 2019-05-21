@@ -51,9 +51,9 @@ function draw() {
             }
             scene.update();
             let xAmount = (scene.fixedGridSize) ? scene.fixedGridSize.width : scene.gridXAmount;
-            let yAmount = (scene.fixedGridSize) ? scene.fixedGridSize.height : scene.gridYAmount;
-            for (let x = 0; x < xAmount; x++) {
-                for (let y = 0; y < yAmount; y++) {
+            // let yAmount = (scene.fixedGridSize) ? scene.fixedGridSize.height : scene.gridYAmount;
+            for (let x = 0; x < scene.gridXAmount; x++) {
+                for (let y = 0; y < scene.gridYAmount; y++) {
                     let oneDValue = (x + scene.offset.x) + ((y + scene.offset.y) * xAmount);
                     // console.log(oneDValue);
                     var value = scene.grid[oneDValue].state;
@@ -91,15 +91,15 @@ function draw() {
                     if (printingArray[boxToPrint]) {
                         if (printingArray[boxToPrint].state == 1) {
                             let color = scene.getColor(boxToPrint, printingChanges);
-                            fill(red(color), green(color), blue(color), 55);
+                            fill(red(color), green(color), blue(color), 220);
                             let tW = scene.tileWidth;
                             for (let i = 0; i < scene.dotPerTile; i++) {
                                 var randomX = random(x * tW, (x + 1) * tW);
                                 var randomY = random(y * tW, (y + 1) * tW);
                                 if (scene.zoom) {
-                                    ellipse(randomX, randomY, 1.25 * zoomReciprocal);
+                                    ellipse(randomX, randomY, 2.5 * zoomReciprocal);
                                 } else {
-                                    ellipse(randomX, randomY, 1.25);
+                                    ellipse(randomX, randomY, 2.5);
                                 }
 
                             }
@@ -134,15 +134,15 @@ function draw() {
                     if (scene.grid[boxToPrint]) {
                         if (scene.grid[boxToPrint].state == 1) {
                             let color = scene.getColor(boxToPrint);
-                            fill(red(color), green(color), blue(color), 55);
+                            fill(red(color), green(color), blue(color), 220);
                             let tW = scene.tileWidth;
                             for (let i = 0; i < scene.dotPerTile; i++) {
                                 var randomX = random(x * tW, (x + 1) * tW);
                                 var randomY = random(y * tW, (y + 1) * tW);
                                 if (scene.zoom) {
-                                    ellipse(randomX, randomY, 1.25 * zoomReciprocal);
+                                    ellipse(randomX, randomY, 2.5 * zoomReciprocal);
                                 } else {
-                                    ellipse(randomX, randomY, 1.25);
+                                    ellipse(randomX, randomY, 2.5);
                                 }
 
                             }
@@ -235,6 +235,9 @@ function keyPressed() {
     if (key == 'r' || key == 'R') {
         window.location.reload();
     }
+    if (key == 'u' || key == 'U') {
+        copyCanvasToClipboard();
+    }
 }
 
 function mousePressed() {
@@ -262,5 +265,35 @@ function mouseDragged() {
         fill(255);
         let tW = scene.tileWidth;
         rect(x * tW, y * tW, tW, tW);
+    }
+}
+
+function copyCanvasToClipboard() {
+    var img = document.createElement('img');
+    img.src = canvasDOM.toDataURL();
+
+    var div = document.createElement('div');
+    div.contentEditable = true;
+    div.appendChild(img);
+    document.body.appendChild(div);
+
+    // do copy
+    SelectText(div);
+    document.execCommand('Copy');
+    document.body.removeChild(div);
+}
+
+function SelectText(element) {
+    var doc = document;
+    if (doc.body.createTextRange) {
+        var range = document.body.createTextRange();
+        range.moveToElementText(element);
+        range.select();
+    } else if (window.getSelection) {
+        var selection = window.getSelection();
+        var range = document.createRange();
+        range.selectNodeContents(element);
+        selection.removeAllRanges();
+        selection.addRange(range);
     }
 }
