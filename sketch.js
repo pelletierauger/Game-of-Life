@@ -129,6 +129,7 @@ function draw() {
                         printedBackground = false;
                     }
                 }
+                // When scene.fixedGridSize is false
             } else {
                 for (let i = 0; i < 500 * (scene.gridScalar / 16); i++) {
                     if (!printedBackground) {
@@ -159,21 +160,25 @@ function draw() {
                                     rotateAngle = PI * 1.5;
                                     break;
                             }
-                            if (changes == 1) {
-                                // push();
-                                // translate(x * tW + (tW * 0.5), y * tW + (tW * 0.5));
-                                // rotate(rotateAngle);
-                                // image(grainyYellowTiles[randomTile], 0, 0);
-                                // pop();
-                                image(grainyYellowTiles[randomTile], x * tW + (tW * 0.5), y * tW + (tW * 0.5));
-                            } else if (changes == 4) {
-                                // push();
-                                // translate(x * tW + (tW * 0.5), y * tW + (tW * 0.5));
-                                // rotate(rotateAngle);
-                                // image(grainyRedTiles[randomTile], 0, 0);
-                                // pop();
-                                image(grainyRedTiles[randomTile], x * tW + (tW * 0.5), y * tW + (tW * 0.5));
-                            }
+
+
+                            printOptimizedTile(x, y, tW, changes);
+
+                            // if (changes == 1) {
+                            //     // push();
+                            //     // translate(x * tW + (tW * 0.5), y * tW + (tW * 0.5));
+                            //     // rotate(rotateAngle);
+                            //     // image(grainyYellowTiles[randomTile], 0, 0);
+                            //     // pop();
+                            //     image(grainyYellowTiles[randomTile], x * tW + (tW * 0.5), y * tW + (tW * 0.5));
+                            // } else if (changes == 4) {
+                            //     // push();
+                            //     // translate(x * tW + (tW * 0.5), y * tW + (tW * 0.5));
+                            //     // rotate(rotateAngle);
+                            //     // image(grainyRedTiles[randomTile], 0, 0);
+                            //     // pop();
+                            //     image(grainyRedTiles[randomTile], x * tW + (tW * 0.5), y * tW + (tW * 0.5));
+                            // }
                             // let color = scene.getColor(boxToPrint);
                             // fill(red(color), green(color), blue(color), 55);
                             // let tW = scene.tileWidth;

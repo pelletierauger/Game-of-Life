@@ -5492,4 +5492,4 @@ warmthOfMay10.getColorz = function(oneDValue, optionalArray) {
     return color(a.r, a.g, a.b);
 };
 
-scene = warmthOfMay3;
+// scene = warmthOfMay3;
