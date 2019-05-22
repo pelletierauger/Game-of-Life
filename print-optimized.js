@@ -21,12 +21,12 @@ function printOptimizedTile(x, y, tW, changes) {
             let graphics = createGraphics(tW * graphicsScalar, tW * graphicsScalar);
             graphics.clear();
             graphics.noStroke();
-            graphics.fill(red(color), green(color), blue(color), 205);
+            graphics.fill(red(color), green(color), blue(color), 250);
             // graphics.background(color)
             for (let i = 0; i < scene.dotPerTile; i++) {
                 var randomX = random(tW * margin, tW + (tW * margin));
                 var randomY = random(tW * margin, tW + (tW * margin));
-                graphics.ellipse(randomX, randomY, 2.25);
+                graphics.ellipse(randomX, randomY, 1.5);
             }
             tileSet.push(graphics);
         }

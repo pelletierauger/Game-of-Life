@@ -8743,7 +8743,7 @@ nightsOfMarch19.applyShapes = function() {
 
 nightsOfMarch19.updateGrid = function() {
     if (Math.random() <= 0.2) {
-        let y = map(this.currentState, 0, 800, this.gridYAmount - 20, 0);
+        let y = map(this.currentState, 0, 400, this.gridYAmount - 20, 0);
         let x = Math.random() * this.gridXAmount;
         let w = Math.random() * 40;
         let yModifier = 0;
@@ -8843,9 +8843,9 @@ nightsOfMarch19.getColor = function(oneDValue, optionalArray) {
     } else {
         c = this.changes[oneDValue];
     }
-    let blueLerp = map(c, 0, 300, 0, 1);
+    let blueLerp = map(c, 0, 150, 0, 1);
     blueLerp = constrain(blueLerp, 0, 1);
-    let blackLerp = map(c, 300, 400, 0, 1);
+    let blackLerp = map(c, 150, 200, 0, 1);
     blackLerp = constrain(blackLerp, 0, 1);
     let p = this.palette.data;
     let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
@@ -8855,10 +8855,10 @@ nightsOfMarch19.getColor = function(oneDValue, optionalArray) {
     let a = { r: red, g: green, b: blue };
     a.r = lerp(a.r, 0, blueLerp);
     a.g = lerp(a.g, 0, blueLerp);
-    a.b = lerp(a.b, 50, blueLerp);
+    a.b = lerp(a.b, 70, blueLerp);
     a.r = lerp(a.r, 0, blackLerp);
     a.g = lerp(a.g, 0, blackLerp);
-    a.b = lerp(a.b, 0, blackLerp);
+    a.b = lerp(a.b, 30, blackLerp);
     return color(a.r, a.g, a.b);
 };
 
@@ -12664,7 +12664,7 @@ nightsOfMarch37.getColor = function(oneDValue, optionalArray) {
 //-------------------------------------------------------------
 
 let nightsOfMarch38 = new Scene({
-    fileName: "./frames/inner-january-14/inner-january-14",
+    fileName: "./frames/nights-of-march-38/nights-of-march-38",
     gridScalar: 16,
     // offset: { x: 500, y: 500 },
     // fixedGridSize: { width: 1000, height: 1000 },
@@ -12748,6 +12748,9 @@ let nightsOfMarch38 = new Scene({
     //palette-tue-mar-20-2018-013327
     //palette-tue-mar-20-2018-015216
 
+    // bleu et terre
+    // paletteName: "palette-sat-mar-17-2018-175938",
+
     //----------------------------------------
 
     // paletteName: "palette-sun-mar-04-2018-154033",
@@ -12756,7 +12759,7 @@ let nightsOfMarch38 = new Scene({
     speedModulo: 1,
     zoom: 1,
     dotPerTile: 3500 / 16,
-    maxSteps: 129
+    maxSteps: 160
 });
 
 nightsOfMarch38.applyShapes = function() {
@@ -12936,6 +12939,8 @@ nightsOfMarch38.getColor = function(oneDValue, optionalArray) {
     a.r = lerp(a.r, 0, thirdLerp);
     a.g = lerp(a.g, 0, thirdLerp);
     a.b = lerp(a.b, 0, thirdLerp);
+    a = adjustLevels(-20, 60 * 0.5, 150 * 0.5, { r: a.r, g: a.g, b: a.b });
+    // a = adjustLevels(-20, 60 * 1, 150 * 0.5, { r: a.r, g: a.g, b: a.b });
     return color(a.r, a.g, a.b);
 };
 
@@ -14595,4 +14600,4 @@ nightsOfApril2.getColor = function(oneDValue, optionalArray) {
     return color(a.r, a.g, a.b);
 };
 
-let scene = nightsOfMarch19;
+let scene = nightsOfMarch43;
