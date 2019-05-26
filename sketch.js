@@ -44,12 +44,12 @@ function draw() {
                 stroke(255, 50);
                 strokeWeight(0.5);
                 var tW = scene.tileWidth;
-                // for (let x = 0; x < scene.gridXAmount; x++) {
-                //     line(tW * x, 0, tW * x, height);
-                // }
-                // for (let y = 0; y < scene.gridYAmount; y++) {
-                //     line(0, tW * y, width, tW * y);
-                // }
+                for (let x = 0; x < scene.gridXAmount; x++) {
+                    line(tW * x, 0, tW * x, height);
+                }
+                for (let y = 0; y < scene.gridYAmount; y++) {
+                    line(0, tW * y, width, tW * y);
+                }
                 noStroke();
                 drawnGrid = true;
             }

@@ -1770,6 +1770,7 @@ let warmthOfApril7 = new Scene({
 
     // paletteName: "palette-sun-mar-04-2018-154033",
     // palette-tue-dec-12-2017-141143
+    paletteName: "palette-sun-may-26-2019-031831",
 
     speedModulo: 1,
     zoom: 1,
@@ -1827,13 +1828,13 @@ warmthOfApril7.updateGrid = function() {
             if (value == 1) {
                 if (neighborBottom <= 2 || neighbors == 3 ||  neighbors == 2) {
                     this.next[oneDValue] = { state: 0, changed: true };
-                    this.changes[oneDValue] = this.currentState * 0.5;
+                    this.changes[oneDValue] = this.currentState * 0.35;
                     changed = true;
                 }
             } else {
                 if (neighborBottom <= 2 && neighborRight && neighborLeft && neighborTop) {
                     this.next[oneDValue] = { state: 1, changed: true };
-                    this.changes[oneDValue] = this.currentState * 0.5;
+                    this.changes[oneDValue] = this.currentState * 0.35;
                     changed = true;
                 }
             }
@@ -1890,9 +1891,9 @@ warmthOfApril7.getColor = function(oneDValue, optionalArray) {
     } else {
         c = this.changes[oneDValue];
     }
-    let blueLerp = map(c, 0, 70, 0, 1);
+    let blueLerp = map(c, 0, 80, 0, 1);
     blueLerp = constrain(blueLerp, 0, 1);
-    let blackLerp = map(c, 70, 100, 0, 1);
+    let blackLerp = map(c, 80, 120, 0, 1);
     blackLerp = constrain(blackLerp, 0, 1);
     let p = this.palette.data;
     let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
@@ -5482,9 +5483,9 @@ warmthOfMay10.getColorz = function(oneDValue, optionalArray) {
     let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
     // let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
     let a = { r: red, g: green, b: blue };
-    a.r = lerp(a.r, 20, blueLerp);
+    a.r = lerp(a.r, 10, blueLerp);
     a.g = lerp(a.g, 0, blueLerp);
-    a.b = lerp(a.b, 50, blueLerp);
+    a.b = lerp(a.b, 70, blueLerp);
     a.r = lerp(a.r, 0, blackLerp);
     a.g = lerp(a.g, 0, blackLerp);
     a.b = lerp(a.b, 0, blackLerp);
@@ -5492,4 +5493,4 @@ warmthOfMay10.getColorz = function(oneDValue, optionalArray) {
     return color(a.r, a.g, a.b);
 };
 
-// scene = warmthOfMay3;
+// scene = warmthOfMay11;
