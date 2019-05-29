@@ -18,6 +18,7 @@ function frameExport(n) {
     }
     frameName += "-" + formattedFrameCount;
     var dataUrl = canvasDOM.toDataURL();
+    // console.log("scene.FolderPath: " + scene.folderPath + ", fileName : " + scene.fileName);
     var data = {
         dataUrl: dataUrl,
         folder: scene.folderPath + scene.fileName + "/",
