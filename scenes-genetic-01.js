@@ -1250,6 +1250,14 @@ geneticScene05.rulesIndex = 0;
 geneticScene05.fileName = geneticScene05.newListOfRules[geneticScene05.rulesIndex].name;
 geneticScene05.geneticRules = geneticScene05.newListOfRules[geneticScene05.rulesIndex].r;
 
+// pool Tables
+geneticScene05.geneticRules = "0101111111110000";
+// The North-West of Tasmania
+geneticScene05.geneticRules = "0111000010001001";
+// Sunflowers
+geneticScene05.geneticRules = "0011000010001001";
+// Painting
+geneticScene05.geneticRules = "0111000010000001";
 
 //-------------------------------------------------------------------------------------------------//
 

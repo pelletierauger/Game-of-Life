@@ -102,13 +102,13 @@ class Scene {
             let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
             let a = adjustLevels(0, 0, 350, { r: red, g: green, b: blue });
             // console.log(a);
-            graphics.fill(a.r, a.g, a.b, 55);
-            for (let i = 0; i < this.dotPerTile; i++) {
+            graphics.fill(a.r + 10, a.g, a.b, 75);
+            for (let i = 0; i < this.dotPerTile * 1.75; i++) {
                 var randomX = random(tW * margin, tW + (tW * margin));
                 var randomY = random(tW * margin, tW + (tW * margin));
                 // var randomX = random(0, tW);
                 // var randomY = random(0, tW);
-                graphics.ellipse(randomX, randomY, 1.25);
+                graphics.ellipse(randomX, randomY, 1.125 * 0.85);
                 // console.log("Just relax");
             }
             grainyYellowTiles.push(graphics);
@@ -126,13 +126,13 @@ class Scene {
             let blue = map(sin(c / p.blueOsc), 1, -1, p.blueMin, p.blueMax);
             let a = adjustLevels(0, 0, 350, { r: red, g: green, b: blue });
             // console.log(a);
-            graphics.fill(a.r, a.g, a.b, 55);
-            for (let i = 0; i < this.dotPerTile; i++) {
+            graphics.fill(a.r, a.g, a.b, 75);
+            for (let i = 0; i < this.dotPerTile * 1.75; i++) {
                 var randomX = random(tW * margin, tW + (tW * margin));
                 var randomY = random(tW * margin, tW + (tW * margin));
                 // var randomX = random(0, tW);
                 // var randomY = random(0, tW);
-                graphics.ellipse(randomX, randomY, 1.25);
+                graphics.ellipse(randomX, randomY, 1.125 * 0.85);
             }
             grainyRedTiles.push(graphics);
         }
