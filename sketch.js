@@ -10,6 +10,7 @@ let drawnGrid = false;
 let boxToPrint = 0;
 let grainyYellowTiles = [];
 let grainyRedTiles = [];
+let addons = [];
 
 function setup() {
     socket = io.connect('http://localhost:8080');
@@ -311,6 +312,7 @@ function mousePressed() {
         fill(255);
         let tW = scene.tileWidth;
         rect(x * tW, y * tW, tW, tW);
+        addons.push({ x: x, y: y });
     }
 }
 

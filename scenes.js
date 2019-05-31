@@ -8918,10 +8918,14 @@ let nightsOfMarch20 = new Scene({
     //----------------------------------------
 
     // paletteName: "palette-sun-mar-04-2018-154033",
-    // palette-tue-dec-12-2017-141143
+    // paletteName: "palette-tue-dec-12-2017-141143",
 
-    paletteName: "palette-thu-may-03-2018-033923",
-    paletteName: "palette-tue-dec-19-2017-172500",
+    // paletteName: "palette-thu-may-03-2018-033923",
+    // paletteName: "palette-tue-dec-19-2017-172500",
+    // paletteName: "palette-sat-apr-28-2018-041749",
+
+    // bleu et rouge
+    // "palette-tue-apr-24-2018-181237"
 
     speedModulo: 1,
     zoom: 1,
@@ -8935,12 +8939,40 @@ nightsOfMarch20.applyShapes = function() {
     // this.setGridValue(0, this.gridYAmount / 2, 1);
     this.setGridValue(this.gridXAmount * 0.22, this.gridYAmount * 0.12, 1);
     this.setGridValue(this.gridXAmount * 0.8, this.gridYAmount * 0.5, 1);
-
+    this.addons = [
+        { x: 195, y: 70 },
+        { x: 177, y: 80 },
+        { x: 158, y: 72 },
+        { x: 142, y: 87 },
+        { x: 122, y: 72 },
+        { x: 131, y: 69 },
+        { x: 150, y: 82 },
+        { x: 177, y: 66 },
+        { x: 187, y: 51 },
+        { x: 193, y: 61 },
+        { x: 198, y: 29 },
+        { x: 222, y: 21 },
+        { x: 249, y: 23 },
+        { x: 241, y: 12 },
+        { x: 231, y: 28 },
+        { x: 221, y: 4 },
+        { x: 208, y: 22 },
+        { x: 202, y: 13 },
+        { x: 185, y: 30 },
+        { x: 180, y: 10 },
+        { x: 174, y: 40 },
+        { x: 169, y: 51 },
+        { x: 163, y: 66 },
+        { x: 147, y: 75 },
+        { x: 191, y: 36 },
+        { x: 170, y: 79 },
+        { x: 198, y: 4 }
+    ];
 };
 
 nightsOfMarch20.updateGrid = function() {
     if (Math.random() <= 0.9) {
-        let y = map(this.currentState, 0, 800, this.gridYAmount - 20, 0);
+        let y = map(this.currentState, 0, 800, this.gridYAmount - 10, 0);
         let x = Math.random() * this.gridXAmount;
         let w = Math.random() * 40;
         let yModifier = 0;
@@ -8958,6 +8990,18 @@ nightsOfMarch20.updateGrid = function() {
             }
         }
     }
+    if (this.currentState == 40) {
+        for (let i = 0; i < this.addons.length; i++) {
+            // console.log("Josie!");
+            let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
+            let oneDValue = (this.addons[i].x) + ((this.addons[i].y) * xAmount);
+            this.setGridValue(this.addons[i].x, this.addons[i].y, 1);
+            this.changes[oneDValue] = this.currentState * 0.5;
+        }
+        // if (this.changes[oneDValue] == 0) {
+        // }
+    }
+
     let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
     let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
     for (var x = 0; x < xAmount; x++) {
@@ -9056,7 +9100,7 @@ nightsOfMarch20.getColor = function(oneDValue, optionalArray) {
     a.r = lerp(a.r, 0, blackLerp);
     a.g = lerp(a.g, 0, blackLerp);
     a.b = lerp(a.b, 0, blackLerp);
-    a = adjustLevels(0, 20, 75, { r: a.r, g: a.g, b: a.b });
+    a = adjustLevels(-15, 60, 120, { r: a.r, g: a.g, b: a.b });
     return color(a.r, a.g, a.b);
 };
 
@@ -14613,4 +14657,4 @@ nightsOfApril2.getColor = function(oneDValue, optionalArray) {
     return color(a.r, a.g, a.b);
 };
 
-let scene = nightsOfMarch19;
+let scene = nightsOfMarch20;

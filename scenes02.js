@@ -1916,6 +1916,7 @@ warmthOfApril7.getColor = function(oneDValue, optionalArray) {
 let warmthOfApril8 = new Scene({
     fileName: "./frames/nights-of-march-22-levels/nights-of-march-22",
     gridScalar: 16,
+    gridSeedName: "gridseed-fri-may-31-2019-024329",
     // offset: { x: 500, y: 500 },
     // fixedGridSize: { width: 1000, height: 1000 },
     // paletteName: "palette-fri-dec-15-2017-185009",
@@ -1978,6 +1979,13 @@ let warmthOfApril8 = new Scene({
     // paletteName: "palette-sun-mar-04-2018-154033",
     // palette-tue-dec-12-2017-141143
 
+    paletteName: "palette-tue-dec-19-2017-172500",
+    paletteName: "palette-thu-jan-11-2018-172555",
+    paletteName: "palette-sun-may-26-2019-032504",
+    // paletteName: "palette-mon-dec-11-2017-211545",
+    paletteName: "palette-wed-may-29-2019-044955",
+    // paletteName: "palette-fri-may-31-2019-035947",
+
     speedModulo: 1,
     zoom: 1,
     dotPerTile: 3500 / 16,
@@ -1996,8 +2004,10 @@ warmthOfApril8.applyShapes = function() {
 warmthOfApril8.updateGrid = function() {
     let xAmount = (this.fixedGridSize) ? this.fixedGridSize.width : this.gridXAmount;
     let yAmount = (this.fixedGridSize) ? this.fixedGridSize.height : this.gridYAmount;
+
     for (let i = 0; i < 2; i++) {
-        if (Math.random() <= 0.5) {
+        let prob = map(this.currentState, 0, 150, 0.5, 0.9);
+        if (Math.random() <= prob) {
             let y = map(this.currentState, 0, 150, this.gridYAmount - 0, 0);
             let x = Math.random() * this.gridXAmount;
             let w = Math.random() * 40;
@@ -2097,9 +2107,10 @@ warmthOfApril8.getColor = function(oneDValue, optionalArray) {
     } else {
         c = this.changes[oneDValue];
     }
+
     let blueLerp = map(c, 0, 70, 0, 1);
     blueLerp = constrain(blueLerp, 0, 1);
-    let blackLerp = map(c, 70, 100, 0, 1);
+    let blackLerp = map(c, 70, 120, 0, 1);
     blackLerp = constrain(blackLerp, 0, 1);
     let p = this.palette.data;
     let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
@@ -2108,12 +2119,15 @@ warmthOfApril8.getColor = function(oneDValue, optionalArray) {
     // let a = adjustLevels(0, 0, 150, { r: red, g: green, b: blue });
     let a = { r: red, g: green, b: blue };
     a.r = lerp(a.r, 0, blueLerp);
-    a.g = lerp(a.g, 10, blueLerp);
-    a.b = lerp(a.b, 25, blueLerp);
+    a.g = lerp(a.g, 20, blueLerp);
+    a.b = lerp(a.b, 45, blueLerp);
     a.r = lerp(a.r, 0, blackLerp);
     a.g = lerp(a.g, 0, blackLerp);
     a.b = lerp(a.b, 0, blackLerp);
-    a = adjustLevels(0, 60, 150, { r: a.r, g: a.g, b: a.b });
+    a = adjustLevels(-20, 60, 150, { r: a.r, g: a.g, b: a.b });
+    if (isNaN(c)) {
+        a = { r: 0, g: 0, b: 0 };
+    }
     return color(a.r, a.g, a.b);
 };
 
@@ -5493,4 +5507,4 @@ warmthOfMay10.getColorz = function(oneDValue, optionalArray) {
     return color(a.r, a.g, a.b);
 };
 
-scene = warmthOfApril11;
+// scene = warmthOfApril8;
