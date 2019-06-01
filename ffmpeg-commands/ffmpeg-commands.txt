@@ -183,3 +183,230 @@ ffmpeg -f concat -safe 0 -r 12 -i ./ffmpeg-commands/study-2.txt -i /Users/guilla
 
 ffmpeg -f concat -safe 0 -r 12 -i ./ffmpeg-commands/study-2.txt -i /Users/guillaumepelletier/Desktop/Dropbox/Création\ musicale/Morceaux\ exportés/Synthé\ lent\,\ automates\,\ clockwork\ noir\,\ glockenspiel\,\ doux\,\ cb\,\ chill\,\ longer.aif -c:v libx264 -s 2560x1440 -pix_fmt yuv420p /Volumes/WD001/animation-video-renders/game-of-life/study-no-1-credits.mp4
 
+
+
+
+
+2019
+
+
+
+
+
+
+
+
+
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-22-levels-2019/nights-of-march-22-%05d.png -vf palettegen march-22-2-19-pal.png
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-22-levels-2019/nights-of-march-22-%05d.png -i march-22-2-19-pal.png -lavfi paletteuse march-22-2-19.gif
+
+
+gifsicle -O3 --lossy=100 -o march-22-2-19-lossy100.gif march-22-2-19.gif
+
+gifsicle -O3 --lossy=50 -o march-22-2-19-lossy50.gif march-22-2-19.gif
+
+
+ffmpeg -f image2 -i ./frames/nights-of-march-22-levels-2019/nights-of-march-22-%05d.png -filter:v "crop=1440:1440:1120:0" ./frames/nights-of-march-22-levels-2019-croppy/nights-of-march-22-%05d.png
+
+ffmpeg -f image2 -i ./frames/nights-of-march-22-levels-2019/nights-of-march-22-%05d.png -filter:v "crop=1440:1440:0:0" ./frames/nights-of-march-22-levels-2019-croppy-b/nights-of-march-22-%05d.png
+
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-22-levels-2019-croppy/nights-of-march-22-%05d.png -i march-22-2-19-pal-crop.png -lavfi paletteuse march-22-2-19-crop.gif
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-22-levels-2019-croppy/nights-of-march-22-%05d.png -vf palettegen march-22-2-19-pal-crop.png
+
+
+gifsicle -O3 --lossy=100 -o march-22-2-19-crop-lossy100.gif march-22-2-19-crop.gif
+
+
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-22-levels-2019-croppy/nights-of-march-22-%05d.png -i march-22-2-19-pal-crop.png -lavfi paletteuse march-22-2-19-crop.gif
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-22-levels-2019-croppy/nights-of-march-22-%05d.png -vf palettegen march-22-2-19-pal-crop.png
+
+
+ffmpeg -f concat -safe 0 -r 12 -i march22-crop.txt -vf palettegen march-22-2-19-montage.png
+
+ffmpeg -f concat -safe 0 -r 12 -i march22-crop.txt -i march-22-2-19-montage.png -lavfi paletteuse march-22-2-19-montage.gif
+
+gifsicle -O3 --lossy=100 -o march-22-2-19-montage-long-lossy100.gif march-22-2-19-montage.gif
+
+gifsicle -O3 --lossy=200 -o march-22-2-19-montage-long-lossy200.gif march-22-2-19-montage.gif
+
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-22-levels-2019/nights-of-march-22-%05d.png -vf palettegen march-22-2-19-pal.png
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-22-levels-2019/nights-of-march-22-%05d.png -i march-22-2-19-pal.png -lavfi paletteuse march-22-2-19.gif
+
+
+ffmpeg -f image2 -i ./frames/nights-of-march-22-levels-2019/nights-of-march-22-%05d.png -filter:v "crop=1440:1440:1120:0, scale=720:720" ./frames/nights-of-march-22-levels-2019-croppy-720/nights-of-march-22-%05d.png
+
+ffmpeg -f image2 -i ./frames/nights-of-march-22-levels-2019/nights-of-march-22-%05d.png -filter:v "crop=1440:1440:0:0, scale=720:720" ./frames/nights-of-march-22-levels-2019-croppy-b-720/nights-of-march-22-%05d.png
+
+ffmpeg -f concat -safe 0 -r 12 -i march22-crop.txt -vf palettegen march-22-2-19-montage-720.png
+
+ffmpeg -f concat -safe 0 -r 12 -i march22-crop.txt -i march-22-2-19-montage-720.png -lavfi paletteuse march-22-2-19-montage-720.gif
+
+gifsicle -O3 --lossy=100 -o march-22-2-19-montage-long-720-lossy100.gif march-22-2-19-montage-720.gif
+gifsicle -O3 --lossy=50 -o march-22-2-19-montage-long-720-lossy50.gif march-22-2-19-montage-720.gif
+
+gifsicle -O3 --lossy=10 -o march-22-2-19-montage-long-720-lossy10.gif march-22-2-19-montage-720.gif
+
+ffmpeg -f concat -safe 0 -r 12 -i march22-crop-longer.txt -i march-22-2-19-montage-720.png -lavfi paletteuse march-22-2-19-montage-720-longer-75.gif
+
+gifsicle -O3 --lossy=100 -o march-22-2-19-montage-longer-720-lossy100.gif march-22-2-19-montage-720-longer.gif
+
+gifsicle -O3 --lossy=50 -o march-22-2-19-montage-longer-720-75-lossy50.gif march-22-2-19-montage-720-longer-75.gif
+gifsicle -O3 --lossy=10 -o march-22-2-19-montage-longer-720-75-lossy10.gif march-22-2-19-montage-720-longer-75.gif
+gifsicle -O3 --lossy=2 -o march-22-2-19-montage-longer-720-75-lossy2.gif march-22-2-19-montage-720-longer-75.gif
+
+
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-19/nights-of-march-19-%05d.png -vf palettegen march-19-pal.png
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-19/nights-of-march-19-%05d.png -i march-19-pal.png -lavfi paletteuse march-19.gif
+>>>>>>> Stashed changes
+
+ffmpeg -f image2 -i ./frames/nights-of-march-19/nights-of-march-19-%05d.png -filter:v "crop=1440:1440:1120:0, scale=720:720, colorlevels=rimax=0.8:gimax=0.8:bimax=0.8" ./frames/nights-of-march-19-crop/nights-of-march-19-%05d.png
+
+ffmpeg -f concat -safe 0 -r 4 -i ./ffmpeg-commands/ffmpeg-input4.txt -filter colorlevels=rimax=0.8:gimax=0.8:bimax=0.8 -s 1280x720 ./video-renders/concat-fractals-4fps-levels-720p.gif
+
+ffmpeg -i ./frames/nights-of-march-19/nights-of-march-19-00797.png -filter colorlevels=rimax=0.8:gimax=0.8:bimax=0.8 nights-of-march-19-00797-levels.png
+
+ffmpeg -i ./frames/nights-of-march-19/nights-of-march-19-00797.png -filter colorlevels=rimax=0.7:gimax=0.7:bimax=0.7 nights-of-march-19-00797-levels-0.7.png
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-19-crop/nights-of-march-19-%05d.png -i march-19-crop-pal.png -lavfi paletteuse march-19-crop.gif
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-19-crop/nights-of-march-19-%05d.png -vf palettegen march-19-crop-pal.png
+
+gifsicle -O3 --lossy=50 -o march-19-crop-lossy50.gif march-19-crop.gif
+gifsicle -O3 --lossy=100 -o march-19-crop-lossy100.gif march-19-crop.gif
+gifsicle -O3 --lossy=200 -o march-19-crop-lossy200.gif march-19-crop.gif
+
+ffmpeg -f image2 -framerate 24 -i ./frames/nights-of-march-19-crop/nights-of-march-19-%05d.png -i march-19-crop-pal.png -lavfi paletteuse march-19-crop-24fps.gif
+
+ffmpeg -f image2 -i ./frames/nights-of-march-19/nights-of-march-19-%05d.png -filter:v "crop=1440:1440:1120:0, scale=720:720" ./frames/nights-of-march-19-crop/nights-of-march-19-%05d.png
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-19-crop/nights-of-march-19-%05d.png -i march-19-crop-pal.png -lavfi paletteuse march-19-crop.gif
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-19-crop/nights-of-march-19-%05d.png -vf palettegen march-19-crop-pal.png
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-19-crop/nights-of-march-19-%05d.png -i march-19-crop-pal.png -lavfi paletteuse march-19-crop-v2.gif
+
+gifsicle -O3 --lossy=100 -o march-19-crop-v2-lossy100.gif march-19-crop-v2.gif
+gifsicle -O3 --lossy=50 -o march-19-crop-v2-lossy50.gif march-19-crop-v2.gif
+
+
+ffmpeg -f image2 -i ./frames/nights-of-march-38/nights-of-march-38-%05d.png -filter:v "crop=1440:1440:1120:0, scale=720:720" ./frames/nights-of-march-38-crop/nights-of-march-38-%05d.png
+
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-38-crop/nights-of-march-38-%05d.png -vf palettegen march-38-crop-pal.png
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-38-crop/nights-of-march-38-%05d.png -i march-38-crop-pal.png -lavfi paletteuse march-38-crop.gif
+
+gifsicle -O3 --lossy=20 -o march-38-crop-lossy20.gif march-38-crop.gif
+gifsicle -O3 --lossy=10 -o march-38-crop-lossy10.gif march-38-crop.gif
+gifsicle -O3 --lossy=5 -o march-38-crop-lossy5.gif march-38-crop.gif
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-38-crop-levs/nights-of-march-38-%05d.png -vf palettegen march-38-crop-levs-pal.png
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-38-crop-levs/nights-of-march-38-%05d.png -i march-38-crop-levs-pal.png -lavfi paletteuse march-38-crop-levs.gif
+
+
+gifsicle -O3 --lossy=5 -o march-38-crop-levs-lossy5.gif march-38-crop-levs.gif
+
+
+
+----
+
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-19/nights-of-march-19-%05d.png -vf palettegen march-19-palette.png
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-19/nights-of-march-19-%05d.png -i march-19-palette.png -lavfi paletteuse march-19.gif
+
+ffmpeg -i ./frames/nights-of-march-19/nights-of-march-19-%05d.png -s 1280x720 ./frames/nights-of-march-19-small/nights-of-march-19-%05d.png
+
+ffmpeg -i ./frames/nights-of-march-19/nights-of-march-19-%05d.png -s 640x360 ./frames/nights-of-march-19-640x360/nights-of-march-19-%05d.png
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-19-small/nights-of-march-19-%05d.png -vf palettegen march-19-small-palette.png
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-19-640x360/nights-of-march-19-%05d.png -vf palettegen march-19-640x360-palette.png
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-19-small/nights-of-march-19-%05d.png -i march-19-small-palette.png -lavfi paletteuse march-19-1280x720.gif
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-19-small/nights-of-march-19-%05d.png -i march-19-small-palette.png -lavfi paletteuse march-19-640x360.gif
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-19-640x360/nights-of-march-19-%05d.png -i march-19-640x360-palette.png -lavfi paletteuse march-19-640x360.gif
+gifsicle -O3 --lossy=100 -o march-19-640x360-lossy100.gif march-19-640x360.gif
+gifsicle -O3 --lossy=200 -o march-19-640x360-lossy200.gif march-19-640x360.gif
+gifsicle -O3 --lossy=300 -o march-19-640x360-lossy300.gif march-19-640x360.gif
+gifsicle -O3 --lossy=500 -o march-19-640x360-lossy500.gif march-19-640x360.gif
+gifsicle -O3 --lossy=1000 -o march-19-640x360-lossy1000.gif march-19-640x360.gif
+
+gifsicle -O3 --lossy=200 -o march-19-1280x720-lossy200.gif march-19-1280x720.gif
+gifsicle -O3 --lossy=200 -o march-19-1280x720-lossy200.gif march-19-1280x720.gif
+gifsicle -O3 --lossy=300 -o march-19-1280x720-lossy300.gif march-19-1280x720.gif
+
+
+ffmpeg -f image2 -i ./frames/warmth-of-april-11/warmth-of-april-11-00260.png -filter:v "crop=1440:1440:120:0, scale=720:720" ./frames/warmth-of-april-11-crop/warmth-of-april-11-00260.png
+
+
+
+ffmpeg -i ./frames/warmth-of-april-11/warmth-of-april-11-00261.png -filter:v "crop=1440:1440:120:0, scale=720:720, colorlevels=rimax=0.85:gimax=0.85:bimax=0.85" ./frames/warmth-of-april-11-crop/warmth-of-april-11-00261.png
+
+ffmpeg -i ./frames/warmth-of-april-11/warmth-of-april-11-%05d.png -filter:v "crop=1440:1440:120:0, scale=720:720, colorlevels=rimax=0.85:gimax=0.85:bimax=0.85" ./frames/warmth-of-april-11-crop/warmth-of-april-11-%05d.png
+
+
+
+ffmpeg -f image2 -framerate 12 -i ./frames/warmth-of-april-11-crop/warmth-of-april-11-%05d.png -vf palettegen warmth-of-april-11-palette.png
+
+ffmpeg -f image2 -framerate 12 -i ./frames/warmth-of-april-11-crop/warmth-of-april-11-%05d.png -i warmth-of-april-11-palette.png -lavfi paletteuse warmth-of-april-11.gif
+
+ffmpeg -i ./frames/nights-of-march-19/nights-of-march-19-%05d.png -s 1280x720 ./frames/nights-of-march-19-small/nights-of-march-19-%05d.png
+
+gifsicle -O3 --lossy=100 -o warmth-of-april-11-lossy100.gif warmth-of-april-11.gif
+gifsicle -O3 --lossy=200 -o warmth-of-april-11-lossy200.gif warmth-of-april-11.gif
+gifsicle -O3 --lossy=300 -o warmth-of-april-11-lossy300.gif warmth-of-april-11.gif
+gifsicle -O3 --lossy=400 -o warmth-of-april-11-lossy400.gif warmth-of-april-11.gif
+gifsicle -O3 --lossy=500 -o warmth-of-april-11-lossy500.gif warmth-of-april-11.gif
+gifsicle -O3 --lossy=600 -o warmth-of-april-11-lossy600.gif warmth-of-april-11.gif
+
+
+ffmpeg -i ./frames/warmth-of-april-11/warmth-of-april-11-%05d.png -filter:v "crop=1440:1440:120:0, scale=640:640, colorlevels=rimax=0.85:gimax=0.85:bimax=0.85" ./frames/warmth-of-april-11-640x640/warmth-of-april-11-%05d.png
+
+
+ffmpeg -f image2 -framerate 12 -i ./frames/warmth-of-april-11-640x640/warmth-of-april-11-%05d.png -vf palettegen warmth-of-april-11-palette-640x640.png
+
+ffmpeg -f image2 -framerate 12 -i ./frames/warmth-of-april-11-500x500/warmth-of-april-11-%05d.png -i warmth-of-april-11-palette-500x500.png -lavfi paletteuse warmth-of-april-11-500x500.gif
+
+ffmpeg -f image2 -framerate 12 -i ./frames/warmth-of-april-11-640x640/warmth-of-april-11-%05d.png -i warmth-of-april-11-palette-640x640.png -lavfi paletteuse warmth-of-april-11-640x640.gif
+
+ffmpeg -i ./frames/nights-of-march-19/nights-of-march-19-%05d.png -s 1280x720 ./frames/nights-of-march-19-small/nights-of-march-19-%05d.png
+
+
+gifsicle -O3 --lossy=200 -o warmth-of-april-11-640x640-lossy200.gif warmth-of-april-11-640x640.gif
+gifsicle -O3 --lossy=300 -o warmth-of-april-11-640x640-lossy300.gif warmth-of-april-11-640x640.gif
+gifsicle -O3 --lossy=250 -o warmth-of-april-11-640x640-lossy250.gif warmth-of-april-11-640x640.gif
+
+
+ffmpeg -f image2 -framerate 12 -i ./frames/warmth-of-april-11/warmth-of-april-11-%05d.png -vf palettegen warmth-of-april-11-palette-full.png
+
+ffmpeg -f image2 -framerate 12 -i ./frames/warmth-of-april-11/warmth-of-april-11-%05d.png -i warmth-of-april-11-palette-full.png -lavfi paletteuse warmth-of-april-11-full.gif
+
+gifsicle -O3 --lossy=100 -o warmth-of-april-11-full-lossy100.gif warmth-of-april-11-full.gif
+
+
+ffmpeg -i ./frames/warmth-of-april-11-median/warmth-of-april-11-%05d.png -filter:v "crop=1440:1440:120:0, scale=720:720, colorlevels=rimax=0.85:gimax=0.85:bimax=0.85" ./frames/warmth-of-april-11-median-crop/warmth-of-april-11-%05d.png
+
+ffmpeg -f image2 -framerate 12 -i ./frames/warmth-of-april-11-median-crop/warmth-of-april-11-%05d.png -vf palettegen warmth-of-april-11-palette-median-crop.png
+
+ffmpeg -f image2 -framerate 12 -i ./frames/warmth-of-april-11-median-crop/warmth-of-april-11-%05d.png -i warmth-of-april-11-palette-median-crop.png -lavfi paletteuse warmth-of-april-11-median-crop.gif
+
+ffmpeg -f image2 -framerate 12 -i ./frames/warmth-of-april-11-640x640/warmth-of-april-11-%05d.png -i warmth-of-april-11-palette-640x640.png -lavfi paletteuse warmth-of-april-11-640x640.gif
+
+ffmpeg -i ./frames/nights-of-march-19/nights-of-march-19-%05d.png -s 1280x720 ./frames/nights-of-march-19-small/nights-of-march-19-%05d.png
+
+gifsicle -O3 --lossy=300 -o warmth-of-april-11-median-crop-lossy300.gif warmth-of-april-11-median-crop.gif
+gifsicle -O3 --lossy=500 -o warmth-of-april-11-median-crop-lossy500.gif warmth-of-april-11-median-crop.gif
