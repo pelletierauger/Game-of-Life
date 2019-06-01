@@ -3011,6 +3011,9 @@ warmthOfApril4b.getColor = function(oneDValue, optionalArray) {
     a.g = lerp(a.g, 0, blackLerp);
     a.b = lerp(a.b, 0, blackLerp);
     a = adjustLevels(0, 60, 150, { r: a.r, g: a.g, b: a.b });
+    if (isNaN(c)) {
+        a = { r: 0, g: 0, b: 0 };
+    }
     return color(a.r, a.g, a.b);
 };
 
@@ -5507,4 +5510,4 @@ warmthOfMay10.getColorz = function(oneDValue, optionalArray) {
     return color(a.r, a.g, a.b);
 };
 
-// scene = warmthOfApril8;
+scene = warmthOfApril4b;
