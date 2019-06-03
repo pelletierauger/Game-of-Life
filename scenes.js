@@ -8872,7 +8872,7 @@ nightsOfMarch19.getColor = function(oneDValue, optionalArray) {
 
 //-------------
 let nightsOfMarch20 = new Scene({
-    fileName: "./frames/inner-january-14/inner-january-14",
+    fileName: "./frames/nights-of-march-20/nights-of-march-20",
     gridScalar: 16,
     // offset: { x: 500, y: 500 },
     // fixedGridSize: { width: 1000, height: 1000 },
@@ -8927,10 +8927,15 @@ let nightsOfMarch20 = new Scene({
     // bleu et rouge
     // "palette-tue-apr-24-2018-181237"
 
+    // nights-of-march-20 :
+    // "palette-mon-dec-18-2017-005144"
+    // "palette-thu-jan-11-2018-172555"
+    paletteName: "palette-thu-jan-11-2018-172555",
+
     speedModulo: 1,
     zoom: 1,
     dotPerTile: 3500 / 16,
-    maxSteps: 129
+    maxSteps: 200
 });
 
 nightsOfMarch20.applyShapes = function() {
@@ -9088,6 +9093,8 @@ nightsOfMarch20.getColor = function(oneDValue, optionalArray) {
     blueLerp = constrain(blueLerp, 0, 1);
     let blackLerp = map(c, 50, 150, 0, 1);
     blackLerp = constrain(blackLerp, 0, 1);
+    let blackLerp2 = map(c, 135 / 2, 155 / 2, 0, 1);
+    blackLerp2 = constrain(blackLerp2, 0, 1);
     let p = this.palette.data;
     let red = map(sin(c / p.redOsc), -1, 1, p.redMin, p.redMax);
     let green = map(sin(c / p.greenOsc), -1, 1, p.greenMin, p.greenMax);
@@ -9100,6 +9107,9 @@ nightsOfMarch20.getColor = function(oneDValue, optionalArray) {
     a.r = lerp(a.r, 0, blackLerp);
     a.g = lerp(a.g, 0, blackLerp);
     a.b = lerp(a.b, 0, blackLerp);
+    a.r = lerp(a.r, 0, blackLerp2);
+    a.g = lerp(a.g, 0, blackLerp2);
+    a.b = lerp(a.b, 0, blackLerp2);
     a = adjustLevels(-15, 60, 120, { r: a.r, g: a.g, b: a.b });
     return color(a.r, a.g, a.b);
 };
