@@ -410,3 +410,22 @@ ffmpeg -i ./frames/nights-of-march-19/nights-of-march-19-%05d.png -s 1280x720 ./
 
 gifsicle -O3 --lossy=300 -o warmth-of-april-11-median-crop-lossy300.gif warmth-of-april-11-median-crop.gif
 gifsicle -O3 --lossy=500 -o warmth-of-april-11-median-crop-lossy500.gif warmth-of-april-11-median-crop.gif
+
+
+
+ffmpeg -i ./frames/nights-of-march-20/nights-of-march-20-%05d.png -filter:v "crop=1440:1440:1120:0, scale=720:720" ./frames/nights-of-march-20-720x720/nights-of-march-20-%05d.png
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-20-720x720/nights-of-march-20-%05d.png -vf palettegen nights-of-march-20-palette.png
+
+ffmpeg -f image2 -framerate 12 -i ./frames/nights-of-march-20-720x720/nights-of-march-20-%05d.png -i nights-of-march-20-palette.png -lavfi paletteuse nights-of-march-20-720x720.gif
+
+gifsicle -O3 --lossy=100 -o nights-of-march-20-720x720-lossy100.gif nights-of-march-20-720x720.gif
+gifsicle -O3 --lossy=200 -o nights-of-march-20-720x720-lossy200.gif nights-of-march-20-720x720.gif
+gifsicle -O3 --lossy=150 -o nights-of-march-20-720x720-lossy150.gif nights-of-march-20-720x720.gif
+gifsicle -O3 --lossy=250 -o nights-of-march-20-720x720-lossy250.gif nights-of-march-20-720x720.gif
+gifsicle -O3 --lossy=300 -o nights-of-march-20-720x720-lossy300.gif nights-of-march-20-720x720.gif
+gifsicle -O3 --lossy=400 -o nights-of-march-20-720x720-lossy400.gif nights-of-march-20-720x720.gif
+
+
+
+ffmpeg -i ./frames-/nights-of-march-20-%05d.png -filter:v "crop=1440:1440:1120:0, scale=720:720" ./frames/nights-of-march-20-2-720x720/nights-of-march-20-%05d.png
