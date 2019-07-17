@@ -8927,10 +8927,12 @@ let nightsOfMarch20 = new Scene({
     // bleu et rouge
     // "palette-tue-apr-24-2018-181237"
 
+    // ---------------------------------------- 
     // nights-of-march-20 :
     // "palette-mon-dec-18-2017-005144"
     // "palette-thu-jan-11-2018-172555"
     paletteName: "palette-thu-jan-11-2018-172555",
+    // "palette-sat-apr-28-2018-041749"
 
     speedModulo: 1,
     zoom: 1,
