@@ -18,7 +18,7 @@ function setup() {
     cnvs = createCanvas(windowWidth, windowWidth / 16 * 9);
     ctx = cnvs.drawingContext;
     canvasDOM = document.getElementById('defaultCanvas0');
-    frameRate(30);
+    frameRate(1);
     background(0);
     imageMode(CENTER);
     noStroke();

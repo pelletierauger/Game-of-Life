@@ -1,22 +1,23 @@
 var fs = require('fs');
 let computedInput = "";
+let fileName = "./ffmpeg-commands/study-two-slovakia.txt";
 
 let sequences = [{
-        path: "/Volumes/WD001/animation-frames/game-of-life/assorted-drips-one/assorted-drips-one-",
-        start: 1,
-        end: 708,
+        path: "/Volumes/Volumina/frames/study-two/assorted-drips-one/assorted-drips-one-",
+        start: 0,
+        end: 707,
         copies: 1
     },
     {
-        path: "/Volumes/WD001/genetic-render/old-render/excellent-drips-one-fadeout-2/excellent-drips-one-fadeout-2-",
-        start: 1,
-        end: 1188,
+        path: "/Volumes/Volumina/frames/study-two/excellent-drips-one-fadeout-2/excellent-drips-one-fadeout-2-",
+        start: 0,
+        end: 1187,
         copies: 1
     },
 
     // Credit sequence
     {
-        path: "/Volumes/WD001/genetic-render/rainy-two/rainy-two-",
+        path: "/Volumes/Volumina/frames/study-two/black-frame-",
         start: 1,
         end: 1,
         copies: 12 * 3
@@ -66,10 +67,10 @@ for (s of sequences) {
     }
 }
 
-fs.writeFile('./ffmpeg-commands/study-no-2-credits.txt', computedInput, function(err) {
+fs.writeFile(fileName, computedInput, function(err) {
     if (err) {
         return console.error(err);
     } else {
-        console.log('study-no-2.txt written successfully.');
+        console.log(fileName + ' written successfully.');
     }
 });

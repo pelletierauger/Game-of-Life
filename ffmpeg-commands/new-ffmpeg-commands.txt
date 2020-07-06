@@ -1,0 +1,17 @@
+ffmpeg -i ./video-renders/pelletier-auger-etude-no-2.mov -c copy -an ./video-renders/pelletier-auger-etude-no-2-nosound.mov
+
+
+
+ffmpeg -i ./video-renders/pelletier-auger-etude-no-2-nosound.mov -i ./video-renders/en-sept-quatre-48khz.aif -c:v copy -c:a aac -b:a 320k pelletier-auger-etude-no-2-48khz.mov
+
+ffmpeg -i ./video-renders/pelletier-auger-etude-no-2-nosound.mov -i ./video-renders/en-sept-quatre-48khz.aif -c:v copy -c:a aac -b:a 480k ./video-renders/pelletier-auger-etude-no-2-48khz-480.mov
+
+ffmpeg -i ./video-renders/pelletier-auger-etude-no-2-nosound.mov -i ./video-renders/en-sept-quatre-48khz.aif -c:v copy -c:a alac ./video-renders/pelletier-auger-etude-no-2-48khz-alac.mov
+
+ffmpeg -i ./video-renders/pelletier-auger-etude-no-2-nosound.mov -i ./video-renders/en-sept-quatre-48khz-fadeout.aiff -c:v copy -c:a alac ./video-renders/pelletier-auger-etude-no-2-48khz-alac.mov
+
+ffmpeg -i ./video-renders/pelletier-auger-etude-no-2-nosound.mov -i ./video-renders/en-sept-quatre-48khz.aif -c:v copy -c:a copy ./video-renders/pelletier-auger-etude-no-2-uncompressed-audio.mov
+
+
+
+ffmpeg -i /Users/guillaumepelletier/Desktop/Dropbox/Création\ musicale/Morceaux\ exportés/En\ sept-quatre\,\ c.aif -ar 48000 en-sept-quatre-48khz.aif

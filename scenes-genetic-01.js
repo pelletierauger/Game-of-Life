@@ -1248,7 +1248,8 @@ geneticScene05.geneticRules = geneticScene05.newListOfRules[geneticScene05.rules
 
 let geneticScene06 = new Scene({
     fileName: "excellent-drips-one-fadeout-2",
-    folderPath: "/Volumes/WD001/genetic-render/",
+    // fileName: "assorted-drips-one",
+    folderPath: "/Volumes/Volumina/frames/study-two/",
     gridScalar: 16,
     // offset: { x: 0r, y: 100 },
     // fixedGridSize: { width: 145, height: 145 },
@@ -1416,7 +1417,7 @@ geneticScene06.geneticRules = "00110111100111000000110111011101";
 geneticScene06.geneticRules = "00110111000111010000110111010101";
 geneticScene06.geneticRules = "01111111000000001100010101000011";
 
-geneticScene06.geneticRules = "00110111110101001001000111010011";
+// geneticScene06.geneticRules = "00110111110101001001000111010011";
 
 // Assorted Drips 1
 // 00110111110101001001000111010011

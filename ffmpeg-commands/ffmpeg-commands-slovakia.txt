@@ -1,0 +1,62 @@
+vieille commande :
+
+ffmpeg -f concat -safe 0 -r 24 -i ./ffmpeg-commands/study-no-2.txt -i /Users/guillaumepelletier/Desktop/Dropbox/Création\ musicale/Morceaux\ exportés/En\ sept-quatre\,\ c.aif -c:v libx264 -s 2560x1440 -pix_fmt yuv420p /Volumes/WD001/animation-video-renders/game-of-life/study-no-2.mp4
+
+------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+
+ffmpeg -f concat -safe 0 -r 24 -i ./ffmpeg-commands/study-two-slovakia.txt \
+-i /Volumes/Volumina/frames/study-two/en-sept-quatre-c-48khz.aiff \
+-c:v libx264 -pix_fmt yuv420p \
+-c:a aac -q:a 330 \
+-crf 20 \
+-threads 1 \
+/Volumes/Volumina/video-renders/study-two/pelletier-auger-study-two-2560x1440-aac-crf20.mov
+
+ffmpeg -f concat -safe 0 -r 24 -i ./ffmpeg-commands/study-two-slovakia.txt \
+-i /Volumes/Volumina/frames/study-two/en-sept-quatre-c-48khz.m4a \
+-c:v libx264 -pix_fmt yuv420p \
+-c:a copy \
+-crf 18 \
+-threads 1 \
+/Volumes/Volumina/video-renders/study-two/pelletier-auger-study-two-2560x1440-aac-crf18.mov
+
+ffmpeg -f concat -safe 0 -r 24 -i ./ffmpeg-commands/study-two-slovakia.txt \
+-i /Volumes/Volumina/frames/study-two/en-sept-quatre-c-48khz.m4a \
+-c:v libx264 -pix_fmt yuv420p \
+-c:a copy \
+-crf 18 \
+-threads 1 \
+/Volumes/Volumina/video-renders/study-two/pelletier-auger-study-two-2560x1440-aac-crf18.mp4
+
+
+ffmpeg -i /Volumes/Volumina/video-renders/study-two/pelletier-auger-study-two-2560x1440-aac-crf18.mov \
+-vn \
+-c:a copy \
+/Volumes/Volumina/video-renders/study-two/pelletier-auger-study-two-2560x1440-aac-crf18.m4a
+
+
+ffmpeg -f concat -safe 0 -r 24 -i ./ffmpeg-commands/study-two-slovakia.txt \
+-i /Volumes/Volumina/frames/study-two/en-sept-quatre-c-48khz.m4a \
+-c:v libx264 -pix_fmt yuv420p \
+-c:a copy \
+-s 1920x1080 -crf 18 \
+-threads 1 \
+/Volumes/Volumina/video-renders/study-two/pelletier-auger-study-two-1920x1080-aac-crf18.mov
+
+ffmpeg -f concat -safe 0 -r 24 -i ./ffmpeg-commands/study-two-slovakia.txt \
+-i /Volumes/Volumina/frames/study-two/en-sept-quatre-c-48khz.m4a \
+-c:v libx264 -pix_fmt yuv420p \
+-c:a copy \
+-s 1920x1080 -crf 17 -preset medium \
+-threads 1 \
+/Volumes/Volumina/video-renders/study-two/pelletier-auger-study-two-1920x1080-aac-crf17-medium.mp4
+
+
+ffmpeg -f concat -safe 0 -r 24 -i ./ffmpeg-commands/study-two-slovakia.txt \
+-i /Volumes/Volumina/frames/study-two/en-sept-quatre-c-48khz.m4a \
+-c:v libx264 -pix_fmt yuv420p \
+-c:a copy \
+-s 1920x1080 -crf 14 -preset medium \
+-threads 1 \
+/Volumes/Volumina/video-renders/study-two/pelletier-auger-study-two-1920x1080-aac-crf14-medium.mp4
